@@ -121,10 +121,7 @@ Template.movieRow.events({
     if(id == Session.get('selected')) return;
 
     Session.set("selected", id);
-    $('#embededMovieDetails-' + id).show(300, function(){
- //     console.log(this);
- //     $(this).removeClass('hidden');
-    });
+    $('#embededMovieDetails-' + id).show(300, function(){});
 
 
     return false;
