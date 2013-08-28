@@ -114,14 +114,13 @@ Template.movieRow.goingRowColor = function(){
 
 Template.movieRow.events({
   'click .movieRow' : function (event) {
- //   console.log('click');
- //   console.log(event);
+
     $('.embededMovieDetails').hide(300);
     var id = event.currentTarget.id;
     if(id == Session.get('selected')) return;
 
     Session.set("selected", id);
-    $('#embededMovieDetails-' + id).show(300, function(){});
+    $('#embededMovieDetails-' + id).show(300);
 
 
     return false;
