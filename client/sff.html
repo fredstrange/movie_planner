@@ -1,0 +1,104 @@
+<head>
+<title>sff</title>
+</head>
+
+<body>
+{{> hello}}
+
+</body>
+
+<template name="home">
+  {{> movieList}}
+  {{> movieDetails}}
+</template>
+
+<template name="hello">
+  <div class="span5">
+    <div style="float: right">{{loginButtons align="right"}}</div>
+  </div>
+</template>
+
+<template name="movieList">
+  <div class="movieList">
+    {{#each movies}}
+      {{> movieRow}}
+    {{/each}}
+  </div>
+</template>
+
+<template name="movieRow">
+  <div class="row movieRow {{goingRowColor}}" id="{{_id}}">
+      <div class="span5 movieTitle" >Title: {{name}}</div>
+      <div class="span5 movieType" >Categories: {{type}}</div>
+      <div class="span5 movieCinema">{{cinema}}</div>
+      <div class="span5 movieTime">{{time}}</div>
+      <div class="span5 attending">Total going: {{attending}}</div>
+      <div class="span5 attending">Friends going: {{friendsAttending}}</div>
+      
+      {{> embededMovieDetails}}
+    </div>
+</template>
+
+<template name="movieDetails">
+  {{#if movie}}
+    {{#with movie}}
+  <div class="movieDetails" id="{{_id}}">
+    <div class="span5 movieTitle" >Title: {{name}}</div>
+      <div class="span5 movieType" >Categories: {{type}}</div>
+      <div class="span5 movieCinema">{{cinema}}</div>
+      <div class="span5 movieTime">{{time}}</div>
+
+      {{#if currentUser}}
+              <input type="button" value="I'm going!"
+                     class="btn btn-small rsvp_yes {{maybeChosen "yes"}}">
+              <input type="button" value="Maybe"
+                     class="btn btn-small rsvp_maybe {{maybeChosen "maybe"}}">
+              <input type="button" value="No"
+                     class="btn btn-small rsvp_no {{maybeChosen "no"}}">
+      {{/if}}
+
+  </div>
+    {{/with}}
+  {{/if}}
+</template>
+
+<template name="embededMovieDetails">
+  <div id="embededMovieDetails-{{_id}}" class="embededMovieDetails" movie="{{_id}}">
+        {{#if currentUser}}
+                <input type="button" value="I'm going!"
+                       class="btn btn-small rsvp_yes {{maybeChosen "yes"}}">
+                <input type="button" value="Maybe"
+                       class="btn btn-small rsvp_maybe {{maybeChosen "maybe"}}">
+                <input type="button" value="No"
+                       class="btn btn-small rsvp_no {{maybeChosen "no"}}">
+        {{/if}}
+  </div>
+</template>
+
+<template name="profile">
+  {{#if currentUser}}
+    {{#with currentUser}}
+    <div>
+      <label>Username</label>
+      <input type="input" id="username" value="{{profile.name}}">
+    </div>
+    <div>
+      <label>Email</label>
+      <input type="input" id="email" value="{{emails.0.address}}">
+    </div>
+    <div>
+      <div>
+      friends: 
+ 
+      {{#each friends}}
+        {{friendsName}}
+      {{/each}}
+      </div>
+
+      <input type="button" value="Save" class="saveProfileBtn">
+    </div>
+    {{/with}}
+  {{else}}
+    You have to log in to edit your profile. 
+  {{/if}}
+</template>

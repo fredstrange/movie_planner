@@ -1,0 +1,40 @@
+/* CSS declarations go here */
+
+.movieList{
+	width:600px;
+	float: left;
+}
+
+.movieDetails{
+	width:400px;
+	float:left;
+}
+
+.movieRow{
+	margin: 10px;
+	border:#ccc solid 1px;
+}
+
+.movieTitle{
+	font-weight: bold;
+}
+
+.movieRow.yesGoing{
+	background-color: #0c0;
+}
+
+.movieRow.maybeGoing{
+	background-color: #cc0;
+}
+
+.movieRow.noGoing{
+	background-color: #ccc;
+}
+
+.btn.chosen{
+	background-color: #f4f;
+}
+
+.hidden{
+	display: none;
+}

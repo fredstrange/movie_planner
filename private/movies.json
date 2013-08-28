@@ -1,0 +1,144 @@
+{
+  "initMovies": [
+    {
+      "time": "18:00",
+      "cinema": "Skandia",
+      "name": "Call Girl",
+      "descLink": "http://www.stockholmfilmfestival.se/en/festival/2012/film/call_girl",
+      "type": "Face2Face, Red Carpet, Competition"
+    },
+    {
+      "time": "18:01",
+      "cinema": "Bio Rio",
+      "name": "Violeta Went to Heaven",
+      "descLink": "http://www.stockholmfilmfestival.se/en/festival/2012/film/violeta_went_to_heaven",
+      "type": "Face2Face, Latin Visions"
+    },
+    {
+      "time": "18:01",
+      "cinema": "Grand 4",
+      "name": "Noor",
+      "descLink": "http://www.stockholmfilmfestival.se/en/festival/2012/film/noor",
+      "type": "Asian Images"
+    },
+    {
+      "time": "18:01",
+      "cinema": "Klarabiografen",
+      "name": "High Tech, Low Life",
+      "descLink": "http://www.stockholmfilmfestival.se/en/festival/2012/film/high_tech_low_life",
+      "type": "Documania"
+    },
+    {
+      "time": "18:01",
+      "cinema": "Bio Mauritz",
+      "name": "Ace Attorney",
+      "descLink": "http://www.stockholmfilmfestival.se/en/festival/2012/film/ace_attorney",
+      "type": "Asian Images"
+    },
+    {
+      "time": "18:01",
+      "cinema": "Victoria 4",
+      "name": "Beware of mr. Baker",
+      "descLink": "http://www.stockholmfilmfestival.se/en/festival/2012/film/beware_of_mr_baker",
+      "type": "Documania"
+    },
+    {
+      "time": "18:30",
+      "cinema": "Sture 1",
+      "name": "Everyday",
+      "descLink": "http://www.stockholmfilmfestival.se/en/festival/2012/film/everyday",
+      "type": "Open Zone"
+    },
+    {
+      "time": "18:30",
+      "cinema": "Zita 1",
+      "name": "Young Dudes",
+      "descLink": "http://www.stockholmfilmfestival.se/en/festival/2012/film/young_dudes",
+      "type": "Asian Images"
+    },
+    {
+      "time": "19:00",
+      "cinema": "Grand 1",
+      "name": "Bob Wilson's Life & Death of Marina Abramovic",
+      "descLink": "http://www.stockholmfilmfestival.se/en/festival/2012/film/bob_wilsons_life_and_death_of_marina_abramovic",
+      "type": "Face2Face, Documania"
+    },
+    {
+      "time": "19:00",
+      "cinema": "Victoria 2",
+      "name": "Here and There",
+      "descLink": "http://www.stockholmfilmfestival.se/en/festival/2012/film/here_and_there",
+      "type": "Latin Visions"
+    },
+    {
+      "time": "20:00",
+      "cinema": "Klarabiografen",
+      "name": "Tomorrow",
+      "descLink": "http://www.stockholmfilmfestival.se/en/festival/2012/film/tomorrow",
+      "type": "Spotlight"
+    },
+    {
+      "time": "20:30",
+      "cinema": "Grand 4",
+      "name": "Love Me Not",
+      "descLink": "http://www.stockholmfilmfestival.se/en/festival/2012/film/love_me_not",
+      "type": "Asian Images"
+    },
+    {
+      "time": "20:30",
+      "cinema": "Victoria 4",
+      "name": "Steve Jobs: The Lost Interview",
+      "descLink": "http://www.stockholmfilmfestival.se/en/festival/2012/film/steve_jobs_the_lost_interview",
+      "type": "Documania"
+    },
+    {
+      "time": "21:00",
+      "cinema": "Bio Mauritz",
+      "name": "About Face: Supermodels Then and Now",
+      "descLink": "http://www.stockholmfilmfestival.se/en/festival/2012/film/about_face_supermodels_then_and_now",
+      "type": "Spotlight"
+    },
+    {
+      "time": "21:00",
+      "cinema": "Skandia",
+      "name": "Arbitrage",
+      "descLink": "http://www.stockholmfilmfestival.se/en/festival/2012/film/bedragaren",
+      "type": "Open Zone"
+    },
+    {
+      "time": "21:00",
+      "cinema": "Sture 1",
+      "name": "The parade",
+      "descLink": "http://www.stockholmfilmfestival.se/en/festival/2012/film/paraden",
+      "type": "Open Zone"
+    },
+    {
+      "time": "21:00",
+      "cinema": "Zita 1",
+      "name": "The Taste of Money",
+      "descLink": "http://www.stockholmfilmfestival.se/en/festival/2012/film/the_taste_of_money",
+      "type": "Asian Images"
+    },
+    {
+      "time": "21:30",
+      "cinema": "Grand 1",
+      "name": "90 Minutes",
+      "descLink": "http://www.stockholmfilmfestival.se/en/festival/2012/film/90_minutes",
+      "type": "Face2Face, Competition"
+    },
+    {
+      "time": "21:30",
+      "cinema": "Victoria 2",
+      "name": "Good Luck, Sweetheart",
+      "descLink": "http://www.stockholmfilmfestival.se/en/festival/2012/film/good_luck_sweetheart",
+      "type": "Latin Visions"
+    },
+    {
+      "time": "22:00",
+      "cinema": "Victoria 4",
+      "name": "Kiss of the Damned",
+      "descLink": "http://www.stockholmfilmfestival.se/en/festival/2012/film/kiss_of_the_damned",
+      "type": "Twilight Zone"
+    }
+  ]
+}
