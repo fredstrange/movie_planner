@@ -3,7 +3,10 @@ Meteor.publish("movies", function () {
 });
 
 Meteor.publish("userData", function () {
-	var friends = Meteor.users.findOne({_id: this.userId},  {fields: {'friends': 1, 'profile': 1}} ).friends;
+	var fromUser = Meteor.users.findOne({_id: this.userId},  {fields: {'friends': 1, 'profile': 1}} ).friends;
+
+	var friends =(fromUser) ? fromUser : [];
+
 	friends.push(this.userId);
 
   //	return Meteor.users.find({_id: this.userId}, {fields: {'friends': 1, 'profile': 1}});
