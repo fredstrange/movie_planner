@@ -139,7 +139,6 @@ Template.profile.events({
 
 
 Template.profile.friendsName = function(){
- // console.log(this.toString());
   var user = Meteor.users.findOne(this.toString());
   return displayName(user);
 };
