@@ -6,8 +6,7 @@
 }
 
 .movieDetails{
-	width:400px;
-	float:left;
+	margin: 20px;
 }
 
 .movieRow{
@@ -31,10 +30,26 @@
 	background-color: #ccc;
 }
 
+.movieRow.isClashing{
+	border: solid 2px #f00;
+}
+
+.movieRowDetails .description{
+overflow: hidden;
+}
+
 .btn.chosen{
 	background-color: #f4f;
 }
 
 .hidden{
 	display: none;
+}
+
+#listLocumn #detailsCo{
+	float:left;
+}
+
+#map{
+	margin:20px;
 }

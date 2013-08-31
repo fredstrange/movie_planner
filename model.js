@@ -1,4 +1,5 @@
 Movies = new Meteor.Collection("movies");
+Cinemas = new Meteor.Collection("cinemas");
 
 Movies.allow({
   insert: function (userId, movie) {
@@ -50,7 +51,10 @@ displayName = function (user) {
 };
 
 
+
 Meteor.methods({
+
+
 	attending: function(movieId, state){
 		check(movieId, String);
 	    check(state, String);
@@ -95,21 +99,75 @@ Meteor.methods({
 });
 
 
+
 if (Meteor.isServer) {
 	Meteor.startup(function () {
 
-	    if(Movies.find({}).length === 0){
+		console.log('On server startup');
 
-	 //     console.log('Movies is empty');
+
+		var movieLength = Movies.find({}).count();
+	    if(movieLength === 0 || movieLength === undefined){
+
+	      console.log('Movies is empty');
 	      var movies = {};
 	      movies = JSON.parse(Assets.getText("movies.json"));
-	        Movies.insert({titel:'test'});
 	      _.each(movies.initMovies, function(movie){
 	        Movies.insert(movie);
 	      });
 	    }
+
+		var cinemaLength = Cinemas.find({}).count();
+	    if(cinemaLength === 0 || cinemaLength === undefined){
+
+	      console.log('Cinemas is empty');
+	      var cinemas = {};
+	      cinemas = JSON.parse(Assets.getText("cinemas.json"));
+	      _.each(cinemas.initCinemas, function(cinemas){
+	        Cinemas.insert(cinemas);
+	      });
+	    }
+
+	    var recalibrateMovies = function(){
+	    	console.log('recalibrateMovies');
+	    	var movies, clashing, movieStartTime, movieEndTime;
+
+	    	movieArray = Movies.find().fetch();
+	    	movies = Movies.find();
+	    	clashing = {};
+
+	    	movies.forEach(function(movie){
+	    		//console.log(movie._id);
+	    		movieStartTime = movie.time;
+	    		movieEndTime = movie.time + movie.duration;
+	    		
+	    		clashing[movie._id] = [];
+	    		
+	    		_.each(movieArray, function(m){
+	 				if(m._id == movie._id) return;
+	    			var mStartTime = m.time,
+	    				mEndTime = m.time + m.duration,
+
+	    				startsDuringMovie = (mStartTime >= movieStartTime && mStartTime <= movieEndTime),
+	    				endsDuringMovie = (movieStartTime >= mStartTime && movieStartTime <= mEndTime);
+
+	    			if(startsDuringMovie || endsDuringMovie){
+	    				clashing[movie._id].push(m._id);
+	    			}
+	    		});
+	    		Movies.update(movie, {$set: {clashing: clashing[movie._id] }} );
+
+	    	});
+//	    	AmplifiedSession.set('clashing', clashing);
+	    }
+
+	    recalibrateMovies();
+
+
 	});
 }
+
+
 
 
 Accounts.createUser = _.wrap(Accounts.createUser, function(createUser) {

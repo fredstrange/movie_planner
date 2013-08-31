@@ -1,12 +1,14 @@
 Meteor.publish("movies", function () {
-  return Movies.find({}, {sort: {'time': 1}});//.sort({'time': 1});
+  return Movies.find({}, {sort: {'time': 1}});
+});
+
+Meteor.publish("cinemas", function () {
+  return Cinemas.find({});
 });
 
 Meteor.publish("userData", function () {
 	var fromUser = Meteor.users.findOne({_id: this.userId},  {fields: {'friends': 1, 'profile': 1}} ).friends;
-
 	var friends =(fromUser) ? fromUser : [];
-
 	friends.push(this.userId);
 
   //	return Meteor.users.find({_id: this.userId}, {fields: {'friends': 1, 'profile': 1}});
@@ -29,7 +31,8 @@ Movie = {
 	attendings: [{ 	//array of rsvp objects.
 		attending: string (yes, no, maybe),
 		user: string (userId)
-	}]
+	}],
+	clashing:[movie ids];
 }
 
 User = {
@@ -42,7 +45,7 @@ User = {
 
 Cimena = {
 	name: string,
-	coordinates = {
+	coordinates: {
 		x: number,
 		y: number
 	},

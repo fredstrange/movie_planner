@@ -1,0 +1,102 @@
+{
+	"initCinemas":[
+		{
+			"name": "Sture 1",
+			"coordinates": {
+				"lat": 59.339003,
+				"lng": 18.067807
+			}
+		},
+		{
+			"name": "Grand 1",
+			"coordinates": {
+				"lat": 59.339334,
+				"lng": 18.059335 
+			}
+		},
+		{
+			"name": "Grand 4",
+			"coordinates": {
+				"lat": 59.339334,
+				"lng": 18.059335 
+			}
+		},
+		{
+			"name": "Bio Rio",
+			"coordinates": {
+				"lat": 59.315312,
+				"lng": 18.030622
+			}
+		},
+		{
+			"name": "Bio Mauritz", 
+			"coordinates": {
+				"lat": 59.339264,
+				"lng": 18.104885
+			}
+		},
+		{
+			"name": "Filmhuset Victor", 
+			"coordinates": {
+				"lat": 59.339264,
+				"lng": 18.104885
+			}
+		},
+		{
+			"name": "Klarabiografen", 
+			"coordinates": {
+				"lat": 59.332206,
+				"lng": 18.064003
+			}
+		},
+		{
+			"name": "Rigoletto 2",
+			"coordinates": {
+				"lat": 59.336121,
+				"lng": 18.068124
+			}
+		},
+		{
+			"name": "Rigoletto 4",
+			"coordinates": {
+				"lat": 59.336121,
+				"lng": 18.068124
+			}
+		},
+		{
+			"name": "Skandia",
+			"coordinates": {
+				"lat": 59.335439,
+				"lng": 18.059983
+			}
+		},
+		{
+			"name": "Victoria 4",
+			"coordinates": {
+				"lat": 59.312739,
+				"lng": 18.074368
+			}
+		},
+		{
+			"name": "Victoria 2",
+			"coordinates": {
+				"lat": 59.312739,
+				"lng": 18.074368
+			}
+		},
+		{
+			"name": "Zita 1",
+			"coordinates": {
+				"lat": 59.339060,
+				"lng": 18.067741
+			}
+		},
+		{
+			"name": "Zita 2",
+			"coordinates": {
+				"lat": 59.339060,
+				"lng": 18.067741
+			}
+		}
+	]
+}

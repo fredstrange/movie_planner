@@ -9,3 +9,6 @@ accounts-password
 accounts-ui
 iron-router
 bootstrap-3
+amplify
+scroll-to-fixed
+moment-alternative
