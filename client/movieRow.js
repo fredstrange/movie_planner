@@ -11,7 +11,8 @@ Template.movieRow.friendsAttending = function(){
 };
 
 Template.movieRow.startTime = function(){
-  return moment.unix(this.time).format("ddd, hh:mm");
+	var d = new Date(this.time);
+  return d.getHours() + ':' + d.getMinutes();//moment.unix(this.time).format("ddd, hh:mm");
 };
 
 Template.movieRow.goingRowColor = function(){

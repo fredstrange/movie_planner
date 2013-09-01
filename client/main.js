@@ -36,11 +36,6 @@ if (Meteor.isClient) {
 
   init();
 
-
-
-
-
-
 }
 
 Template.movieList.movies = function () {

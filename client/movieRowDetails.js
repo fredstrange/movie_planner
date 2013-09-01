@@ -3,7 +3,7 @@ Template.movieRowDetails.isSelected = function (id) {
 };
 
 Template.movieRowDetails.playTime = function (id) {
-  return moment.duration(this.duration, 'seconds').asMinutes().toFixed(0);
+  return (this.duration / 60).toFixed(0);//moment.duration(this.duration, 'seconds').asMinutes().toFixed(0);
 };
 
 Template.movieRowDetails.maybeChosen = function (what) {
