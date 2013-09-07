@@ -1,11 +1,10 @@
 movie_planner
 =============
 
-A web application for planning movies at the Stockholm Film festival 
+A web application for planning movies at the Stockholm Film festival. 
 
 
-Todo
-=====
+== Todo ==
 
 * Friends
 ** List friends 
