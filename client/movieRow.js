@@ -18,6 +18,10 @@ Template.movieRow.helpers({
         return friendsAttendingMovie(this);
     },
 
+    numComments: function(){
+        return Comments.find({movieid: this._id}).count();
+    },
+
     startTime: function(a, b){
         var d = new Date(this.time);
         return d.getHours() + ':' + d.getMinutes();//moment.unix(this.time).format("ddd, hh:mm");
@@ -62,18 +66,20 @@ Template.movieRow.helpers({
 Template.movieRow.events({
     'click .movieRow' : function (event, tmpl) {
 
-        $('.movieRowDetails').hide(300);
         var id = event.currentTarget.id;
+
+        $('.movieRowDetails').hide(300);
         if(AmplifiedSession.equals('selected', id) && AmplifiedSession.equals('rowExpanded', true)){
         	AmplifiedSession.set('rowExpanded', false); 
     //        AmplifiedSession.set("selected", '');
         	return;
         } 
+        
 
-        AmplifiedSession.set("selected", id);
-        AmplifiedSession.set("rowExpanded", true);
-
-        $('#movieRowDetails-' + id).show(300);
+        $('#movieRowDetails-' + id).show(300, function(){
+            AmplifiedSession.set("selected", id);
+            AmplifiedSession.set("rowExpanded", true);
+        });
         $this.find('.description').height(60);
         $this.find('.more').show();
         $this.find('.less').hide();

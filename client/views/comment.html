@@ -1,13 +1,11 @@
 <template name="comment">
-    <div class="comment-title">{{title}}</div>
-    <div class="comment-body">{{body}}</div>
-    <div class="comment-user">{{commentUser}}</div>
-
-    {{#if comments}}
-    <div class="subcomment-wrapper">
-        {{#each comments}}
-            {{> comment}}
-        {{/each}}
+<div class="comment row">
+    <div class="comment-header col-md-3">
+        <div class="comment-user">{{user.name}}</div>
     </div>
-    {{/if}}
+    <div class="coment-content col-md-8">
+        <div class="comment-body">{{body}}</div>
+    </div>
+    
+</div>
 </template>

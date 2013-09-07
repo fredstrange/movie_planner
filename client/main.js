@@ -3,6 +3,7 @@ var log = function(msg){
 }
 
 Meteor.subscribe("movies");
+Meteor.subscribe("comments");
 Meteor.subscribe("cinemas");
 Meteor.subscribe("userData");
 

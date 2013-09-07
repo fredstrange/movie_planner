@@ -1,5 +1,8 @@
 Movies = new Meteor.Collection("movies");
+Comments = new Meteor.Collection("comments");
 Cinemas = new Meteor.Collection("cinemas");
+CinemaDistances = new Meteor.Collection('cinemaDistances');
+
 
 Movies.allow({
   insert: function (userId, movie) {
@@ -11,8 +14,32 @@ Movies.allow({
   update: function(userId, movie){
   	return true;
   }
-
 });
+
+Cinemas.allow({
+  insert: function (userId, movie) {
+    return true; // no cowboy inserts -- use createParty method
+  },  
+  remove: function (userId, movie) {
+    return false; // no cowboy inserts -- use createParty method
+  },
+  update: function(userId, movie){
+  	return true;
+  }
+});
+
+Comments.allow({
+  insert: function (userId, comment) {
+    return true; // no cowboy inserts -- use createParty method
+  },  
+  remove: function (userId, comment) {
+    return false; // no cowboy inserts -- use createParty method
+  },
+  update: function(userId, comment){
+  	return true;
+  }
+});
+
 
 
 
@@ -100,12 +127,17 @@ Meteor.methods({
 
 
 if (Meteor.isServer) {
-	Meteor.startup(function () {
 
+
+
+	Meteor.startup(function () {
 		console.log('On server startup');
 
+		var google = Meteor.require('googlemaps'),
+			util = Meteor.require('util')	
 
-		var movieLength = Movies.find({}).count();
+			movieLength = Movies.find({}).count();
+
 	    if(movieLength === 0 || movieLength === undefined){
 
 	      console.log('Movies is empty');
@@ -125,6 +157,101 @@ if (Meteor.isServer) {
 	      _.each(cinemas.initCinemas, function(cinemas){
 	        Cinemas.insert(cinemas);
 	      });
+	    }
+
+	    var configureCinemaDistances = function(callback){
+	    	var cinemaArray, i, origin, service, 
+	    		cinemaMap = {},
+	    		currentIndex = 0,
+	    		currentCinema,
+				origins = "";
+
+	    	cinemaArray = Cinemas.find().fetch();
+	    	
+
+	    	for(i = 0; i < cinemaArray.length; i++){
+	    		if(i > 0) origins += '|';
+	    		origins += cinemaArray[i].coordinates.lat + ',' +  cinemaArray[i].coordinates.lng;
+	    	}
+
+	    	getDistance();
+
+
+	    	function getDistance(){
+	    		currentCinema = cinemaArray[currentIndex];
+	    		origin = currentCinema.coordinates.lat + ',' +  currentCinema.coordinates.lng;
+	    		google.distance(origin, origins, onDistance, false, "walking");
+	    	}
+
+			function onDistance(err, data) {
+				var row, element, i, rowCinema;
+				util.puts(JSON.stringify(data));
+
+				if(err){
+					console.log(err);
+				}else{
+					row = data.rows[0];
+					if(row && row.elements && row.elements.length != 0)
+					{
+						cinemaMap[currentCinema._id] = {};
+
+						for(i = 0; i < row.elements.length; i++){
+							element = row.elements[i];
+							rowCinema = cinemaArray[i];
+
+							cinemaMap[currentCinema._id][rowCinema._id] = element.distance.value;
+
+							
+
+				//			console.log(element.duration.value);
+						}
+					}
+				}
+
+				currentIndex++;
+
+				if(currentIndex < cinemaArray.length){
+					getDistance();
+				}else{
+					updateCinemaDistances(cinemaMap);
+				}
+
+				//console.log(cinemaMap);
+
+			};
+
+			function updateCinemaDistances(cinemaMap){
+	/*	*/		//CinemaDistances.remove();
+					console.log(cinemaMap);
+
+				_.each(cinemaMap, function(value, key){
+					console.log(value);
+					console.log(key);
+
+					
+					CinemaDistances.insert({
+						cinema: key,
+						distances: value
+					});
+					
+				})
+
+
+			//	return; 
+
+/*				cinemas.forEach(function(cinema){
+				//	console.log(cinemaMap[cinema._id])
+
+					if(cinema && cinemaMap[cinema._id]){
+						console.log('cinema')
+						console.log(cinema._id)
+
+						Cinemas.update(cinema, {$set: {distances: cinemaMap[cinema._id]} } );
+					}
+				});*/
+			}
+
+
 	    }
 
 	    var recalibrateMovies = function(){
@@ -159,9 +286,16 @@ if (Meteor.isServer) {
 	    	});
 //	    	AmplifiedSession.set('clashing', clashing);
 	    }
-
+	//    configureCinemaDistances();
 	    recalibrateMovies();
 
+	/*    var gm = Meteor.require('googlemaps');
+		var util = Meteor.require('util');
+
+		gm.reverseGeocode('41.850033,-87.6500523', function(err, data){
+		  util.puts(JSON.stringify(data));
+		});
+*/
 
 	});
 }

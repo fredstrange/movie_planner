@@ -97,6 +97,20 @@ body{
 
 }
 
+.login-wrapper{
+	margin-right: 25px;
+	margin-top:8px;
+}
+
+#login-dropdown-list {
+position: absolute;
+top: 12px;
+left: -75px;
+}
+
+.login-btn{
+}
+
 
 
 #pageWrapper, #profile-werapper{
@@ -146,15 +160,7 @@ body{
 		}
 	}
 	&.yes-going:hover{}
-
-	&.maybe-going{
-		/*
-		.gradient(#F1F1AE, #FFF);
-		border: @maybe-going solid 2px;
-		.inset-box-shadow(0,0, 5px, 3px, @maybe-going, 0.2);
-		*/
-	}
-
+	&.maybe-going{}
 	&.maybe-going:hover{}
 
 	&.no-going{
@@ -168,12 +174,7 @@ body{
 	&.no-going.not-selected:hover{
 		background-color: darken(@not-going, 5%);
 	}
-	&.is-clashing{
-		/*
-		border: solid 2px @clashing;
-		&.no-going{border-width: 1px}
-		*/
-	}
+	&.is-clashing{}
 
 	.more, .less{
 		
@@ -205,6 +206,7 @@ body{
 #detailsColumn{
 	background-color: @white;
 	margin-top: 10px;
+	padding-bottom: 20px;
 	.rounded-corners;
 	.box-shadow(5px, 5px, 6px, 0.3);
 	.inset-box-shadow(0,0, 20px, 5px);
@@ -213,3 +215,27 @@ body{
 #map{
 	margin:20px;
 }
+
+.comment{
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.comment-post-body{
+	height:100px;
+}
+
+.coment-content{
+	background: #F2F3F2;
+	border: 1px solid @grey;
+	padding:20px;
+	.box-shadow(3px, 3px, 6px, 0.3);
+
+}
+
+.comment-header{
+	margin-top: 20px;
+	padding-left: 30px;
+}
+
+

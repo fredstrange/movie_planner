@@ -2,6 +2,10 @@ Template.movieDetails.movie = function () {
   return Movies.findOne(AmplifiedSession.get("selected"));
 };
 
+Template.movieDetails.comments = function () {
+  return Comments.find({movieid: AmplifiedSession.get("selected")});
+};
+
 Template.movieDetails.maybeChosen = function (what) {
   var myAttendance = _.find(this.attendings, function (a) {
     return a.user === Meteor.userId();
@@ -10,10 +14,10 @@ Template.movieDetails.maybeChosen = function (what) {
   return what == myAttendance.attending ? "chosen btn-inverse" : "";
 };
 
-Template.movieDetails.rendered = function() { 
-  var mapOptions, canvas, id, movie, cinema, lat, lng;
 
-  //$('#detailsColumn').scrollToFixed({marginTop: 10, marginRight:10});
+
+function renderMap(){
+    var mapOptions, canvas, id, movie, cinema, lat, lng;
   
   canvas = $("#map-canvas")[0];
   id = AmplifiedSession.get('selected');
@@ -39,8 +43,10 @@ Template.movieDetails.rendered = function() {
     icon:'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
   });
   marker.setMap(map);   
+}
 
-  //Session.set('map', true);
+Template.movieDetails.rendered = function() { 
+  renderMap();
 };
 
 Template.movieDetails.events({

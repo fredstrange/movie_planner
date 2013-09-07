@@ -2,6 +2,10 @@ Meteor.publish("movies", function () {
   return Movies.find({}, {sort: {'time': 1}});
 });
 
+Meteor.publish("comments", function () {
+  return Comments.find({});
+});
+
 Meteor.publish("cinemas", function () {
   return Cinemas.find({});
 });
@@ -32,17 +36,14 @@ Movie = {
 		user: string (userId)
 	}],
 	clashing:[movie ids],
-	comments:[
-		comment:{
-			title: string,
-			body: string,
-			user: string (id)
-			comments: [
-				comment: {} ....
-			]
+}
 
-		}	
-	]
+Comment = {
+	body: string,
+	user: string (id),
+	movieid: string (id),
+	parentid: string (id),
+	timestamp: timestamp
 }
 
 User = {

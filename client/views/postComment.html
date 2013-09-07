@@ -1,12 +1,13 @@
-<template name="post-comment">
-    <div class="post-comment">
-        <form class="comment-form">
-            <label class="comment-label">Title</label>
-            <input  type="text" name="title">
-            <label class="comment-label">Comment</label>  
-            <input  type="text" name="body">  
-            <input type="hidden" name="user" value="{{currentUser._id}}">
-            <input type="submit" class="comment-submit" value="Post comment"> 
-        </form>
+<template name="postcomment">
+    <div class="post-comment row">
+    	<div class="col-md-12">
+	        <div class="comment-label">Comment</div>  
+	        <textarea class="comment-post-body cole-md-offset-2 col-md-8" name="body"></textarea>
+	        {{#if parentid}}
+	        <input type="hidden" class="comment-parnetid" value="{{parentid}}" >
+	        {{/if}}
+	        <div class="clearfix"></div>
+	        <button class="comment-submit">Post Comment</button> 
+    	</div>
     </div>
 </template>
