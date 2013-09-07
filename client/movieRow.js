@@ -1,69 +1,93 @@
 if (Meteor.isClient) {
 
+var isClashing = function(that){
+    return (Movies.find({
+            'attendings.user': Meteor.userId(),
+            'attendings.attending': 'yes',
+            _id: {$in: that.clashing }
+        }).count() !== 0);
+}
 
+Template.movieRow.helpers({
+  
+    attending: function(){
+        return attendingMovie(this);
+    },
 
-Template.movieRow.attending = function(){
-  return attendingMovie(this);
-};
+    friendsAttending: function(){
+        return friendsAttendingMovie(this);
+    },
 
-Template.movieRow.friendsAttending = function(){
-  return friendsAttendingMovie(this);
-};
+    startTime: function(a, b){
+        var d = new Date(this.time);
+        return d.getHours() + ':' + d.getMinutes();//moment.unix(this.time).format("ddd, hh:mm");
+    },
 
-Template.movieRow.startTime = function(){
-	var d = new Date(this.time);
-  return d.getHours() + ':' + d.getMinutes();//moment.unix(this.time).format("ddd, hh:mm");
-};
+    goingRowColor: function(){
+        var myAttendance = _.find(this.attendings, function (a) {
+            return a.user === Meteor.userId();
+        }) || {};
 
-Template.movieRow.goingRowColor = function(){
-  var myAttendance = _.find(this.attendings, function (a) {
-    return a.user === Meteor.userId();
-  }) || {};
+        return (myAttendance.attending) ? myAttendance.attending + '-going' : '';
+    },
 
-  return (myAttendance.attending) ? myAttendance.attending + 'Going' : '';
-};
-Template.movieRow.isClashing = function(){
-	//var movieClashes = this.clashing;
-	return (Movies.find({
-		'attendings.user': Meteor.userId(),
-		'attendings.attending': 'yes',
-		_id: {$in: this.clashing }
-	}).count() !== 0) ? 'isClashing' : '';
+    isClashing: function(){
+        return isClashing(this) ? 'is-clashing' : '';
+    },
 
+    isSelected: function(){
+        return AmplifiedSession.equals('selected', this._id) ? "is-selected" : 'not-selected';
+    },
 
-  var myAttendance = _.find(this.attendings, function (a) {
-    return a.user === Meteor.userId();
-  }) || {};
+    isClashingIcon: function(){
+        return isClashing(this)? 'glyphicon-ban-circle' : '';
+    },
 
-  return (myAttendance.attending) ? myAttendance.attending + 'Going' : '';
-};
-
-Template.movieRow.events({
-  'click .movieRow' : function (event) {
-
-    $('.movieRowDetails').hide(300);
-    var id = event.currentTarget.id;
-    if(AmplifiedSession.equals('selected', id) && Session.equals('rowExpanded', true)){
-    	Session.set('rowExpanded', false); 
-    	return;
+    isGoingIcon: function(){
+        var myAttendance = _.find(this.attendings, function (a) {
+            return a.user === Meteor.userId();
+        }) || {};
+        if(myAttendance.attending == 'yes') return 'glyphicon-ok-circle';
+        if(myAttendance.attending == 'maybe') return 'glyphicon-question-sign';
+        if(myAttendance.attending == 'no') return 'glyphicon-remove-sign';
+        else return false;
     } 
 
-    AmplifiedSession.set("selected", id);
-    Session.set("rowExpanded", true);
 
-    $('#movieRowDetails-' + id).show(300);
-    $this.find('.description').height(60);
-	$this.find('.more').show();
-  	$this.find('.less').hide();
-    
-    return false;
-  }
+
+});
+
+
+
+Template.movieRow.events({
+    'click .movieRow' : function (event, tmpl) {
+
+        $('.movieRowDetails').hide(300);
+        var id = event.currentTarget.id;
+        if(AmplifiedSession.equals('selected', id) && AmplifiedSession.equals('rowExpanded', true)){
+        	AmplifiedSession.set('rowExpanded', false); 
+    //        AmplifiedSession.set("selected", '');
+        	return;
+        } 
+
+        AmplifiedSession.set("selected", id);
+        AmplifiedSession.set("rowExpanded", true);
+
+        $('#movieRowDetails-' + id).show(300);
+        $this.find('.description').height(60);
+        $this.find('.more').show();
+        $this.find('.less').hide();
+
+        return false;
+    }
 });
 
 Template.movieRow.rendered = function(){
-	console.log('row: '+ this.data._id +' rendered');
+//	console.log('row: '+ this.data._id +' rendered');
 //	console.log(this.data.name);
 	var id = this.data._id;
+
+    this.test = "hello world";
 
 /* 
 

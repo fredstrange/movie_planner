@@ -20,13 +20,29 @@ AmplifiedSession = _.extend({}, Session, {
 
 
 
+//****************************
+//**** Router ****************
+//****************************
+  Router.configure({
+    layout: 'layout',
+    loadingTemplate: 'loading',
+    renderTemplates: {
+        'footer': {to: 'footer'},
+        'header': {to: 'header'}
+      }
+  })
 
-if (Meteor.isClient) {
- 
-  //Router
+
 
   Router.map(function() { 
-    this.route('home', {path: '/'});
+    this.route('home', {
+      path: '/', 
+      template: 'home',
+      renderTemplates: {
+        'footer': {to: 'footer'},
+        'header': {to: 'header'}
+      }
+    });
     this.route('profile');
   });
 
@@ -36,7 +52,6 @@ if (Meteor.isClient) {
 
   init();
 
-}
 
 Template.movieList.movies = function () {
   return Movies.find({});

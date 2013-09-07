@@ -21,9 +21,8 @@ attendingMovie = function (movie) {
 };
 
 friendsAttendingMovie = function (movie) {
+	if(!Meteor.user()) return 0;
   	var friends = Meteor.user().friends;
-//  	console.log('friends');
-//  	console.log(friends);
   	
   	return (_.filter(movie.attendings, function(a){
   		return (a.attending == 'yes' && _.contains(friends, a.user));
@@ -41,15 +40,15 @@ getFriends = function(){
 		}
 	}	
 	return Meteor.users.find({_in: {$in: friendsArr } });
-//	return Meteor.users.findOne({_id: }).emails[0].address
 }
 
 displayName = function (user) {
-  if (user.profile && user.profile.name)
+  if (user.profile && user.profile.name){
     return user.profile.name;
-  return user.emails[0].address;
+  }else{
+  	return user.emails[0].address;
+  }
 };
-
 
 
 Meteor.methods({
@@ -61,7 +60,7 @@ Meteor.methods({
 
 	    if (! this.userId)
 	      throw new Meteor.Error(403, "You must be logged in to Attend");
-	    if (! _.contains(['yes', 'no', 'maybe'], state))
+	    if (! _.contains(['yes', 'no', 'maybe', 'undecided'], state))
 	      throw new Meteor.Error(400, "Invalid Attendance");
 	    var movie = Movies.findOne(movieId);
 	    if (! movie)

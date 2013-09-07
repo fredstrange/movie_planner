@@ -27,11 +27,15 @@ Template.movieRowDetails.events({
     Meteor.call("attending", AmplifiedSession.get("selected"), "no");
     return false;
   },
+  'click .rsvp_undecided': function () {
+    Meteor.call("attending", AmplifiedSession.get("selected"), "undecided");
+    return false;
+  },
   'click .more': function(event, template){
     event.stopPropagation();
     event.preventDefault();
 
-    console.log('more clicked');
+  //  console.log('more clicked');
 
     showMore(AmplifiedSession.get('selected'));
   },
@@ -39,7 +43,7 @@ Template.movieRowDetails.events({
     event.stopPropagation();
     event.preventDefault();
     
-    console.log('less clicked');
+//    console.log('less clicked');
     showLess(AmplifiedSession.get('selected'));
   }
 });
@@ -56,7 +60,7 @@ Template.movieRowDetails.rendered = function() {
 }
 
 var showMore = function(id, time){
-  console.log('showMore' + id);
+//  console.log('showMore' + id);
   time = (time !== void 0)? time : 500;
   Session.set('detailsExpanded', id);
 
@@ -67,7 +71,7 @@ var showMore = function(id, time){
 }
 
 var showLess = function(id, time){
-  console.log('showLess' + id);
+//  console.log('showLess' + id);
 
   time = (time !== void 0)? time : 500;
   Session.set('detailsExpanded', void 0);
@@ -79,7 +83,7 @@ var showLess = function(id, time){
 }
 
 var reset = function(id){
-  console.log('reset' + id);
+//  console.log('reset' + id);
   $this = $('#movieRowDetails-' + id);
   $this.hide();
   $this.find('.description').height(60);
@@ -88,7 +92,7 @@ var reset = function(id){
 }
 
 var showDetails = function(id){
-  console.log('showDetails' + id);
+//  console.log('showDetails' + id);
   var $this = $('#movieRowDetails-' + id);
   $this.show();
 

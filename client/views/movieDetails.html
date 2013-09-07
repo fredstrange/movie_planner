@@ -1,0 +1,48 @@
+<template name="movieDetails">
+    {{#if movie}}
+    {{#with movie}}
+    <div class="row">
+        <div class="movieDetails" id="{{_id}}">
+            <div class="span5 movieTitle" >Title: {{name}}</div>
+            <div class="span5 movieType" >Categories: {{type}}</div>
+            <div class="span5 movieCinema">{{cinema}}</div>
+            <div class="span5 movieTime">{{startTime}}</div>
+            <div class="duration">Duration: {{playTime}}</div>
+            <div class="description">
+                <p>{{description}}</p>
+            </div>
+            {{#if trailerUrl}}
+            <div class="trailer">
+                <a href="{{trailerUrl}}">trailer</a>
+            </div>
+            {{/if}}
+
+            {{#if currentUser}}
+            <input type="button" value="I'm going!" class="btn btn-small rsvp_yes {{maybeChosen "yes"}}">
+            <input type="button" value="Maybe" class="btn btn-small rsvp_maybe {{maybeChosen "maybe"}}">
+            <input type="button" value="No" class="btn btn-small rsvp_no {{maybeChosen "no"}}">
+            {{/if}}
+
+        </div>
+    </div> <!-- End bootsatrap row -->
+    <div class="row">
+        {{> googleMap}}  
+    </div>
+
+    {{#if currentUser}}
+    <div class="detail-post-comments">
+        {{> post-comment}}
+    </div>
+    {{/if}}
+
+    {{#if comments}}
+    <div class="comment-wrapper">
+    {{#each comments}}
+            {{> comment}}
+        {{/each}}
+    </div>
+    {{/if}}
+
+    {{/with}}
+  {{/if}}
+</template>

@@ -1,0 +1,215 @@
+/**********************
+*****	* Variables ******
+***********************/
+
+
+@white: #FFF;
+@light-red: #9C1C00;
+@red-base: #600;
+@grey: #A5A5B5;
+@black: #000;
+
+@base: @red-base;
+@base-light: lighten(@base, 25%);
+
+@clashing: @red-base;
+@not-going: #C2C2C2;
+@maybe-going: #B4AD00;
+@going: #00A500;
+
+@font-color:#333;
+
+@pageMargin: 20px;
+
+/**********************
+******* Mix-ins *******
+***********************/
+
+.rounded-corners (@radius: 5px) {
+  -webkit-border-radius: @radius;
+  -moz-border-radius: @radius;
+  -ms-border-radius: @radius;
+  -o-border-radius: @radius;
+  border-radius: @radius;
+}
+
+.box-shadow (@x: 0px, @y: 3px, @blur: 5px, @alpha: 0.5) {
+    -webkit-box-shadow: @x @y @blur rgba(0, 0, 0, @alpha);
+    -moz-box-shadow: @x @y @blur rgba(0, 0, 0, @alpha);
+    box-shadow: @x @y @blur rgba(0, 0, 0, @alpha);
+}
+
+
+
+.inset-box-shadow (@x: 0px, @y: 3px, @blur: 5px, @spread: 5px, @color: rgb(0,0,0),  @alpha: 0.5) {
+    -webkit-box-shadow: inset @x @y @blur @spread rgba(red(@color), green(@color), blue(@color), @alpha);
+    -moz-box-shadow: inset @x @y @blur @spread rgba(red(@color), green(@color), blue(@color), @alpha);
+    box-shadow: inset @x @y @blur @spread rgba(red(@color), green(@color), blue(@color), @alpha);
+}
+
+
+.gradient(@start-color, @end-color){
+@start-rgba: rgba(red(@start-color), green(@start-color), blue(@start-color), 1);
+@end-rgba: rgba(red(@end-color), green(@end-color), blue(@end-color), 1);
+
+
+background: @start-color; /* Old browsers */
+background: -moz-linear-gradient(top,  @start-rgba 1%, @end-rgba 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,@start-rgba), color-stop(100%,@end-rgba)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  @start-rgba 1%,@end-rgba 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  @start-rgba 1%,@end-rgba 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  @start-rgba 1%,@end-rgba 100%); /* IE10+ */
+background: linear-gradient(to bottom,  @start-rgba 1%,@end-rgba 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='@start-color', endColorstr='@end-color',GradientType=0 ); /* IE6-9 */
+
+
+}
+
+
+
+body{
+	background-color: @base;
+}
+
+.glyphicon{
+	&.glyphicon-ban-circle{color:@clashing}
+	&.glyphicon-ok-circle{color:@going}
+	&.glyphicon-question-sign{color:@maybe-going}
+	&.glyphicon-remove-sign{}
+}
+.navbar{
+	background-color: darken(@base, 5%);
+	border-color: darken(@base, 10%);
+
+	.navbar-brand{
+		color: #DADADA;
+	}
+
+	.navbar-nav > li > a{
+		color:#DADADA;
+	}
+
+	.navbar-nav > .active > a, 
+	.navbar-nav > .active > a:hover, 
+	.navbar-nav > .active > a:focus{
+		background-color: darken(@base, 10%);
+	}
+
+}
+
+
+
+#pageWrapper, #profile-werapper{
+	margin-top: 55px;
+	margin-left: @pageMargin;
+	margin-right: @pageMargin;
+}
+
+
+.movieList{
+}
+
+.movieDetails{
+	margin: 20px;
+}
+
+.movieTitle{
+	font-weight: bold;
+}
+
+
+.movieRow{
+	margin: 10px;
+	border:#ccc solid 1px;
+	background-color: darken(@white, 10%);
+	.rounded-corners;
+	.box-shadow(5px, 5px, 6px, 0.3);
+	.inset-box-shadow(0,0, 10px, 0.3);
+
+	&.is-selected{
+		background-color: @white;
+	}
+
+	&.not-selected:hover{
+		background-color: @white;
+	}
+
+	&.yes-going{
+		/*background-color: @going;
+		border: darken(@going, 10%) solid 2px;
+		.gradient(#D4FDD0, #FFF);
+		*/
+		
+
+		&.is-clashing{
+			
+		}
+	}
+	&.yes-going:hover{}
+
+	&.maybe-going{
+		/*
+		.gradient(#F1F1AE, #FFF);
+		border: @maybe-going solid 2px;
+		.inset-box-shadow(0,0, 5px, 3px, @maybe-going, 0.2);
+		*/
+	}
+
+	&.maybe-going:hover{}
+
+	&.no-going{
+		background-color: @not-going;
+		color: lighten(@font-color, 30%);
+
+		.extra-movie-row-details{
+			display:none;	
+		}
+	}
+	&.no-going.not-selected:hover{
+		background-color: darken(@not-going, 5%);
+	}
+	&.is-clashing{
+		/*
+		border: solid 2px @clashing;
+		&.no-going{border-width: 1px}
+		*/
+	}
+
+	.more, .less{
+		
+		.dashed{
+			border-top: 1px solid black;
+		    content: " ";
+		    top: 0.7em;
+		}
+	}
+
+}
+
+
+
+.movieRowDetails {
+	.description{
+		overflow: hidden;
+	}
+}
+
+.btn.chosen{
+	background-color: #f4f;
+}
+
+.hidden{
+	display: none;
+}
+
+#detailsColumn{
+	background-color: @white;
+	margin-top: 10px;
+	.rounded-corners;
+	.box-shadow(5px, 5px, 6px, 0.3);
+	.inset-box-shadow(0,0, 20px, 5px);
+}
+
+#map{
+	margin:20px;
+}

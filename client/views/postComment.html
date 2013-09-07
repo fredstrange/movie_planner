@@ -1,0 +1,12 @@
+<template name="post-comment">
+    <div class="post-comment">
+        <form class="comment-form">
+            <label class="comment-label">Title</label>
+            <input  type="text" name="title">
+            <label class="comment-label">Comment</label>  
+            <input  type="text" name="body">  
+            <input type="hidden" name="user" value="{{currentUser._id}}">
+            <input type="submit" class="comment-submit" value="Post comment"> 
+        </form>
+    </div>
+</template>
