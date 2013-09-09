@@ -1,5 +1,5 @@
 /**********************
-*****	* Variables ******
+****** Variables ******
 ***********************/
 
 
@@ -103,9 +103,9 @@ body{
 }
 
 #login-dropdown-list {
-position: absolute;
-top: 12px;
-left: -75px;
+	position: absolute;
+	top: 12px;
+	left: -75px;
 }
 
 .login-btn{
@@ -113,7 +113,7 @@ left: -75px;
 
 
 
-#pageWrapper, #profile-werapper{
+#pageWrapper{
 	margin-top: 55px;
 	margin-left: @pageMargin;
 	margin-right: @pageMargin;
@@ -236,6 +236,17 @@ left: -75px;
 .comment-header{
 	margin-top: 20px;
 	padding-left: 30px;
+}
+
+#profile-wrapper, #schedule-wrapper{
+	margin: 60px 20px 20px;
+	padding: 20px;
+	background-color: @white;
+	min-height: 400px;
+	.rounded-corners;
+	.box-shadow(5px, 5px, 6px, 0.3);
+	.inset-box-shadow(0,0, 20px, 5px);
+
 }
 
 

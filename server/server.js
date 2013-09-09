@@ -1,3 +1,4 @@
+
 Meteor.publish("movies", function () {
   return Movies.find({}, {sort: {'time': 1}});
 });
@@ -17,6 +18,38 @@ Meteor.publish("userData", function () {
 	friends.push(this.userId);
 
   	return Meteor.users.find({_id: {$in: friends}}, {fields: {'friends': 1, 'profile': 1}});                          
+});
+
+
+Meteor.methods({
+	
+	test: function(){
+		return "Bong!";
+	},
+
+	userImage: function(){
+		var user, imageURL, id;
+
+		id = Meteor.userId(); 
+		user = Meteor.users.findOne({ _id: id });
+
+		if(user && user.services){
+			if(user.services.twitter){
+				imageURL = user.services.twitter.profile_image_url;
+			}else if(user.services.facebook){
+				imageURL = 	"http://graph.facebook.com/" + user.services.facebook.id + "/picture/?type=large";
+			}else if (user.services.google){
+				imageURL = "https://plus.google.com/s2/photos/profile/" + user.services.google.id + "?sz=200";
+			}
+			
+		}
+
+
+
+
+		return imageURL;
+	}
+
 });
 
 

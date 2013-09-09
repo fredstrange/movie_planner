@@ -1,5 +1,5 @@
 <template name="profile">
-    <div id="profile-werapper">
+    <div id="profile-wrapper">
         {{#if currentUser}}
         {{#with currentUser}}
         <div>
@@ -22,5 +22,7 @@
       {{else}}
         You have to log in to edit your profile. 
       {{/if}}
+
+      <img src="{{userImage}}">
     </div>
 </template>
