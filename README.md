@@ -15,8 +15,6 @@ Todo
 * Profile page
 ** Fix the native user account
 ** Profile picture
-* Distance between cinemas
-* Blocking to include walking to cinema
 * Dedicated mobile ui
 * Flaging commments
 * Admin page

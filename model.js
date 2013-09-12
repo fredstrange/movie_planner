@@ -78,6 +78,154 @@ displayName = function (user) {
 };
 
 
+var configureCinemaDistances = function(callback){
+	var cinemaArray, i, origin, service, 
+		cinemaMap = {},
+		currentIndex = 0,
+		currentCinema,
+		origins = "";
+
+	cinemaArray = Cinemas.find().fetch();
+	var cinemaArray2 = Cinemas.find().fetch();
+
+	console.log(cinemaArray2);
+	
+
+	for(i = 0; i < cinemaArray.length; i++){
+		if(i > 0) origins += '|';
+		origins += cinemaArray[i].coordinates.lat + ',' +  cinemaArray[i].coordinates.lng;
+	}
+
+	getDistance();
+
+
+	function getDistance(){
+		currentCinema = cinemaArray[currentIndex];
+		origin = currentCinema.coordinates.lat + ',' +  currentCinema.coordinates.lng;
+		google.distance(origin, origins, onDistance, false, "walking");		
+	}
+
+	function onDistance(err, data) {
+		var row, element, i, rowCinema;
+		util.puts(JSON.stringify(data));
+
+
+		if(err){
+			console.log(err);
+		}else{
+			row = data.rows[0];
+			if(row && row.elements && row.elements.length != 0)
+			{
+				cinemaMap[currentCinema._id] = {};
+				console.log('Element length: ' + row.elements.length);
+				console.log('cinemaArray length: ' + cinemaArray.length);
+
+				for(i = 0; i < row.elements.length; i++){
+					element = row.elements[i];
+					rowCinema = cinemaArray[i];
+
+					cinemaMap[currentCinema._id][rowCinema._id] = {};
+					cinemaMap[currentCinema._id][rowCinema._id].distance = element.distance.value;
+					cinemaMap[currentCinema._id][rowCinema._id].duration = element.duration.value;
+				}
+			}
+		}
+
+		currentIndex++;
+
+		if(currentIndex < cinemaArray.length){
+			//updateCinemaDistances(cinemaMap);
+			setTimeout(getDistance, 5000);
+			//getDistance();
+		}else{
+			updateCinemaDistances(cinemaMap);
+		}
+
+	}; 
+
+	function updateCinemaDistances(cinemaMap){
+		console.log('updateCinemaDistances');
+
+		Fiber(function(){
+			_.each(cinemaMap, function(value, key){
+
+				(function(key, value){
+					console.log('value');
+					console.log(value);
+					console.log('key');
+					console.log(key);
+
+					Cinemas.update({_id: key}, {$set: {distance: value}});
+				})(key, value);
+			});
+		}).run();
+
+	}
+
+
+}
+
+var recalibrateMovies = function(){
+	console.log('recalibrateMovies');
+	var movies, clashing, movieStartTime, movieEndTime;
+
+	movieArray = Movies.find().fetch();
+	movies = Movies.find();
+	clashing = {};
+
+	movies.forEach(function(movie){
+		//console.log(movie._id);
+		movieStartTime = movie.time;
+		movieEndTime = movie.time + movie.duration;
+		
+		clashing[movie._id] = [];
+		
+		_.each(movieArray, function(m){
+				if(m._id == movie._id) return;
+			var	cinemaWalkDuration = Cinemas.findOne({_id: movie.cinema.id}).distance[m.cinema.id].duration;
+				mStartTime = m.time,
+				mEndTime = m.time + m.duration,
+
+				//console.log(cinemaWalkDuration + " " + mStartTime + " " + mEndTime);
+
+				startsDuringMovie = (mStartTime >= movieStartTime && mStartTime <= (movieEndTime + cinemaWalkDuration)),
+				endsDuringMovie = (movieStartTime >= mStartTime && movieStartTime <= (mEndTime + cinemaWalkDuration));
+
+			if(startsDuringMovie || endsDuringMovie){
+				clashing[movie._id].push(m._id);
+			}
+		});
+		Movies.update(movie, {$set: {clashing: clashing[movie._id] }} );
+
+	});
+//	    	AmplifiedSession.set('clashing', clashing);
+};
+
+
+var fixCinemaids = function(){
+	movies = Movies.find();
+
+	movies.forEach(function(movie){
+		var cinema = Cinemas.findOne({name: movie.cinema});
+
+		if(cinema){
+			Movies.update(movie, {
+				$set: {
+					cinema: {
+						name: cinema.name, 
+						id:cinema._id 
+					}
+				}
+			});
+		}
+	});
+}; 
+
+
+
+
+
+
 Meteor.methods({
 
 
@@ -121,12 +269,19 @@ Meteor.methods({
 	                     {$push: {attendings: {user: this.userId, attending: state}}});
 	    }
 
-	}
+	},
+
+	fixCinemaids: fixCinemaids,
+	recalibrateMovies: recalibrateMovies,
+	configureCinemaDistances: configureCinemaDistances
+
 });
 
 
 
 if (Meteor.isServer) {
+
+	Fiber = Meteor.require('fibers');
 
 
 
@@ -159,143 +314,11 @@ if (Meteor.isServer) {
 	      });
 	    }
 
-	    var configureCinemaDistances = function(callback){
-	    	var cinemaArray, i, origin, service, 
-	    		cinemaMap = {},
-	    		currentIndex = 0,
-	    		currentCinema,
-				origins = "";
-
-	    	cinemaArray = Cinemas.find().fetch();
-	    	
-
-	    	for(i = 0; i < cinemaArray.length; i++){
-	    		if(i > 0) origins += '|';
-	    		origins += cinemaArray[i].coordinates.lat + ',' +  cinemaArray[i].coordinates.lng;
-	    	}
-
-	    	getDistance();
 
 
-	    	function getDistance(){
-	    		currentCinema = cinemaArray[currentIndex];
-	    		origin = currentCinema.coordinates.lat + ',' +  currentCinema.coordinates.lng;
-	    		google.distance(origin, origins, onDistance, false, "walking");
-	    	}
-
-			function onDistance(err, data) {
-				var row, element, i, rowCinema;
-				util.puts(JSON.stringify(data));
-
-				if(err){
-					console.log(err);
-				}else{
-					row = data.rows[0];
-					if(row && row.elements && row.elements.length != 0)
-					{
-						cinemaMap[currentCinema._id] = {};
-
-						for(i = 0; i < row.elements.length; i++){
-							element = row.elements[i];
-							rowCinema = cinemaArray[i];
-
-							cinemaMap[currentCinema._id][rowCinema._id] = element.distance.value;
-
-							
-
-				//			console.log(element.duration.value);
-						}
-					}
-				}
-
-				currentIndex++;
-
-				if(currentIndex < cinemaArray.length){
-					getDistance();
-				}else{
-					updateCinemaDistances(cinemaMap);
-				}
-
-				//console.log(cinemaMap);
-
-			};
-
-			function updateCinemaDistances(cinemaMap){
-	/*	*/		//CinemaDistances.remove();
-					console.log(cinemaMap);
-
-				_.each(cinemaMap, function(value, key){
-					console.log(value);
-					console.log(key);
-
-					
-					CinemaDistances.insert({
-						cinema: key,
-						distances: value
-					});
-					
-				})
-
-
-			//	return; 
-
-/*				cinemas.forEach(function(cinema){
-				//	console.log(cinemaMap[cinema._id])
-
-					if(cinema && cinemaMap[cinema._id]){
-						console.log('cinema')
-						console.log(cinema._id)
-
-						Cinemas.update(cinema, {$set: {distances: cinemaMap[cinema._id]} } );
-					}
-				});*/
-			}
-
-
-	    }
-
-	    var recalibrateMovies = function(){
-	    	console.log('recalibrateMovies');
-	    	var movies, clashing, movieStartTime, movieEndTime;
-
-	    	movieArray = Movies.find().fetch();
-	    	movies = Movies.find();
-	    	clashing = {};
-
-	    	movies.forEach(function(movie){
-	    		//console.log(movie._id);
-	    		movieStartTime = movie.time;
-	    		movieEndTime = movie.time + movie.duration;
-	    		
-	    		clashing[movie._id] = [];
-	    		
-	    		_.each(movieArray, function(m){
-	 				if(m._id == movie._id) return;
-	    			var mStartTime = m.time,
-	    				mEndTime = m.time + m.duration,
-
-	    				startsDuringMovie = (mStartTime >= movieStartTime && mStartTime <= movieEndTime),
-	    				endsDuringMovie = (movieStartTime >= mStartTime && movieStartTime <= mEndTime);
-
-	    			if(startsDuringMovie || endsDuringMovie){
-	    				clashing[movie._id].push(m._id);
-	    			}
-	    		});
-	    		Movies.update(movie, {$set: {clashing: clashing[movie._id] }} );
-
-	    	});
-//	    	AmplifiedSession.set('clashing', clashing);
-	    }
-	//    configureCinemaDistances();
-	    recalibrateMovies();
-
-	/*    var gm = Meteor.require('googlemaps');
-		var util = Meteor.require('util');
-
-		gm.reverseGeocode('41.850033,-87.6500523', function(err, data){
-		  util.puts(JSON.stringify(data));
-		});
-*/
+	//	fixCinemaids();
+	 //   configureCinemaDistances();
+	 //  recalibrateMovies();
 
 	});
 }

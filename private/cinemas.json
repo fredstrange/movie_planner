@@ -1,6 +1,7 @@
 {
 	"initCinemas":[
 		{
+			"_id": "gMpcapWqddsBeY8EN",
 			"name": "Sture 1",
 			"coordinates": {
 				"lat": 59.339003,
@@ -8,6 +9,7 @@
 			}
 		},
 		{
+			"_id": "sdRXSbqstqdNeTJ98",
 			"name": "Grand 1",
 			"coordinates": {
 				"lat": 59.339334,
@@ -15,6 +17,7 @@
 			}
 		},
 		{
+			"_id": "zFuom5mxSq6XjK5cq",
 			"name": "Grand 4",
 			"coordinates": {
 				"lat": 59.339334,
@@ -22,6 +25,7 @@
 			}
 		},
 		{
+			"_id": "9b65jqXHhbd7oZ5XQ",
 			"name": "Bio Rio",
 			"coordinates": {
 				"lat": 59.315312,
@@ -29,6 +33,7 @@
 			}
 		},
 		{
+			"_id": "2cyzB466hhXYhDvTc", 
 			"name": "Bio Mauritz", 
 			"coordinates": {
 				"lat": 59.339264,
@@ -36,6 +41,7 @@
 			}
 		},
 		{
+			"_id": "taSoKwssYNTMRchoj", 
 			"name": "Filmhuset Victor", 
 			"coordinates": {
 				"lat": 59.339264,
@@ -43,6 +49,7 @@
 			}
 		},
 		{
+			"_id": "8Reg42otx3gXXT99f", 
 			"name": "Klarabiografen", 
 			"coordinates": {
 				"lat": 59.332206,
@@ -50,6 +57,7 @@
 			}
 		},
 		{
+			"_id": "oP4ESXqQ2YpeSXx5S",
 			"name": "Rigoletto 2",
 			"coordinates": {
 				"lat": 59.336121,
@@ -57,6 +65,7 @@
 			}
 		},
 		{
+			"_id": "scn7aamwrbrnpuYAZ",
 			"name": "Rigoletto 4",
 			"coordinates": {
 				"lat": 59.336121,
@@ -64,6 +73,7 @@
 			}
 		},
 		{
+			"_id": "BXp3N2DfFoAgCc8Ri",
 			"name": "Skandia",
 			"coordinates": {
 				"lat": 59.335439,
@@ -71,6 +81,7 @@
 			}
 		},
 		{
+			"_id": "uDrtGi7rTXPWMNssw",
 			"name": "Victoria 4",
 			"coordinates": {
 				"lat": 59.312739,
@@ -78,6 +89,7 @@
 			}
 		},
 		{
+			"_id": "iPWmQno4dDSAshHnm",
 			"name": "Victoria 2",
 			"coordinates": {
 				"lat": 59.312739,
@@ -85,6 +97,7 @@
 			}
 		},
 		{
+			"_id": "ksLCDYYYGRNd9kdhp",
 			"name": "Zita 1",
 			"coordinates": {
 				"lat": 59.339060,
@@ -92,6 +105,7 @@
 			}
 		},
 		{
+			"_id": "Mm3BrRet5RYasFJQj",
 			"name": "Zita 2",
 			"coordinates": {
 				"lat": 59.339060,

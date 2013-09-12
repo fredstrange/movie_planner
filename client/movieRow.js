@@ -23,7 +23,7 @@ Template.movieRow.helpers({
     },
 
     startTime: function(a, b){
-        var d = new Date(this.time);
+        var d = new Date(this.time * 1000);
         return d.getHours() + ':' + d.getMinutes();//moment.unix(this.time).format("ddd, hh:mm");
     },
 
