@@ -1,5 +1,9 @@
 <template name="schedule">
 	<div id="schedule-wrapper"> 
-	This is the schedule...
+		<div class="movie-list">
+			{{#each myMovies}}
+				{{> scheduleRow}}
+			{{/each}}
+		</div>
 	</div>
 </template>
