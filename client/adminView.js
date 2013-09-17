@@ -1,4 +1,4 @@
-/*
+
 
 Meteor.loginAsAdmin = function(password, callback) {
   //create a login request with admin: true, so our loginHandler can handle this request
@@ -12,7 +12,7 @@ Meteor.loginAsAdmin = function(password, callback) {
 };
 
 
-Template.admin.events({
+Template.adminView.events({
 	'click #configure-cinema-distances': function(){
 		Meteor.call('configureCinemaDistances');
 	},
@@ -24,5 +24,3 @@ Template.admin.events({
 	},
 })
 
-
-*/
