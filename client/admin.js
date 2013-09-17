@@ -13,7 +13,7 @@ Template.admin.events({
 	'click #configure-cinema-distances': function(){
 		Meteor.call('configureCinemaDistances');
 	},
-	'click fix-cinemaids': function(){
+	'click #fix-cinemaids': function(){
 		Meteor.call('fixCinemaids');
 	},
 	'click #recalibrate-movies': function(){
