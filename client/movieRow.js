@@ -1,11 +1,15 @@
 if (Meteor.isClient) {
 
 var isClashing = function(that){
-    return (Movies.find({
-            'attendings.user': Meteor.userId(),
-            'attendings.attending': 'yes',
-            _id: {$in: that.clashing }
-        }).count() !== 0);
+    if(that.clashing){
+        return (Movies.find({
+                'attendings.user': Meteor.userId(),
+                'attendings.attending': 'yes',
+                _id: {$in: that.clashing }
+            }).count() !== 0);
+    }else{
+        return false; 
+    }
 }
 
 Template.movieRow.helpers({
