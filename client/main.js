@@ -46,7 +46,7 @@ AmplifiedSession = _.extend({}, Session, {
     });
     this.route('profile');
     this.route('schedule');
-    this.route('admin');
+    this.route('adminView');
   });
 
   init = function(){
