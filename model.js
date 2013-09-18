@@ -3,8 +3,7 @@ Comments = new Meteor.Collection("comments");
 Cinemas = new Meteor.Collection("cinemas");
 CinemaDistances = new Meteor.Collection('cinemaDistances');
 
-var google = Meteor.require('googlemaps'),
-		util = Meteor.require('util');
+
 
 
 Movies.allow({
@@ -104,13 +103,17 @@ var configureCinemaDistances = function(callback){
 
 
 	function getDistance(){
+		var google = Meteor.require('googlemaps');
+
 		currentCinema = cinemaArray[currentIndex];
 		origin = currentCinema.coordinates.lat + ',' +  currentCinema.coordinates.lng;
 		google.distance(origin, origins, onDistance, false, "walking");		
 	}
 
 	function onDistance(err, data) {
-		var row, element, i, rowCinema;
+		var row, element, i, rowCinema,
+		util = Meteor.require('util');
+
 		util.puts(JSON.stringify(data));
 
 
@@ -295,8 +298,8 @@ if (Meteor.isServer) {
 	Meteor.startup(function () {
 		console.log('On server startup');
 
-		var google = Meteor.require('googlemaps'),
-			util = Meteor.require('util');
+//		var google = Meteor.require('googlemaps'),
+//			util = Meteor.require('util');
 
 		var movieLength = Movies.find({}).count();
 
