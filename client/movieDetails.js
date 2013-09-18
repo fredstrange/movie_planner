@@ -17,13 +17,13 @@ Template.movieDetails.maybeChosen = function (what) {
 
 
 function renderMap(){
-    var mapOptions, canvas, id, movie, cinema, lat, lng;
+  var mapOptions, canvas, id, movie, cinema, lat, lng;
   
   canvas = $("#map-canvas")[0];
   id = AmplifiedSession.get('selected');
-  movie = Movies.findOne({_id:  id});
+  movie = Movies.findOne({_id: id});
 
-  cinema = (movie)? Cinemas.findOne({name:movie.cinema}) : void 0;
+  cinema = (movie)? Cinemas.findOne({_id: movie.cinema.id}) : void 0;
   if(!canvas || !cinema) return;
 
   lat = cinema.coordinates.lat;
@@ -35,6 +35,7 @@ function renderMap(){
   };
 
   map = new google.maps.Map(canvas, mapOptions); 
+
 
   map.setCenter(new google.maps.LatLng(lat, lng));
   var marker = new google.maps.Marker({
