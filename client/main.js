@@ -44,6 +44,16 @@ AmplifiedSession = _.extend({}, Session, {
         'header': {to: 'header'}
       }
     });
+
+    this.route('movie', {
+      path: '/:_id', 
+      template: 'home',
+      onBeforeRun: function(){
+        AmplifiedSession.set('selected', this.params._id);
+      }
+    });
+
+
     this.route('profile');
     this.route('schedule');
     this.route('adminView');
@@ -54,6 +64,7 @@ AmplifiedSession = _.extend({}, Session, {
   }
 
   init();
+
 
 
 Template.movieList.movies = function () {

@@ -72,6 +72,8 @@ Template.movieRow.events({
 
         var id = event.currentTarget.id;
 
+        history.pushState({},"test Page", id);
+
         $('.movieRowDetails').hide(300);
         if(AmplifiedSession.equals('selected', id) && AmplifiedSession.equals('rowExpanded', true)){
         	AmplifiedSession.set('rowExpanded', false); 

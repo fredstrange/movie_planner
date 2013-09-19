@@ -3,6 +3,7 @@
     "iron-router": {},
     "bootstrap-3": {},
     "moment-alternative": {},
-    "npm": {}
+    "npm": {},
+    "font-awesome": {}
   }
 }

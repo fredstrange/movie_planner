@@ -16,6 +16,7 @@ Template.movieDetails.maybeChosen = function (what) {
 
 
 
+
 function renderMap(){
   var mapOptions, canvas, id, movie, cinema, lat, lng;
   
@@ -62,5 +63,5 @@ Template.movieDetails.events({
   'click .rsvp_no': function () {
     Meteor.call("attending", AmplifiedSession.get("selected"), "no");
     return false;
-  },
+  }
 });
