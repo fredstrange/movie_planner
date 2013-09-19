@@ -45,6 +45,10 @@ AmplifiedSession = _.extend({}, Session, {
       }
     });
 
+    this.route('profile');
+    this.route('schedule');
+    this.route('adminView');
+
     this.route('movie', {
       path: '/:_id', 
       template: 'home',
@@ -54,9 +58,6 @@ AmplifiedSession = _.extend({}, Session, {
     });
 
 
-    this.route('profile');
-    this.route('schedule');
-    this.route('adminView');
   });
 
   init = function(){
