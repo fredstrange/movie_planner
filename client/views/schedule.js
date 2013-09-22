@@ -1,7 +1,9 @@
 Template.schedule.helpers({
 	myMovies: function(){
-		var i, startCinema, endCinema, cinema
-			movies = Movies.find({'attendings.user': Meteor.userId(), 'attendings.attending': 'yes' }).fetch();
+		var i, startCinema, endCinema, cinema, movies, 
+		
+			userId = (this && this.id)? this.id : Meteor.userId(),
+			movies = Movies.find({'attendings.user': userId, 'attendings.attending': 'yes' }).fetch();
 
 		for(i = 0; i < movies.length-1; i++){
 			startCinema = Cinemas.findOne({_id: movies[i].cinema.id});

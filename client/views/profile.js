@@ -22,11 +22,18 @@ Template.profile.rendered = function(){
   Meteor.call('userService', function(err, result){
     Session.set('userService', result);
   });
+
+
 }
 
-Template.profile.friendsName = function(){
-  var user = Meteor.users.findOne(this.toString());
+Template.profile.displayName = function(){
+  var user = Meteor.users.findOne({_id: this._id});
   return displayName(user);
+};
+
+Template.profile.myFriends = function(){
+  var friends = getFriends().fetch();
+  return friends;
 };
 
 Template.profile.isTwitter = function(){
@@ -45,9 +52,11 @@ Template.profile.isNative = function(){
   return Meteor.sff.userService() == 'native';
 };
 
+
+
 Template.profile.helpers({
 
-})
+});
 
 
 

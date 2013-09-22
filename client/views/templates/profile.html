@@ -31,7 +31,11 @@
             <input id="inviteMessage" type="text" placeholder="Write a message">
             <button id="inviteSubmit" class="btn btn-info">Send Request</button>
           </div>
-        {{/with}}
+
+          {{#each myFriends}}
+            <a href="/schedule/{{_id}}"> {{displayName}}</a>
+          {{/each}}
+        {{/with}}        
 
       {{else}}
         You have to log in to edit your profile. 

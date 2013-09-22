@@ -47,11 +47,17 @@ AmplifiedSession = _.extend({}, Session, {
     });
 
     this.route('profile');
-    this.route('schedule');
     this.route('adminView');
+    this.route('schedule');
+    this.route('schedule', {
+      path: '/schedule/:_id',
+      data: function(){
+        return {id: this.params._id};
+      }
+    });
 
     this.route('invite', {
-      path: '/:_id', 
+      path: '/invite/:_id', 
       template: 'invite',
       onBeforeRun: function(){
         Session.set('inviteId', this.params._id);
@@ -63,6 +69,7 @@ AmplifiedSession = _.extend({}, Session, {
       template: 'home',
       onBeforeRun: function(){
         AmplifiedSession.set('selected', this.params._id);
+
       }
     });
 

@@ -2,7 +2,7 @@ Movies = new Meteor.Collection("movies");
 Comments = new Meteor.Collection("comments");
 Cinemas = new Meteor.Collection("cinemas");
 CinemaDistances = new Meteor.Collection('cinemaDistances');
-Invites = new Meteor.Collection('invites');
+
 
 
 
@@ -62,6 +62,8 @@ friendsAttendingMovie = function (movie) {
 getFriends = function(){
 	var friendsArr = [];
 	var friends = Meteor.user().friends;
+
+
 	if(friends){
 		if(friends instanceof Array){
 			friendsArr = friends;
@@ -69,7 +71,7 @@ getFriends = function(){
 			friendsArr.push(friends);
 		}
 	}	
-	return Meteor.users.find({_in: {$in: friendsArr } });
+	return Meteor.users.find({_id: {$in: friendsArr } });
 }
 
 displayName = function (user) {
