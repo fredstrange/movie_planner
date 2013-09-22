@@ -13,19 +13,22 @@ Meteor.publish("cinemas", function () {
 
 Meteor.publish("userData", function () {
 	if(!Meteor.users.findOne({_id: this.userId})) return;
-	var fromUser = Meteor.users.findOne({_id: this.userId},  {fields: {'friends': 1, 'profile': 1}} ).friends;
+	var fromUser = Meteor.users.findOne({_id: this.userId},  {fields: {'friends': 1, 'profile': 1 }} ).friends;
 	var friends =(fromUser) ? fromUser : [];
 	friends.push(this.userId);
 
-  	return Meteor.users.find({_id: {$in: friends}}, {fields: {'friends': 1, 'profile': 1}});                          
+  	return Meteor.users.find({_id: {$in: friends}}, {fields: {'friends': 1, 'profile': 1, 'services':1}});                          
 });
 
+/*
+Meteor.publish('invitations', function(){
+	var user = Meteor.users.findOne({_id: this.userId})
+	if(!user) return;
+	return Invitations.find({})
+});
+*/
 
 Meteor.methods({
-	
-	test: function(){
-		return "Bong!";
-	},
 
 	userImage: function(){
 		var user, imageURL, id;
@@ -44,13 +47,59 @@ Meteor.methods({
 			
 		}
 
-
-
-
 		return imageURL;
-	}
+	},
 
+	getinvite: function(id){
+		return invitation = Invitations.findOne({_id: id});
+	},
+
+	registerInvite: function(from, to, message){
+		var invite = {
+			status: "pending",
+			message: (to.message) ?  to.message : "You'r friend, " + from.profile.name + ' would like to share his film festival movies with you.',
+			from: {
+				id: from._id,
+				name: from.profile.name
+			}
+		};
+
+		invite.to = {
+			email: (to.email) ?  to.email : void 0,
+		};
+
+		if(to.service){
+			invite.to.service = {
+				type: to.service.type,
+				id: to.service.id
+			};
+		}
+
+		console.log(invite)
+
+		return Invites.insert(invite);
+	},
+
+	acceptInvite: function(id){
+		Invites.update({_id:id}, {$set: {status:'yes'}});
+		var invite = Invites.findOne({_id:id});
+	//	Users.update()
+
+
+	},
+
+	rejectInvite: function(id){
+		Invites.update({_id:id}, {$set: {status:'no'}});
+	}
 });
+
+
+
+
+
+
+
+
 
 
 /*
@@ -60,7 +109,10 @@ Schema for internal referance.
 Movie = {
 	title: string,
 	description: string,
-	Cinema: string,
+	Cinema: {
+		name:string,
+		id:string
+	},
 	time: unix timestamp,
 	trailer: string (url),
 	duration: number,
@@ -98,6 +150,22 @@ Cimena = {
 		distance: number (distance in meters),
 		time: Number (time to walk to the cinema)
 	}]
+}
+
+Invitation = {
+	from: {
+		id: string (id),
+		name: string
+	},
+	to: {
+		email: string,
+		service: {
+			type: string (google, facebook, twitter, native),
+			id: string	(id)
+		}
+	},
+	status: string (pending, yes, no),
+	message: string,
 }
 
 */

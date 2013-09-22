@@ -2,6 +2,8 @@ var log = function(msg){
   console.log(msg);
 }
 
+Meteor.sff = {};
+
 Meteor.subscribe("movies");
 Meteor.subscribe("comments");
 Meteor.subscribe("cinemas");
@@ -34,7 +36,6 @@ AmplifiedSession = _.extend({}, Session, {
   })
 
 
-
   Router.map(function() { 
     this.route('home', {
       path: '/', 
@@ -49,6 +50,14 @@ AmplifiedSession = _.extend({}, Session, {
     this.route('schedule');
     this.route('adminView');
 
+    this.route('invite', {
+      path: '/:_id', 
+      template: 'invite',
+      onBeforeRun: function(){
+        Session.set('inviteId', this.params._id);
+      }
+    });
+
     this.route('movie', {
       path: '/:_id', 
       template: 'home',
@@ -56,7 +65,6 @@ AmplifiedSession = _.extend({}, Session, {
         AmplifiedSession.set('selected', this.params._id);
       }
     });
-
 
   });
 
@@ -68,40 +76,44 @@ AmplifiedSession = _.extend({}, Session, {
 
 
 
-Template.movieList.movies = function () {
-  return Movies.find({});
-};
+//****************************************
+//******** Global Methods ****************
+//****************************************
 
 
 
-
-
-
-Template.profile.events({
-  'click .saveProfileBtn' : function(){
-      var username = $('#username').val();
-      var email = $('#email').val();
-
-      Meteor.users.update(this._id, {$set:{'profile.name': username}});
+Meteor.sff.userService = function(){
+  var user = Meteor.user();
+  if(user && user.services){
+    if(user.services.twitter){
+      return "twitter";
+    }else if(user.services.facebook){
+      return "facebook";
+    }else if (user.services.google){
+      return "google";
+    }else{
+      return "native";
+    }
+    
+  }else{
+    return "";
   }
+}
+
+//****************************************
+//******** Account stuff *****************
+//****************************************
+
+
+Accounts.ui.config({
+  requestPermissions: {
+    facebook: []
+  },
+  requestOfflineToken: {
+    google: true
+  },
+  passwordSignupFields: 'USERNAME_AND_OPTIONAL_EMAIL'
 });
-
-
-Template.profile.friendsName = function(){
-  var user = Meteor.users.findOne(this.toString());
-  return displayName(user);
-};
-
-
-
-
-
-
-
-
-
-
-
 
 
 

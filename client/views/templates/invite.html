@@ -1,0 +1,19 @@
+<template name="invite">
+	<div class="page-wrapper">
+		<div>
+			You have recieved an Friend request from {{from.name}}. Friends can see each others movies and can send direct messages to each other.
+		</div>
+		 
+	{{#if currentUser}}
+		Accept friend request? 
+		<button class="btn btn-success">YES</button>
+		<button class="btn btn-danger">NO</button>
+	{{else}}
+		<div>
+			You have to be logged in to accept the Friend request. Log in with you movie planner account or register a new account to start planning you movies. 
+		</div>
+		
+	{{/if}}
+	</div>
+	
+</template>

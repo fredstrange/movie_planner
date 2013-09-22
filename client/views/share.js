@@ -2,7 +2,7 @@ Template.share.events({
   'click .fbShare': function () {
 
     window.open(
-      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href + '/' + this._id), 
+      'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(location.href + '/' + this._id), 
       'facebook-share-dialog', 
       'width=626,height=436'); 
     return false;
@@ -20,9 +20,9 @@ Template.share.events({
   'click .gplusShare': function () {
 
     window.open(
-      'https://plus.google.com/share?url='+encodeURIComponent(location.href + '/' + this._id), 
+      'https://plus.google.com/share?url=' + encodeURIComponent(location.href + '/' + this._id), 
       'google-plus-share-dialog', 
       'width=626,height=436'); 
     return false;
   }
-})
+});

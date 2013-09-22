@@ -1,0 +1,40 @@
+<template name="profile">
+    <div id="profile-wrapper">
+        {{#if currentUser}}
+        {{#with currentUser}}
+
+          {{#if isNative}}
+            {{> nativeProfile}}
+          {{else}}
+
+            <div id="username">{{name}}</div>
+
+           {{#if isTwitter}}
+            {{> twitterProfile}}
+           {{/if}}
+
+           {{#if isFacebook}}
+            {{> fbProfile}}
+           {{/if}}
+
+           {{#if isGoogle}}
+            {{> gplusProfile}}
+           {{/if}}
+
+          {{/if}} {{! End isNative if.}}
+
+          <img src="{{userImage}}">
+
+          <div class="friendsInvite">
+            <p>Send a friend invite</p>
+            <input id="inviteEmail" type="email" placeholder="you friends email" value="">
+            <input id="inviteMessage" type="text" placeholder="Write a message">
+            <button id="inviteSubmit" class="btn btn-info">Send Request</button>
+          </div>
+        {{/with}}
+
+      {{else}}
+        You have to log in to edit your profile. 
+      {{/if}}
+    </div>
+</template>

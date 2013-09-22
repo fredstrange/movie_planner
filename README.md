@@ -11,12 +11,12 @@ Todo
 ** List friends 
 ** Invite friends
 ** direct messages to friends
-* Post on Twitter, Facebook and G+
+* ~~Post on Twitter, Facebook and G+~~
 * Profile page
 ** Fix the native user account
 ** Profile picture
 * Dedicated mobile ui
-* Flaging commments
+* Flagging commments
 * Admin page
 * Clean up UI
 * Dedicated "My program" page

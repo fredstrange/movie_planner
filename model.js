@@ -2,6 +2,7 @@ Movies = new Meteor.Collection("movies");
 Comments = new Meteor.Collection("comments");
 Cinemas = new Meteor.Collection("cinemas");
 CinemaDistances = new Meteor.Collection('cinemaDistances');
+Invites = new Meteor.Collection('invites');
 
 
 
@@ -331,6 +332,9 @@ if (Meteor.isServer) {
 	 //  recalibrateMovies();
 
 	});
+
+
+
 }
 
 
@@ -361,6 +365,8 @@ Accounts.createUser = _.wrap(Accounts.createUser, function(createUser) {
 
     createUser(user, newCallback);
 });
+
+
 
 /*
 Meteor.loginWithPassword = _.wrap(Meteor.loginWithPassword, function(login) {
