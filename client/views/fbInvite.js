@@ -39,10 +39,11 @@ Template.fbInvite.events({
 		console.log(friendId);		
 
 		Meteor.call('getFacebookAppId', function(err, res){
+			var rootURL = (location.host == 'localhost:3000')? 'www.filmfestplanner.com' : location.host;
 			var url = 'https://www.facebook.com/dialog/send?' +
 				'&app_id=' + res + 
 				'&to=' + friendId +
-				'&link=' + encodeURIComponent(location.href + '/invite/' + Meteor.userId()) +
+				'&link=' + 'http://' + rootURL + '/invite/' + Meteor.userId() +
 	//			'&link=' +  'http://www.filmfestplanner.com/invite' + '/' + Meteor.userId() +
 				'&redirect_uri=' + location.href;
 			console.log(url);
