@@ -47,6 +47,15 @@ AmplifiedSession = _.extend({}, Session, {
     });
 
     this.route('profile');
+    this.route('profile', {
+      path: '/profile/:_id',
+      data: function(){
+        return Meteor.users.findOne({_id: this.params._id});
+      },
+      onBeforeRun: function(){
+        Session.set('profileId', this.params._id);
+      }
+    });
     this.route('adminView');
     this.route('schedule');
     this.route('schedule', {
@@ -110,19 +119,6 @@ Meteor.sff.userService = function(){
 //****************************************
 //******** Account stuff *****************
 //****************************************
-
-
-Accounts.ui.config({
-  requestPermissions: {
-    facebook: []
-  },
-  requestOfflineToken: {
-    google: true
-  },
-  passwordSignupFields: 'USERNAME_AND_OPTIONAL_EMAIL'
-});
-
-
 
 
 if (Meteor.isServer) {

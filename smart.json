@@ -4,6 +4,8 @@
     "bootstrap-3": {},
     "moment-alternative": {},
     "npm": {},
-    "font-awesome": {}
+    "font-awesome": {},
+    "belt-gravatar": {},
+    "select2": {}
   }
 }

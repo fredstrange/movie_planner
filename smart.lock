@@ -6,7 +6,9 @@
       "bootstrap-3": {},
       "moment-alternative": {},
       "npm": {},
-      "font-awesome": {}
+      "font-awesome": {},
+      "belt-gravatar": {},
+      "select2": {}
     },
     "packages": {
       "iron-router": {
@@ -33,6 +35,21 @@
         "git": "https://github.com/nate-strauser/meteor-font-awesome.git",
         "tag": "v3.2.1",
         "commit": "38bdfff72dfb8857b272f9a9b056045d6a015489"
+      },
+      "belt-gravatar": {
+        "git": "https://github.com/meteorbelt/belt-gravatar.git",
+        "tag": "v0.2.0",
+        "commit": "2037bd36d2719f08465870e2d8f9e715c2c78faa"
+      },
+      "select2": {
+        "git": "https://github.com/nate-strauser/meteor-select2.git",
+        "tag": "v3.4.3",
+        "commit": "fbe1f33800c90ecdfdcec529970382f8781e3988"
+      },
+      "belt-md5": {
+        "git": "https://github.com/meteorbelt/belt-md5.git",
+        "tag": "v0.2.0",
+        "commit": "20890dc42c6866ca826fdf65d14c801164b597cd"
       }
     }
   }

@@ -7,9 +7,9 @@ A web application for planning movies at the Stockholm Film festival.
 Todo
 ===============
 
-* Friends
-** List friends 
-** Invite friends
+* ~~Friends~~
+** ~~List friends ~~
+** ~~Invite friends~~
 ** direct messages to friends
 * ~~Post on Twitter, Facebook and G+~~
 * Profile page
@@ -19,5 +19,5 @@ Todo
 * Flagging commments
 * Admin page
 * Clean up UI
-* Dedicated "My program" page
+* ~~Dedicated "My program" page~~
 * ~~path to movie~~

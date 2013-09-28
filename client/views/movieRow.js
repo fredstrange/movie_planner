@@ -1,4 +1,3 @@
-if (Meteor.isClient) {
 
 var isClashing = function(that){
     if(that.clashing){
@@ -119,9 +118,5 @@ Template.movieRow.rendered = function(){
 	$('.movieRowDetails .description').height(60);
   	$('.movieRowDetails .more').show();
  	$('.movieRowDetails .less').hide();*/
-}
+};
 
-
-
-
-}

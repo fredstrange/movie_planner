@@ -15,7 +15,10 @@ Template.profile.userImage = function(){
 };
 
 Template.profile.rendered = function(){
-	Meteor.call('userImage', function(err, uri){
+  var id = Session.get('profileId'); 
+  id = (id)? id : Meteor.userId();
+
+	Meteor.call('userImage', id, function(err, uri){
 		Session.set('userImage', uri); 
 	});
 

@@ -1,5 +1,9 @@
 <template name="profile">
     <div id="profile-wrapper">
+      {{#if _id}} <!-- checks to see if this is an external profile. -->
+        <div id="username">{{profile.name}}</div>
+        <img src="{{userImage _id}}">
+      {{else}} <!-- If not, check for current user -->
         {{#if currentUser}}
         {{#with currentUser}}
 
@@ -7,7 +11,7 @@
             {{> nativeProfile}}
           {{else}}
 
-            <div id="username">{{name}}</div>
+            <div id="username">{{profile.name}}</div>
 
            {{#if isTwitter}}
             {{> twitterProfile}}
@@ -21,10 +25,13 @@
             {{> gplusProfile}}
            {{/if}}
 
-          {{/if}} {{! End isNative if.}}
+          {{/if}} <!-- End isNative if -->
+            <img src="{{userImage}}">
 
-          <img src="{{userImage}}">
 
+          <div>
+            <h2>My Friends</h2>
+          </div>
           <div class="friendsInvite">
             <p>Send a friend invite</p>
             <input id="inviteEmail" type="email" placeholder="you friends email" value="">
@@ -32,13 +39,27 @@
             <button id="inviteSubmit" class="btn btn-info">Send Request</button>
           </div>
 
-          {{#each myFriends}}
-            <a href="/schedule/{{_id}}"> {{displayName}}</a>
-          {{/each}}
-        {{/with}}        
+          {{#if isFacebook}}
+            {{> fbInvite}}
+           {{/if}}
 
-      {{else}}
+
+          {{#each myFriends}}
+            <div>
+              <span>{{displayName}}: </span>
+              <span>
+                <a href="/profile/{{_id}}"> <i class="icon-user"> Profile</i></a>
+              </span>
+              <span>
+                <a href="/schedule/{{_id}}">  <i class="icon-list-ul"> Schedule</i></a>
+              </span>
+            </div>
+          {{/each}}
+        {{/with}}  <!-- End with Current User -->
+
+      {{else}} <!-- If not current user -->
         You have to log in to edit your profile. 
-      {{/if}}
+      {{/if}} <!-- End if current user.  -->
+      {{/if}} <!-- End is external profile. -->
     </div>
 </template>
