@@ -28,17 +28,12 @@ Meteor.publish("userData", function () {
 
 Meteor.methods({
 
-	userImage: function(userId){
+	userImage: function(userId, host){
 		var user, imageURL, id, params;
 
 		id = (userId)? userId : Meteor.userId(); 
 		user = Meteor.users.findOne({ _id: id });
-		params = {
-				  secure: false, // https ?
-				  d: encodeURIComponent('http://movieplanner.freds-dead.com'), 
-				  s: 200, // size
-				  r: 'pg' // rating
-				};
+		
 		if(user && user.services){
 
 			if(user.services.twitter){
@@ -48,6 +43,14 @@ Meteor.methods({
 			}else if (user.services.google){
 				imageURL = "https://plus.google.com/s2/photos/profile/" + user.services.google.id + "?sz=200";
 			}else{
+				var defaultHost = (host == 'localhost:3000')? 'filmfestplanner.com' : host;
+
+				params = {
+					secure: false, // https ?
+					d: encodeURIComponent('http://' + defaultHost + '/default.png'), 
+					s: 200, // size
+					r: 'pg' // rating
+				};
 				imageURL = Gravatar.urlFromEmail(user.emails[0].address, params);	
 			}
 

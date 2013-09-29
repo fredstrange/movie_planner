@@ -1,0 +1,26 @@
+<template name="message">
+	<div class="message-wrapper {{unread}}">
+	
+		<div class="message-header row">
+			<span class="message-from col-md-8">From: <a href="/profile/{{from.id}}">{{from.name}}</a></span>
+			<div class="col-md-4 text-right">
+				{{#if unread}}
+					<button class="message-mark-as-read-btn btn ">Mark as read</button>
+				{{else}}
+					<button class="message-mark-as-unread-btn btn ">Mark as unread</button>
+				{{/if}}
+			</div>
+			
+		</div>	
+		<div><span class="created-ago">Recieved: {{createdAgo}}</span></div>
+		<div>
+			
+		</div>
+		<div class="message-header">
+			{{subject}}
+		</div>
+		<div>
+			{{message}}
+		</div>
+	</div>
+</template>

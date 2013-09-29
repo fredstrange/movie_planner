@@ -3,6 +3,11 @@
       {{#if _id}} <!-- checks to see if this is an external profile. -->
         <div id="username">{{profile.name}}</div>
         <img src="{{userImage _id}}">
+        <div>
+          <span>
+            <a href="/schedule/{{_id}}"><i class="icon-list-ul"> Schedule</i></a>
+          </span>
+        </div>
       {{else}} <!-- If not, check for current user -->
         {{#if currentUser}}
         {{#with currentUser}}

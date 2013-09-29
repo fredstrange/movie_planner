@@ -76,16 +76,8 @@ var sendMessage = function (fromId, toEmail, msg, inviteId) {
   });
 };
 
-
-
-Meteor.methods({
-	getInvite: function(id){
-		console.log(id)
-		return invitation = Invites.findOne({_id: id});
-	},
-
-	registerInvite: function(from, to, message){
-		var invite = {
+var registerInvite = function(from, to){
+	var invite = {
 			status: "pending",
 			message: (to.message) ?  to.message : "You'r friend, " + from.profile.name + ' would like to share his film festival movies with you.',
 			from: {
@@ -107,11 +99,29 @@ Meteor.methods({
 
 		var id = Invites.insert(invite);
 		invite._id = id;
-		console.log(invite)
+		console.log(invite);
+		return invite;	
 
+
+}
+
+
+
+Meteor.methods({
+	getInvite: function(id){
+		console.log(id)
+		return invitation = Invites.findOne({_id: id});
+	},
+
+	registerInvite: function(from, to){
+		var invite = registerInvite(from, to);
 		sendInviteEmail(invite);
-
 		return true; 
+	},
+
+	registerExternalInvite: function(from, to){
+		registerInvite(from, to);
+		return true;
 	},
 
 	acceptInvite: function(inviteId, friendId){

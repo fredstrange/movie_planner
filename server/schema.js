@@ -66,4 +66,23 @@ Invitation = {
 	message: string,
 }
 
+Message = {
+	to: {
+		id: string (id),
+		name: string
+	},
+	from: {
+		id: string (id),
+		name: string
+	},
+	parentId: string (id),
+	subject: string,
+	message: string,
+	hasRead: boolean,
+	created: timestamp
+}
+
+
+
+
 */

@@ -16,9 +16,10 @@
               <li class="{{active '/schedule'}}"><a href="/schedule"><i class="icon-calendar"></i> My Schedule</a></li>
               {{#if currentUser}}
               <li class="{{active '/profile'}}"><a href="/profile"><i class="icon-user"></i> Profile</a></li>
+              <li><a id="message-btn" href="/messages"><i class="icon-envelope"></i> {{numNewMessages}}</a></li>
               {{/if}}
             </ul>
-
+            
             <!--
             <form class="navbar-form navbar-left" role="search">
               <div class="form-group">

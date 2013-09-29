@@ -2,6 +2,7 @@ Movies = new Meteor.Collection("movies");
 Comments = new Meteor.Collection("comments");
 Cinemas = new Meteor.Collection("cinemas");
 CinemaDistances = new Meteor.Collection('cinemaDistances');
+Messages = new Meteor.Collection('messages');
 
 
 
@@ -9,10 +10,10 @@ CinemaDistances = new Meteor.Collection('cinemaDistances');
 
 Movies.allow({
   insert: function (userId, movie) {
-    return false; // no cowboy inserts -- use createParty method
+    return false; 
   },  
   remove: function (userId, movie) {
-    return false; // no cowboy inserts -- use createParty method
+    return false; 
   },
   update: function(userId, movie){
   	return true;
@@ -21,10 +22,10 @@ Movies.allow({
 
 Cinemas.allow({
   insert: function (userId, movie) {
-    return true; // no cowboy inserts -- use createParty method
-  },  
+    return true; 
+  },  	
   remove: function (userId, movie) {
-    return false; // no cowboy inserts -- use createParty method
+    return false; 
   },
   update: function(userId, movie){
   	return true;
@@ -32,6 +33,18 @@ Cinemas.allow({
 });
 
 Comments.allow({
+  insert: function (userId, comment) {
+    return true; 
+  },  
+  remove: function (userId, comment) {
+    return false; 
+  },
+  update: function(userId, comment){
+  	return true;
+  }
+});
+
+Messages.allow({
   insert: function (userId, comment) {
     return true; // no cowboy inserts -- use createParty method
   },  
@@ -42,6 +55,8 @@ Comments.allow({
   	return true;
   }
 });
+
+
 
 
 
@@ -390,3 +405,4 @@ Meteor.loginWithPassword = _.wrap(Meteor.loginWithPassword, function(login) {
 
 });
 */
+

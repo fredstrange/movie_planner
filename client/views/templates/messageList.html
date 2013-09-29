@@ -1,0 +1,11 @@
+<template name="messageList">
+	<div class="page-wrapper">
+		<h3>Send Message</h3>
+		{{> messageForm}}
+
+		<h3>My Messages</h3>
+		{{#each messages}}
+			{{> message}}
+		{{/each}}
+	</div>
+</template>

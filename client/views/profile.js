@@ -1,13 +1,14 @@
 var sendInvitation = function(email, message){
-  var from = {
-    email: email
-  }
+  var to = {
+    email: email,
+    message: message
+  };
 
-  Meteor.call('registerInvite', Meteor.user(), from, message, function(err, rtn){
+  Meteor.call('registerInvite', Meteor.user(), to, function(err, rtn){
     console.log(err); 
     console.log(rtn); 
-  })
-}
+  });
+};
 
 
 Template.profile.userImage = function(){
@@ -15,10 +16,13 @@ Template.profile.userImage = function(){
 };
 
 Template.profile.rendered = function(){
+
+
+
   var id = Session.get('profileId'); 
   id = (id)? id : Meteor.userId();
 
-	Meteor.call('userImage', id, function(err, uri){
+	Meteor.call('userImage', id, location.host, function(err, uri){
 		Session.set('userImage', uri); 
 	});
 
