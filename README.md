@@ -10,11 +10,11 @@ Todo
 * ~~Friends~~
 ** ~~List friends ~~
 ** ~~Invite friends~~
-** direct messages to friends
+** ~~direct messages to friends~~
 * ~~Post on Twitter, Facebook and G+~~
 * Profile page
-** Fix the native user account
-** Profile picture
+** ~~Fix the native user account~~
+** Profile picture - Needs to update link url 
 * Dedicated mobile ui
 * Flagging commments
 * Admin page
