@@ -21,6 +21,12 @@
 
 @pageMargin: 20px;
 
+@extraSmall-min: 300px;
+@small-min: 530px; 
+@mid-min: 720px;
+@large-min: 1080px;
+
+
 /**********************
 ******* Mix-ins *******
 ***********************/
@@ -261,5 +267,37 @@ body{
 .message-wrapper.unread{
 	background: #D7E8FF;
 }
+
+/******************************
+******* Conditional CSS *******
+*******************************/
+
+
+
+.navbar-title{
+	display: inline;
+}
+
+.movie-row-details-container{
+		display: none;
+	}
+
+@media (min-width: @small-min){
+	.navbar-title{
+		display: none;
+	}
+
+}
+
+@media (min-width: @mid-min){
+	.navbar-title{
+		display: inline;
+	}
+
+	.movie-row-details-container{
+		display: inline;
+	}
+}
+
 
 

@@ -5,9 +5,5 @@ Template.header.helpers({
 	}
 });
 
+Template.header.events({});
 
-Template.header.events({
-	'click #message-btn': function(event, tmpl){
-		console.log("clicked messages");
-	}
-})
