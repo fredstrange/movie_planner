@@ -67,28 +67,40 @@ Template.movieRow.helpers({
 
 
 Template.movieRow.events({
-    'click .movieRow' : function (event, tmpl) {
+    'click  .movieRow' : function (event, tmpl) {
 
         var id = event.currentTarget.id;
 
-        history.pushState({},"test Page", id);
-
-        $('.movieRowDetails').hide(300);
-        if(AmplifiedSession.equals('selected', id) && AmplifiedSession.equals('rowExpanded', true)){
-        	AmplifiedSession.set('rowExpanded', false); 
-    //        AmplifiedSession.set("selected", '');
-        	return;
-        } 
+                
+            history.pushState({},"Movie Page", '/movies/' + id);
         
-
-        $('#movieRowDetails-' + id).show(300, function(){
+        if(Meteor.sff.isCompressed()){
             AmplifiedSession.set("selected", id);
-            AmplifiedSession.set("rowExpanded", true);
-        });
+        }else{
+
+            $('.movieRowDetails').hide(300);
+            if(AmplifiedSession.equals('selected', id) && AmplifiedSession.equals('rowExpanded', true)){
+                AmplifiedSession.set('rowExpanded', false); 
+        //        AmplifiedSession.set("selected", '');
+                return;
+            } 
+
+
+           $('#movieRowDetails-' + id).show(300, function(){
+                AmplifiedSession.set("selected", id);
+                AmplifiedSession.set("rowExpanded", true);
+            }); 
+        }
+
+        
+        /*
         $this.find('.description').height(60);
         $this.find('.more').show();
         $this.find('.less').hide();
 
+        console.log('movie row clicked. ')
+        console.log($this)
+*/
         return false;
     }
 });

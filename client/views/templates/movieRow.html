@@ -1,5 +1,4 @@
 <template name="movieRow">
-{{test}}
     <div class="row movieRow {{goingRowColor}} {{isClashing}} {{isSelected}}" id="{{_id}}">
         <div class="movieTime col-md-1">{{startTime}}</div>
         <div class="movieTitle col-md-6">{{name}}</div>
@@ -21,6 +20,8 @@
 	        <div class="attending">Friends going: {{friendsAttending}}</div>
 	        <div class="numComments">Comments: {{numComments}}</div>
         </div>
-        {{> movieRowDetails}}
+        <div class="movie-row-details-container">
+        	{{> movieRowDetails}}
+        </div>
     </div>
 </template>

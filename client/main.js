@@ -28,11 +28,24 @@ AmplifiedSession = _.extend({}, Session, {
 
 
 
-  init = function(){
-    console.log('init');
-  }
+init = function(){
+  console.log('init');
+  $( window ).on( "orientationchange", function( event ) {
+    Session.set('orientation', event.orientation);
+    Session.set('width', $(window).width());
+    console.log('orientation has changed', event.orientation);
+  });
 
-  init();
+  $( window ).orientationchange();
+
+  $( window ).resize(function() {
+    var compressed = categorizr.isMobile || Session.equals('orientation', 'portrait') || ($(window).width() <= 720)
+    Session.set('isCompressed', compressed);
+    Session.set('width', $(window).width());
+  });
+}
+
+init();
 
 
 
@@ -85,10 +98,38 @@ if (Meteor.isServer) {
 
 
 // Get the current path for URL
-var curPath=function(){var c=window.location.pathname;var b=c.slice(0,-1);var a=c.slice(-1);if(b==""){return"/"}else{if(a=="/"){return b}else{return c}}};
+var curPath = function(){var c=window.location.pathname;var b=c.slice(0,-1);var a=c.slice(-1);if(b==""){return"/"}else{if(a=="/"){return b}else{return c}}};
+
 
 Handlebars.registerHelper('active', function(path) {
     return curPath() == path ? 'active' : '';
+});
+
+Handlebars.registerHelper('isTablet', function(asCss) {
+    if (asCss) return (categorizr.isTablet) ? 'isTablet' : '';
+    else return categorizr.isTablet;
+});
+
+Handlebars.registerHelper('isLandscape', function(asCss) {
+    if (asCss) return (Session.equals('orientation', 'landscape')) ? 'isLandscape' : 'isPortrait';
+    else return Session.equals('orientation', 'landscape');
+});
+
+Handlebars.registerHelper('isTabletLandscape', function() {
+    return categorizr.isTablet && Session.equals('orientation', 'landscape');
+});
+
+Handlebars.registerHelper('isMobile', function(asCss) {
+    if (asCss) return (categorizr.isMobile) ? 'isMobile' : '';
+    else return categorizr.isMobile;
+});
+
+Meteor.sff.isCompressed = function(){
+  return categorizr.isMobile || Session.equals('orientation', 'portrait') || ($(window).width() <= 720);
+}
+
+Handlebars.registerHelper('isCompressed', function() {
+    return Session.get('isCompressed');
 });
 
 

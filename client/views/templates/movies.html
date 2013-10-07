@@ -1,0 +1,18 @@
+<template name="movies">
+    <div id="pageWrapper" class="row"> 
+    	{{#if isCompressed}}
+    		{{#if isMovie}}
+    			{{> movieDetails}}
+    		{{else}}
+    			{{> movieList}}
+    		{{/if}}
+    	{{else}}
+	        <div id="listColumn" class="col-md-6 col-sm-6 col-xs-6">
+	            {{> movieList}}
+	        </div>
+	        <div id="" class="col-md-6 col-sm-6 col-xs-6">
+	            {{> movieDetails}}
+	        </div>
+    	{{/if}}
+    </div>
+</template>

@@ -18,7 +18,11 @@
       renderTemplates: {
         'footer': {to: 'footer'},
         'header': {to: 'header'}
+      },
+      onBeforeRun: function(){
+        AmplifiedSession.set('selected', '');
       }
+
     });
 
     this.route('profile');
@@ -74,11 +78,19 @@
       }
     });    
 
+    this.route('movies', {
+      path: '/movies', 
+      template: 'movies',
+      onBeforeRun: function(){
+        AmplifiedSession.set('selected', '');
+      }
+
+    });
 
     // Has to be last because it uses an id on the root address. 
-    this.route('movie', {
-      path: '/:_id', 
-      template: 'home',
+    this.route('movies', {
+      path: '/movies/:_id', 
+      template: 'movies',
       onBeforeRun: function(){
         AmplifiedSession.set('selected', this.params._id);
       }

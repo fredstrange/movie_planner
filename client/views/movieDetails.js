@@ -14,6 +14,9 @@ Template.movieDetails.maybeChosen = function (what) {
   return what == myAttendance.attending ? "chosen btn-inverse" : "";
 };
 
+Template.movieDetails.helpers({
+
+});
 
 
 
@@ -63,5 +66,10 @@ Template.movieDetails.events({
   'click .rsvp_no': function () {
     Meteor.call("attending", AmplifiedSession.get("selected"), "no");
     return false;
+  },
+
+  'click, tap .movie-back-btn': function(event, tmpl){
+    history.pushState({},"Movie Page", '/movies');
+    AmplifiedSession.set('selected', '');
   }
 });

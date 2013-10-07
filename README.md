@@ -21,3 +21,6 @@ Todo
 * Clean up UI
 * ~~Dedicated "My program" page~~
 * ~~path to movie~~
+
+
+*Set the position when navigating back and forth in movie list. 

@@ -1,6 +1,11 @@
 <template name="movieDetails">
+    <div id="detailsColumn">
+        
     {{#if movie}}
     {{#with movie}}
+        {{#if isCompressed}}
+            <button class="btn btn-info movie-back-btn">Back</button>
+        {{/if}}
     <div class="row">
         <div class="movieDetails" id="{{_id}}">
             <div class="span5 movieTitle" >Title: {{name}}</div>
@@ -51,4 +56,5 @@
   {{else}}
     Welcome to the FilmFest Planner.  
   {{/if}}
+    </div>
 </template>
