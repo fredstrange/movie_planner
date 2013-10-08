@@ -8,7 +8,6 @@ preserve-inputs
 accounts-password
 accounts-ui
 iron-router
-bootstrap-3
 amplify
 scroll-to-fixed
 moment-alternative
@@ -23,3 +22,4 @@ belt-gravatar
 select2
 jquery-mobile-custom
 categorizr
+bootstrap-3
