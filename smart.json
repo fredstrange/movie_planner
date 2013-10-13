@@ -6,6 +6,7 @@
     "font-awesome": {},
     "belt-gravatar": {},
     "select2": {},
-    "bootstrap-3": {}
+    "bootstrap-3": {},
+    "modernizr-meteor": {}
   }
 }
