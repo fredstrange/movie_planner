@@ -23,7 +23,14 @@ AmplifiedSession = _.extend({}, Session, {
 });
 
 
-
+var setOverflowable = function(){
+  var compressed = Session.get('isCompressed');
+  if(compressed){
+      $('html').removeClass('overflowable');
+    }else{
+      $('html').addClass('overflowable');
+    }
+}
 
 
 
@@ -31,21 +38,31 @@ AmplifiedSession = _.extend({}, Session, {
 init = function(){
   console.log('init');
   $( window ).on( "orientationchange", function( event ) {
-    Session.set('orientation', event.orientation);
+    var winWidth = $(window).width();
+    var winHeight = $(window).height();
+    var orientation = (winHeight < winWidth)? 'landscape' : 'portrait';
+
+    Session.set('orientation', orientation);
     Session.set('width', $(window).width());
-    console.log('orientation has changed', event.orientation);
+//    console.log('orientation has changed', event.orientation);
   });
 
   $( window ).orientationchange();
 
   $( window ).resize(function() {
-    var compressed = categorizr.isMobile || Session.equals('orientation', 'portrait') || ($(window).width() <= 720)
+
+    var compressed = (categorizr.isMobile || categorizr.isTablet || Session.equals('orientation', 'portrait') || ($(window).width() <= 720));
     Session.set('isCompressed', compressed);
     Session.set('width', $(window).width());
+
+    setOverflowable();
   });
+
 }
 
+
 init();
+setOverflowable();
 
 
 
@@ -125,7 +142,7 @@ Handlebars.registerHelper('isMobile', function(asCss) {
 });
 
 Meteor.sff.isCompressed = function(){
-  return categorizr.isMobile || Session.equals('orientation', 'portrait') || ($(window).width() <= 720);
+  return (categorizr.isMobile || categorizr.isTablet || Session.equals('orientation', 'portrait') || ($(window).width() <= 720));
 }
 
 Handlebars.registerHelper('isCompressed', function() {

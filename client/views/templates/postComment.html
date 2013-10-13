@@ -1,13 +1,13 @@
 <template name="postcomment">
     <div class="post-comment row">
-    	<div class="col-md-12">
+    	<div class="col-md-12 col-sm-12">
 	        <div class="comment-label">Comment</div>  
-	        <textarea class="comment-post-body cole-md-offset-2 col-md-8" name="body"></textarea>
+	        <textarea class="comment-post-body col-md-12 col-sm-12" name="body"></textarea>
 	        {{#if parentid}}
 	        <input type="hidden" class="comment-parnetid" value="{{parentid}}" >
 	        {{/if}}
 	        <div class="clearfix"></div>
-	        <button class="comment-submit">Post Comment</button> 
+	        <button class="btn btn-info comment-submit">Post Comment</button> 
     	</div>
     </div>
 </template>

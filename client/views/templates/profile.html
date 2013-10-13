@@ -1,5 +1,5 @@
 <template name="profile">
-    <div id="profile-wrapper">
+    <div id="profile-wrapper" class="scrollable">
       {{#if _id}} <!-- checks to see if this is an external profile. -->
         <div id="username">{{profile.name}}</div>
         <img src="{{userImage _id}}">

@@ -27,7 +27,9 @@ Template.movieRow.helpers({
 
     startTime: function(a, b){
         var d = new Date(this.time * 1000);
-        return d.getHours() + ':' + d.getMinutes();//moment.unix(this.time).format("ddd, hh:mm");
+        var h = (d.getHours() < 10)?  "0" + d.getHours() : d.getHours();
+        var m = (d.getMinutes() < 10)?  "0" + d.getMinutes() : d.getMinutes();
+        return h + ':' + m;
     },
 
     goingRowColor: function(){
@@ -65,14 +67,61 @@ Template.movieRow.helpers({
 });
 
 
+if(categorizr.isMobile, categorizr.isTablet){
+    Template.movieRow.events({
+        'tap  .movieRow' : function (event, tmpl) {
+
+            var id = event.currentTarget.id;
+            history.pushState({},"Movie Page", '/movies/' + id);
+            AmplifiedSession.set("selected", id);
+            
+            return false;
+        }
+    });
+}else{
+    Template.movieRow.events({
+    'click  .movieRow' : function (event, tmpl) {
+
+        var id = event.currentTarget.id;
+        history.pushState({},"Movie Page", '/movies/' + id);
+        
+        if(Meteor.sff.isCompressed()){
+            AmplifiedSession.set("selected", id);
+        }else{
+
+            $('.movieRowDetails').hide(300);
+            if(AmplifiedSession.equals('selected', id) && AmplifiedSession.equals('rowExpanded', true)){
+                AmplifiedSession.set('rowExpanded', false); 
+        //        AmplifiedSession.set("selected", '');
+                return;
+            } 
+
+
+           $('#movieRowDetails-' + id).show(300, function(){
+                AmplifiedSession.set("selected", id);
+                AmplifiedSession.set("rowExpanded", true);
+            }); 
+        }
+
+        
+        /*
+        $this.find('.description').height(60);
+        $this.find('.more').show();
+        $this.find('.less').hide();
+
+        console.log('movie row clicked. ')
+        console.log($this)
+*/
+        return false;
+    }
+});
+}
 
 Template.movieRow.events({
     'click  .movieRow' : function (event, tmpl) {
 
         var id = event.currentTarget.id;
-
-                
-            history.pushState({},"Movie Page", '/movies/' + id);
+        history.pushState({},"Movie Page", '/movies/' + id);
         
         if(Meteor.sff.isCompressed()){
             AmplifiedSession.set("selected", id);

@@ -39,8 +39,8 @@ User = {
 Cimena = {
 	name: string,
 	coordinates: {
-		x: number,
-		y: number
+		lat: number,
+		lng: number
 	},
 	distances: [{
 		cinema: string (cinema id),
