@@ -26,4 +26,8 @@ Template.scheduleRow.helpers({
 	map: function(){
 		console.log(this);
 	}
-})
+});
+
+Template.scheduleRow.rendered = function(){
+	$(window).scrollTop(0);
+}

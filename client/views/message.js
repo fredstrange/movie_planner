@@ -24,6 +24,8 @@ Template.message.rendered = function(){
 		Session.set('unread_' + this.data._id, true);
 		//Messages.update({_id: this.data._id}, {$set: {hasRead: true}}); 
 	}
+
+	$(window).scrollTop(0);
 }
 
 

@@ -1,9 +1,9 @@
 <template name="movieRow">
     <div class="row movieRow {{goingRowColor}} {{isClashing}} {{isSelected}}" id="{{_id}}">
-        <div class="movieTime col-md-1">{{startTime}}</div>
-        <div class="movieTitle col-md-6">{{name}}</div>
-        <div class="movieCinema col-md-3 text-right"><span class="">{{cinema.name}}</span></div>
-        <div class="col-md-2 text-right">
+        <div class="movieTime col-md-1 col-sm-1 col-xs-1">{{startTime}}</div>
+        <div class="movieTitle col-md-6 col-md-3 col-xs-6">{{name}}</div>
+        <div class="movieCinema col-md-3 col-sm-3 col-xs-3 text-right"><span class="">{{cinema.name}}</span></div>
+        <div class="col-md-2 col-sm-2 col-xs-2 text-right">
 			{{#if isGoingIcon}}
 				<span class="glyphicon {{isGoingIcon}}"></span>
 			{{/if}}
@@ -16,12 +16,10 @@
 			
         <div class="extra-movie-row-details">
 	        <div class="movieType col-md-6">Categories: {{type}}</div>
-	        <div class="attending">Total going: {{attending}}</div>
-	        <div class="attending">Friends going: {{friendsAttending}}</div>
-	        <div class="numComments">Comments: {{numComments}}</div>
+	        <div class="attending col-md-6">Total going: {{attending}}</div>
+	        <div class="attending col-md-6">Friends going: {{friendsAttending}}</div>
+	        <div class="numComments col-md-6">Comments: {{numComments}}</div>
         </div>
-        <div class="movie-row-details-container">
-        	{{> movieRowDetails}}
-        </div>
+
     </div>
 </template>

@@ -66,7 +66,24 @@ Template.movieRow.helpers({
 
 });
 
+Template.movieRow.events({
+    'click  .movieRow, tap .movieRow' : function (event, tmpl) {
 
+        var id = event.currentTarget.id;
+        history.pushState({},"Movie Page", '/movies/' + id);
+        AmplifiedSession.set("selected", id);
+
+        if(Session.equals('isCompressed', true)){
+            Session.set('movieListScroll', $(window).scrollTop());
+            $(window).scrollTop(0);
+        }
+
+        return false;
+    }
+});
+
+
+/*
 if(categorizr.isMobile, categorizr.isTablet){
     Template.movieRow.events({
         'tap  .movieRow' : function (event, tmpl) {
@@ -85,6 +102,8 @@ if(categorizr.isMobile, categorizr.isTablet){
         var id = event.currentTarget.id;
         history.pushState({},"Movie Page", '/movies/' + id);
         
+        AmplifiedSession.set("selected", id);
+   
         if(Meteor.sff.isCompressed()){
             AmplifiedSession.set("selected", id);
         }else{
@@ -103,81 +122,28 @@ if(categorizr.isMobile, categorizr.isTablet){
             }); 
         }
 
-        
-        /*
+     
         $this.find('.description').height(60);
         $this.find('.more').show();
         $this.find('.less').hide();
 
         console.log('movie row clicked. ')
         console.log($this)
-*/
+
         return false;
     }
 });
 }
-
-Template.movieRow.events({
-    'click  .movieRow' : function (event, tmpl) {
-
-        var id = event.currentTarget.id;
-        history.pushState({},"Movie Page", '/movies/' + id);
-        
-        if(Meteor.sff.isCompressed()){
-            AmplifiedSession.set("selected", id);
-        }else{
-
-            $('.movieRowDetails').hide(300);
-            if(AmplifiedSession.equals('selected', id) && AmplifiedSession.equals('rowExpanded', true)){
-                AmplifiedSession.set('rowExpanded', false); 
-        //        AmplifiedSession.set("selected", '');
-                return;
-            } 
-
-
-           $('#movieRowDetails-' + id).show(300, function(){
-                AmplifiedSession.set("selected", id);
-                AmplifiedSession.set("rowExpanded", true);
-            }); 
-        }
-
-        
-        /*
-        $this.find('.description').height(60);
-        $this.find('.more').show();
-        $this.find('.less').hide();
-
-        console.log('movie row clicked. ')
-        console.log($this)
 */
-        return false;
-    }
-});
 
 Template.movieRow.rendered = function(){
-//	console.log('row: '+ this.data._id +' rendered');
-//	console.log(this.data.name);
-	var id = this.data._id;
-
-    this.test = "hello world";
-
-/* 
-
-  if(id == AmplifiedSession.get('selected')){
-  	$this = $('#movieRowDetails-' + id);
-  	console.log($this);
-	$this.show();
-
-  }
-
-  
- 
-  $this.find('.description').height(60);
-  $this.find('.more').show();
-  $this.find('.less').hide();
-
-	$('.movieRowDetails .description').height(60);
-  	$('.movieRowDetails .more').show();
- 	$('.movieRowDetails .less').hide();*/
+	//var id = this.data._id;
+    var position = Session.get('movieListScroll');
+    if(position){
+        $(window).scrollTop(position);
+        Session.set('movieListScroll', "");
+    }
+    
+    
 };
 

@@ -92,6 +92,8 @@ Template.profile.events({
   }
 });
 
-
+Template.profile.rendered = function(){
+  $(window).scrollTop(0);
+}
 
 

@@ -1,14 +1,14 @@
 <template name="movies">
     <div id="pageWrapper" class="row movielist-wrapper max-height no-overflow"> 
     	{{#if isCompressed}}
-        is compressed
+
     		{{#if isMovie}}
     			{{> movieDetails}}
     		{{else}}
     			{{> movieList}}
     		{{/if}}
     	{{else}}
-        is not compressed
+
             <div class=" max-height">
                  <div id="listColumn" class="col-md-6 col-sm-6 col-xs-6 scrollable">
                     {{> movieList}}
