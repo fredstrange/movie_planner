@@ -121,7 +121,7 @@ var configureCinemaDistances = function(callback){
 
 
 	function getDistance(){
-		var google = Meteor.require('googlemaps');
+		var google = Npm.require('googlemaps');
 
 		currentCinema = cinemaArray[currentIndex];
 		origin = currentCinema.coordinates.lat + ',' +  currentCinema.coordinates.lng;
@@ -130,7 +130,7 @@ var configureCinemaDistances = function(callback){
 
 	function onDistance(err, data) {
 		var row, element, i, rowCinema,
-		util = Meteor.require('util');
+		util = Npm.require('util');
 
 		util.puts(JSON.stringify(data));
 
@@ -309,7 +309,7 @@ Meteor.methods({
 
 if (Meteor.isServer) {
 
-	Fiber = Meteor.require('fibers');
+	Fiber = Npm.require('fibers');
 
 
 

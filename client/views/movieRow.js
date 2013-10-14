@@ -1,11 +1,23 @@
 
 var isClashing = function(that){
     if(that.clashing){
-        return (Movies.find({
+        var clashingMovie = false;
+        var m = Movies.find({
                 'attendings.user': Meteor.userId(),
                 'attendings.attending': 'yes',
                 _id: {$in: that.clashing }
-            }).count() !== 0);
+            });
+
+        m.forEach(function(movie){
+            _.each(movie.attendings, function(attending, index){
+                    console.log(attending);
+                if(attending.attending == 'yes' && attending.user == Meteor.userId()){
+                    clashingMovie = true;
+                }
+            });
+        });
+
+        return clashingMovie;
     }else{
         return false; 
     }
