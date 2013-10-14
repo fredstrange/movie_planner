@@ -139,18 +139,20 @@ Template.movieDetails.events({
 
 function initAttending(){
   var movie = Movies.findOne(AmplifiedSession.get("selected"));
+  var myAttendance = "";
+
   if(movie && movie.attendings){
-    var myAttendance = _.find(movie.attendings, function (a) {
+    myAttendance = _.find(movie.attendings, function (a) {
       return a.user === Meteor.userId();
     }) || {};
-
-    setAttending(myAttendance.attending)
   }
+
+  setAttending(myAttendance.attending)
 
   $(".movie-details-dropdown .dropdown-menu li a").click(function(e){
       var going = $(this).data('select');
       setAttending(going, true);      
-   });
+  });
 
   function setAttending(going, save){
     var goingClass, goingText;
@@ -184,12 +186,7 @@ function initAttending(){
 
 Template.movieDetails.rendered = function() { 
   //renderMap();
-
   initAttending();
-
-  
-
-
 };
 
 
