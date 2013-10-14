@@ -139,18 +139,20 @@ Template.movieDetails.events({
 
 function initAttending(){
   var movie = Movies.findOne(AmplifiedSession.get("selected"));
-  var myAttendance = _.find(movie.attendings, function (a) {
-    return a.user === Meteor.userId();
-  }) || {};
+  if(movie && movie.attendings){
+    var myAttendance = _.find(movie.attendings, function (a) {
+      return a.user === Meteor.userId();
+    }) || {};
 
-  setAttending(myAttendance.attending)
+    setAttending(myAttendance.attending)
+  }
 
   $(".movie-details-dropdown .dropdown-menu li a").click(function(e){
       var going = $(this).data('select');
-      setAttending(going);      
+      setAttending(going, true);      
    });
 
-  function setAttending(going){
+  function setAttending(going, save){
     var goingClass, goingText;
 
     switch(going){
@@ -175,7 +177,7 @@ function initAttending(){
       $(".movie-details-dropdown .btn:first-child").removeClass('btn-danger btn-success btn-warning btn-default');
       $(".movie-details-dropdown .btn:first-child").addClass(goingClass);
 
-      Meteor.call("attending", AmplifiedSession.get("selected"), going);
+      if(save) Meteor.call("attending", AmplifiedSession.get("selected"), going);
   }
 }
 
