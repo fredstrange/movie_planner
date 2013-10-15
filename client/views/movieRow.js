@@ -10,7 +10,6 @@ var isClashing = function(that){
 
         m.forEach(function(movie){
             _.each(movie.attendings, function(attending, index){
-                    console.log(attending);
                 if(attending.attending == 'yes' && attending.user == Meteor.userId()){
                     clashingMovie = true;
                 }
