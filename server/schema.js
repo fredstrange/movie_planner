@@ -6,7 +6,7 @@ The document is only for development reference.
 Movie = {
 	title: string,
 	description: string,
-	Cinema: {
+	cinema: {
 		name:string,
 		id:string
 	},
@@ -36,7 +36,7 @@ User = {
 	}	
 }
 
-Cimena = {
+Cinema = {
 	name: string,
 	coordinates: {
 		lat: number,

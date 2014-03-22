@@ -9,12 +9,13 @@ Invites = new Meteor.Collection('invites');
 var makeFriends = function (userId, friendId) {
     var user = Meteor.users.findOne({_id: userId});
     var friend = Meteor.users.findOne({_id: friendId});
+
     if (user && friend) {
         if (!user.friends) user.friends = [];
         if (!friend.friends) friend.friends = [];
 
-        _.union(user.friends, [friendId]);
-        _.union(friend.friends, [userId]);
+        user.friends = _.union(user.friends, [friendId]);
+        friend.friends = _.union(friend.friends, [userId]);
 
         Meteor.users.update({_id: user._id}, {$set: {friends: user.friends}});
         Meteor.users.update({_id: friend._id}, {$set: {friends: friend.friends}});
@@ -124,6 +125,9 @@ Meteor.methods({
         var invite = Invites.findOne({_id: inviteId});
 
         //TODO: Send accept notification
+
+        console.log("acceptInvite: " + inviteId +" " + friendId);
+        console.log(invite);
 
         if (invite) return makeFriends(invite.from.id, friendId);
     },
