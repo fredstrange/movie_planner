@@ -7,15 +7,14 @@ Todo
 ===============
 
 * ~~Friends~~
-
-** ~~List friends ~~
-** ~~Invite friends~~
-** ~~direct messages to friends~~
-** Delete Messages
+  * ~~List friends~~
+  * ~~Invite friends~~
+  * ~~direct messages to friends~~
+  * Delete Messages
 * ~~Post on Twitter, Facebook and G+~~
 * Profile page
-** ~~Fix the native user account~~
-** Profile picture - Needs to update link url
+ * ~~Fix the native user account~~
+ * Profile picture - Needs to update link url
 * Dedicated mobile and tablet ui
 * Flagging comments
 * Admin page
@@ -26,8 +25,7 @@ Todo
 * Save schedule as PDF
 * Show movies but day in movie list and schedule.
 * Search field for movies
-
-*Set the position when navigating back and forth in movie list.
+* Set the position when navigating back and forth in movie list.
 
 Install
 =======
