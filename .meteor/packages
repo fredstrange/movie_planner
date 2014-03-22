@@ -6,7 +6,6 @@
 standard-app-packages
 preserve-inputs
 accounts-password
-accounts-ui
 accounts-google
 accounts-facebook
 accounts-twitter
@@ -21,6 +20,8 @@ belt-gravatar
 select2
 jquery-mobile-custom
 categorizr
-bootstrap-3-custom
+#bootstrap-3-custom
 modernizr-meteor
 npm
+accounts-ui-bootstrap-3
+bootstrap-3

@@ -6,6 +6,8 @@
     "belt-gravatar": {},
     "select2": {},
     "modernizr-meteor": {},
-    "npm": {}
+    "npm": {},
+    "accounts-ui-bootstrap-3": {},
+    "bootstrap-3": {}
   }
 }
