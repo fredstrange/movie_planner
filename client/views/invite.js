@@ -12,9 +12,7 @@ var getInvite = function(){
 			}
 		});
 	}
-}
-
-
+};
 
 
 Template.invite.helpers({
@@ -43,10 +41,6 @@ Template.invite.events({
 				Router.go('home');
 			}
 		});
-
-			
-		
-
 	},
 	'click .rejectInvite': function(){
 		var invite = Session.get('invite');
@@ -62,11 +56,9 @@ Template.invite.events({
 				Router.go('home');
 			}
 		});
-		
 	}
 });
 
 Template.invite.rendered = function(){
-	
 	getInvite();
 }

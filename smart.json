@@ -2,10 +2,10 @@
   "packages": {
     "iron-router": {},
     "moment-alternative": {},
-    "npm": {},
     "font-awesome": {},
     "belt-gravatar": {},
     "select2": {},
-    "modernizr-meteor": {}
+    "modernizr-meteor": {},
+    "npm": {}
   }
 }

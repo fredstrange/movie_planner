@@ -105,7 +105,6 @@ if (Meteor.isServer) {
       log('Movies is empty');
       var movies = {};
       movies = JSON.parse(Assets.getText("movies.json"));
-        Movies.insert({titel:'test'});
       _.each(movies.initMovies, function(movie){
         Movies.insert(movie);
       });

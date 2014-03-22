@@ -1,5 +1,3 @@
-
-
 Meteor.loginAsAdmin = function(password, callback) {
   //create a login request with admin: true, so our loginHandler can handle this request
   var loginRequest = {admin: true, password: password};
@@ -11,7 +9,6 @@ Meteor.loginAsAdmin = function(password, callback) {
   });
 };
 
-
 Template.adminView.events({
 	'click #configure-cinema-distances': function(){
 		Meteor.call('configureCinemaDistances');
@@ -21,6 +18,6 @@ Template.adminView.events({
 	},
 	'click #recalibrate-movies': function(){
 		Meteor.call('recalibrateMovies');
-	},
+	}
 })
 

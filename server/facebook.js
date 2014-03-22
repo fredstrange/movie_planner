@@ -41,7 +41,6 @@ Meteor.methods({
     getFriendsData: function() {   
 	    var fb = new Facebook(Meteor.user().services.facebook.accessToken);
 	    var data = fb.getFriendsData();
-	 //   console.log(data);
 	    return data;
 	},	
 

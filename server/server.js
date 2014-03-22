@@ -14,25 +14,23 @@ Meteor.publish("cinemas", function () {
 Meteor.publish("userData", function () {
 	if(!Meteor.users.findOne({_id: this.userId})) return;
 	var fromUser = Meteor.users.findOne({_id: this.userId},  {fields: {'friends': 1, 'profile': 1 }} ).friends;
-	var friends =(fromUser) ? fromUser : [];
+	var friends = (fromUser) ? fromUser : [];
 	friends.push(this.userId);
 
   	return Meteor.users.find({_id: {$in: friends}}, {fields: {'friends': 1, 'profile': 1, 'services':1}});                          
 });
 
 
-
-
-
-
-
 Meteor.methods({
 
 	userImage: function(userId, host){
 		var user, imageURL, id, params;
+        console.log("user image");
 
 		id = (userId)? userId : Meteor.userId(); 
 		user = Meteor.users.findOne({ _id: id });
+
+
 		
 		if(user && user.services){
 

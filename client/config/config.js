@@ -1,6 +1,6 @@
 Accounts.ui.config({
     requestPermissions: {
-        facebook: ['email', 'user_friends'],
+        facebook: ['email', 'user_friends']
     },
 	requestOfflineToken: {
 		google: true

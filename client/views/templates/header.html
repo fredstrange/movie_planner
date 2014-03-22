@@ -12,11 +12,11 @@
 
         <nav class="collapse navbar-collapse navbar-ex1-collapse" role="navigation">
             <ul class="nav navbar-nav">
-              <li class="{{active '/movies'}}"><a href="/movies"><i class="icon-film"></i><span class="navbar-title"> Movie list</span></a></li>
+              <li class="{{active '/movies'}}"><a href="/movies"><i class="fa fa-film"></i><span class="navbar-title"> Movie list</span></a></li>
               {{#if currentUser}}
-              <li class="{{active '/schedule'}}"><a href="/schedule"><i class="icon-calendar"></i><span class="navbar-title"> My Schedule</span></a></li>
-              <li class="{{active '/profile'}}"><a href="/profile"><i class="icon-user"></i><span class="navbar-title"> Profile</span></a></li>
-              <li><a id="message-btn" href="/messages"><i class="icon-envelope"></i> {{numNewMessages}}</a></li>
+              <li class="{{active '/schedule'}}"><a href="/schedule"><i class="fa fa-calendar"></i><span class="navbar-title"> My Schedule</span></a></li>
+              <li class="{{active '/profile'}}"><a href="/profile"><i class="fa fa-user"></i><span class="navbar-title"> Profile</span></a></li>
+              <li><a id="message-btn" href="/messages"><i class="fa fa-envelope"></i> {{numNewMessages}}</a></li>
               {{/if}}
             </ul>
             

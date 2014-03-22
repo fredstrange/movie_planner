@@ -1,4 +1,3 @@
-
 Template.message.helpers({
 	unread: function(){
 		return (Session.get('unread_' + this._id))? 'unread': '';

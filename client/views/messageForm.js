@@ -1,41 +1,40 @@
-Template.messageForm.helpers({
-
-});
+Template.messageForm.helpers({});
 
 Template.messageForm.events({
 	'click #message-submit': function(event, tepl){
-		var $to = $('#message-to')
-		var subject = $('#message-subject').val();
-		var message = $('#message-message').val();
-		
-		var to = {
-			id: $to.select2('val'),
-			name: $to.select2('data').text
-		}
+        var formTo, formSubject, formMessage, to, from;
 
-		var from = {
+		formTo = $('#message-to')
+		formSubject = $('#message-subject').val();
+        formMessage = $('#message-message').val();
+		
+		to = {
+			id: formTo.select2('val'),
+			name: formTo.select2('data').text
+		};
+
+		from = {
 			id: Meteor.userId(),
 			name: Meteor.user().profile.name
-		}
-
+		};
 
 		if(to.id && message){
-			Meteor.call('createMessage', to, from, message, subject, function(err, res){
+			Meteor.call('createMessage', to, from, formMessage, formSubject, function(err, res){
 				if(err) console.log(err);
-				//else console.log(res);
 			});
 		}
 
 		$('#message-to').select2('val', '');
 		$('#message-subject').val('');
 		$('#message-message').val('');
-			
 	}
 });
 
 Template.messageForm.rendered = function(){
-	var friends = getFriends().fetch();
-	var formatedFriends = _.map(friends, function(item){
+    var friends, formatedFriends;
+
+	friends = getFriends().fetch();
+	formatedFriends = _.map(friends, function(item){
 		return {
 			id: item._id,
 			text: item.profile.name

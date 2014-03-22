@@ -1,7 +1,7 @@
 /*
 
 There is currently no concept of schema for Meteor. 
-The document is only for development referance. 
+The document is only for development reference.
 
 Movie = {
 	title: string,

@@ -5,9 +5,6 @@ CinemaDistances = new Meteor.Collection('cinemaDistances');
 Messages = new Meteor.Collection('messages');
 
 
-
-
-
 Movies.allow({
   insert: function (userId, movie) {
     return false; 
@@ -121,7 +118,7 @@ var configureCinemaDistances = function(callback){
 
 
 	function getDistance(){
-		var google = Npm.require('googlemaps');
+		var google = Meteor.require('googlemaps');
 
 		currentCinema = cinemaArray[currentIndex];
 		origin = currentCinema.coordinates.lat + ',' +  currentCinema.coordinates.lng;
@@ -344,9 +341,9 @@ if (Meteor.isServer) {
 
 
 
-	//	fixCinemaids();
-	 //   configureCinemaDistances();
-	 //  recalibrateMovies();
+	 // fixCinemaids();
+	 // configureCinemaDistances();
+	 // recalibrateMovies();
 
 	});
 
