@@ -1,12 +1,13 @@
 Film Festival Planner
 =====================
 
-A web application for planning movies at the Stockholm Film festival.
+A social web application for planning movies at the Stockholm Film festival.
 
 Todo
 ===============
 
 * ~~Friends~~
+
 ** ~~List friends ~~
 ** ~~Invite friends~~
 ** ~~direct messages to friends~~
