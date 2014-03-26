@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/fredstrange/movie_planner.svg?branch=master)](https://travis-ci.org/fredstrange/movie_planner)
 Film Festival Planner
 =====================
 
