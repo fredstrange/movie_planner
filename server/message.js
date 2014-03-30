@@ -6,15 +6,25 @@ Meteor.publish("messages", function () {
 });
 
 Meteor.methods({
-    createMessage: function (to, from, message, subject) {
-        var message = {
-            to: to,
-            from: from,
-            message: message,
-            createdAt: new Date().getTime(),
-            hasRead: false,
-            subject: (subject) ? subject : ''
-        };
-        Messages.insert(message);
+    createMessage: function (message, callback) {
+        var error = [];
+        if(_.isEmpty(message.to.id)) error.push({type: 'validationError', message: 'The to id is not set'});
+        if(_.isEmpty(message.to.name)) error.push({type: 'validationError', message: 'The to name is not set'});
+        if(_.isEmpty(message.message)) error.push({type: 'validationError', message: 'The message is empty of void'});
+        if(_.isEmpty(message.from.id)) error.push({type: 'validationError', message: 'The from id is not set'});
+        if(_.isEmpty(message.from.name)) error.push({type: 'validationError', message: 'The from name is not set'});
+        if(_.isNaN(message.createdAt)) error.push({type: 'validationError', message: 'The creation date is not valid'});
+
+        if(error.length > 0){
+            callback(error);
+            return;
+        }
+
+        Messages.insert(message, function(err){
+            if(err) {
+                error.push(err)
+                callback(error);
+            }
+        });
     }
 });

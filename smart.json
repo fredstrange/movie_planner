@@ -1,6 +1,5 @@
 {
   "packages": {
-    "iron-router": {},
     "moment-alternative": {},
     "font-awesome": {},
     "belt-gravatar": {},
@@ -8,6 +7,8 @@
     "modernizr-meteor": {},
     "npm": {},
     "accounts-ui-bootstrap-3": {},
-    "bootstrap-3": {}
+    "bootstrap-3": {},
+    "iron-router": {},
+    "collection2": {}
   }
 }

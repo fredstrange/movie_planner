@@ -48,7 +48,7 @@ Router.map(function () {
             Session.set('inviteId', this.params._id);
         }
     });
-
+/*
     this.route('messages', {
         path: '/messages',
         template: 'messageList',
@@ -73,7 +73,7 @@ Router.map(function () {
         data: function () {
             Messages.find({_id: this.params._id});
         }
-    });
+    });*/
 
     this.route('movies', {
         path: '/movies',

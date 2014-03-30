@@ -2,31 +2,15 @@ Template.messageForm.helpers({});
 
 Template.messageForm.events({
 	'click #message-submit': function(event, tepl){
-        var formTo, formSubject, formMessage, to, from;
+        event.preventDefault();
 
-		formTo = $('#message-to')
-		formSubject = $('#message-subject').val();
-        formMessage = $('#message-message').val();
-		
-		to = {
-			id: formTo.select2('val'),
-			name: formTo.select2('data').text
-		};
+        var message = messageObjFromForm($('#messageForm'));
 
-		from = {
-			id: Meteor.userId(),
-			name: Meteor.user().profile.name
-		};
+        Meteor.call('createMessage', message, function(error, res){
+            if(error) console.log(error);
+        });
 
-		if(to.id && formMessage){
-			Meteor.call('createMessage', to, from, formMessage, formSubject, function(err, res){
-				if(err) console.log(err);
-			});
-		}
-
-		$('#message-to').select2('val', '');
-		$('#message-subject').val('');
-		$('#message-message').val('');
+		clearForm();
 	}
 });
 
@@ -48,3 +32,30 @@ Template.messageForm.rendered = function(){
         data: formatedFriends
 	});
 };
+
+/**********************************************
+/**********View Controller methods*************
+/*********************************************/
+
+
+var clearForm = function(){
+    $('#message-to').select2('val', '');
+    $('#message-subject').val('');
+    $('#message-message').val('');
+};
+
+var messageObjFromForm = function($form){
+    return {
+        to: {
+            id: $form.find('#message-to').select2('val'),
+            name: $form.find('#message-to').select2('data').text
+        },
+        from: {
+            id: Meteor.userId(),
+            name: Meteor.user().profile.name
+        },
+        subject: $form.find('#message-subject').val(),
+        message: $form.find('#message-message').val()
+    };
+};
+

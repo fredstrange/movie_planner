@@ -2,7 +2,6 @@ Movies = new Meteor.Collection("movies");
 Comments = new Meteor.Collection("comments");
 Cinemas = new Meteor.Collection("cinemas");
 CinemaDistances = new Meteor.Collection('cinemaDistances');
-Messages = new Meteor.Collection('messages');
 
 
 Movies.allow({
@@ -19,7 +18,7 @@ Movies.allow({
 
 Cinemas.allow({
     insert: function (userId, movie) {
-        return true;
+        return false;
     },
     remove: function (userId, movie) {
         return false;
@@ -41,14 +40,3 @@ Comments.allow({
     }
 });
 
-Messages.allow({
-    insert: function (userId, comment) {
-        return true;
-    },
-    remove: function (userId, comment) {
-        return false;
-    },
-    update: function (userId, comment) {
-        return true;
-    }
-});
