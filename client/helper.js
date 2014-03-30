@@ -13,12 +13,8 @@ friendsAttendingMovie = function (movie) {
 
 getFriends = function () {
     var friendsArr = [];
-    console.log('user: ' + Meteor.user());
-    var friends;
 
-    try{
-        Meteor.user().friends;
-    }catch(e){}
+    var friends = Meteor.users.findOne(Meteor.userId()).friends;
 
 
     if (friends) {
@@ -28,7 +24,7 @@ getFriends = function () {
             friendsArr.push(friends);
         }
     }
-    return Meteor.users.find({_id: {$in: friendsArr } });
+    return Meteor.users.find({_id: {$in: friendsArr } }).fetch();
 };
 
 displayName = function (user) {

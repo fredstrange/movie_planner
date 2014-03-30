@@ -10,7 +10,8 @@ Router.configure({
     },
     onBeforeAction: function(){
         Session.set('currentPath', curPath());
-    }
+    },
+    waitOn: function() { return Meteor.subscribe('users')}
 });
 
 

@@ -14,10 +14,10 @@ Template.message.events({
 	'click .message-mark-as-unread-btn': function(){
 		Messages.update({_id: this._id}, {$set: {hasRead: false}}); 
 	}
-})
+});
 
 Template.message.rendered = function(){
 	$(window).scrollTop(0);
-}
+};
 
 

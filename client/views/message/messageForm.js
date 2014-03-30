@@ -17,7 +17,7 @@ Template.messageForm.events({
 Template.messageForm.rendered = function(){
     var friends, formatedFriends;
 
-	friends = getFriends().fetch();
+	friends = getFriends();
 	formatedFriends = _.map(friends, function(item){
 		return {
 			id: item._id,

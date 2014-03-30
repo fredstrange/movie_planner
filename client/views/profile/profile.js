@@ -38,7 +38,7 @@ Template.profile.displayName = function () {
 };
 
 Template.profile.myFriends = function () {
-    var friends = getFriends().fetch();
+    var friends = getFriends();
     return friends;
 };
 
