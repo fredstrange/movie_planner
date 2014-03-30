@@ -13,5 +13,7 @@
 	        <div class="numComments">Comments: {{numComments}}</div>
         </div>
     </div>
-    {{> mapRow this.map}}
+    {{#if this.map}}
+        {{> mapRow this.map}}
+    {{/if}}
 </template>
