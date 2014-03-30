@@ -16,7 +16,7 @@
               {{#if currentUser}}
               <li class="{{active '/schedule'}}"><a href="/schedule"><i class="fa fa-calendar"></i><span class="navbar-title"> My Schedule</span></a></li>
               <li class="{{active '/profile'}}"><a href="/profile"><i class="fa fa-user"></i><span class="navbar-title"> Profile</span></a></li>
-              <li><a id="message-btn" href="/messages"><i class="fa fa-envelope"></i> {{numNewMessages}}</a></li>
+              <li class="{{active '/messages'}}"><a id="message-btn" href="/messages"><i class="fa fa-envelope"></i> {{> messagesNumber}}</a></li>
               {{/if}}
             </ul>
             
@@ -30,7 +30,7 @@
             <ul class="nav navbar-nav navbar-right">
               <div class="login-wrapper">
                 <div class="btn login-btn">
-                  {{loginButtons}}
+                  {{> loginButtons}}
                 </div>
               </div>
             </ul>

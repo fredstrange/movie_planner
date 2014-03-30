@@ -7,6 +7,9 @@ Router.configure({
     yieldTemplates: {
         'header': {to: 'header'},
         'footer': {to: 'footer'}
+    },
+    onBeforeAction: function(){
+        Session.set('currentPath', curPath());
     }
 });
 
@@ -15,7 +18,7 @@ Router.map(function () {
     this.route('home', {
         path: '/',
         template: 'home',
-        before: function () {
+        onBeforeAction: function () {
             AmplifiedSession.set('selected', '');
         }
 
@@ -27,7 +30,7 @@ Router.map(function () {
         data: function () {
             return Meteor.users.findOne({_id: this.params._id});
         },
-        before: function () {
+        onBeforeAction: function () {
             Session.set('profileId', this.params._id);
         }
     });
@@ -44,41 +47,15 @@ Router.map(function () {
     this.route('invite', {
         path: '/invite/:_id',
         template: 'invite',
-        before: function () {
+        onBeforeAction: function () {
             Session.set('inviteId', this.params._id);
         }
     });
-/*
-    this.route('messages', {
-        path: '/messages',
-        template: 'messageList',
-        data: function () {
-            var messages = Messages.find({'to.id': Meteor.userId()}, {sort: {_id: -1}});
-            var unRead = [];
-
-            messages.forEach(function (message) {
-                if (message.hasRead == false) unRead.push(message._id);
-            });
-
-            return {
-                messages: messages,
-                unRead: unRead
-            };
-        }
-    });
-
-    this.route('message', {
-        path: '/message/:_id',
-        template: 'message',
-        data: function () {
-            Messages.find({_id: this.params._id});
-        }
-    });*/
 
     this.route('movies', {
         path: '/movies',
         template: 'movies',
-        before: function () {
+        onBeforeAction: function () {
             AmplifiedSession.set('selected', '');
         }
 
@@ -87,9 +64,12 @@ Router.map(function () {
     this.route('movies', {
         path: '/movies/:_id',
         template: 'movies',
-        before: function () {
+        onBeforeAction: function () {
             AmplifiedSession.set('selected', this.params._id);
         }
     });
 
 });
+
+// Get the current path for URL
+var curPath = function(){var c=window.location.pathname;var b=c.slice(0,-1);var a=c.slice(-1);if(b==""){return"/"}else{if(a=="/"){return b}else{return c}}};

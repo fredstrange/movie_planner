@@ -1,47 +1,51 @@
 <template name="movieDetails">
     <div class="movie-details-wrapper">
-        
+
         <div class="details-column">
-        {{#if movie}}
-        {{#with movie}}
+            {{#if movie}}
+            {{#with movie}}
             {{#if isCompressed}}
-                <button class="btn btn-info movie-back-btn">Back</button>
+            <button class="btn btn-info movie-back-btn">Back</button>
             {{/if}}
 
-
-        <div class="row movie-details-content">
-            <div class="movieDetails" id="{{_id}}">
-                <div class=" movieTitle col-md-10 col-sm-10 col-xs-10" >Title: {{name}}</div>
-                <div class="col-md-2 col-sm-2 col-xs-2 text-right">
-                    {{#if isGoingIcon}}
+            <div class="row movie-details-content">
+                <div class="movieDetails" id="{{_id}}">
+                    <div class=" movieTitle col-md-10 col-sm-10 col-xs-10">Title: {{name}}</div>
+                    <div class="col-md-2 col-sm-2 col-xs-2 text-right">
+                        {{#if isGoingIcon}}
                         <span class="glyphicon {{isGoingIcon}}"></span>
-                    {{/if}}
-                    {{#if isClashingIcon}}
+                        {{/if}}
+                        {{#if isClashingIcon}}
                         <span class="glyphicon {{isClashingIcon}}"></span>
-                    {{/if}}
-                </div>
-                <div class="col-md-6 col-sm-6">
-                    <div class="movieType" >Categories: {{type}}</div>
-                    <div class="movieCinema">Cinema: {{cinema.name}}</div>
-                    <div class="movieTime">Start time: {{startTime}}</div>
-                    <div class="duration">Duration: {{playTime}} minutes</div>
-                    {{#if trailerUrl}}
-                    <div class="trailer">
-                        <a href="{{trailerUrl}}"><i class="fa fa-youtube-play"></i> Watch Trailer</a>
+                        {{/if}}
                     </div>
-                </div>
+                    <div class="col-md-6 col-sm-6">
+                        <div class="movieType">Categories: {{type}}</div>
+                        <div class="movieCinema">Cinema: {{cinema.name}}</div>
+                        <div class="movieTime">Start time: {{startTime}}</div>
+                        <div class="duration">Duration: {{playTime}} minutes</div>
 
-                <div class="col-md-6 col-sm-6">
-                    <div class="movieType md-text-right">Total going: {{attending}}</div>
-                    
-                    {{#if currentUser}}
+                        {{#if trailerUrl}}
+                        <div class="trailer">
+                            <a href="{{trailerUrl}}"><i class="fa fa-youtube-play"></i> Watch Trailer</a>
+                        </div>
+                        {{/if}}
+
+                    </div>
+
+                    <div class="col-md-6 col-sm-6">
+                        <div class="movieType md-text-right">Total going: {{attending}}</div>
+
+                        {{#if currentUser}}
                         <div class="movieType md-text-right">Friends going: {{friendsAttending}}</div>
 
                         <div class="md-text-right">
                             <div class="col-md-offset-6">
                                 <div class="dropdown movie-details-dropdown ">
-                                    <button data-toggle="dropdown" class="btn btn-default">Dropdown trigger<span class="caret"></span></Button>
-                                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel" style="text-align:right;">
+                                    <button data-toggle="dropdown" class="btn btn-default">Dropdown trigger<span
+                                            class="caret"></span></Button>
+                                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel"
+                                        style="text-align:right;">
                                         <li><a data-select="undecided">Undecided</a></li>
                                         <li><a data-select="yes">I'm Going</a></li>
                                         <li><a data-select="maybe">Maybe</a></li>
@@ -50,49 +54,52 @@
                                 </div>
                             </div>
                         </div>
-                    {{/if}}
+                        {{/if}}
+                    </div>
+
+
+                    <div class="clearfix"></div>
+
+                    <div class="col-md-12 col-sm-12 description">
+                        <p>{{description}}</p>
+                    </div>
+
+                    <div class="share-buttons col-md-12 col-sm-12 text-center">
+                        {{> share}}
+                    </div>
+
+
                 </div>
-                
+            </div>
+            <!-- End bootsatrap row -->
+            <div class="row movie-details-map text-center">
+                {{> movieDetailsMap mapCinema}}
+            </div>
+
+            <div class="movie-details-comments">
+
+                {{#if currentUser}}
+                <div class="detail-post-comments">
+                    {{> postcomment}}
+                </div>
                 {{/if}}
-                <div class="clearfix"></div>
 
-                <div class="col-md-12 col-sm-12 description">
-                    <p>{{description}}</p>
-                </div>
-                
-                <div class="share-buttons col-md-12 col-sm-12 text-center">
-                    {{> share}}
-                </div>
-                
-
-            </div>
-        </div> <!-- End bootsatrap row -->
-        <div class="row movie-details-map text-center"> 
-            {{> movieDetailsMap mapCinema}}
-        </div>
-
-        <div class="movie-details-comments">
-            
-            {{#if currentUser}}
-            <div class="detail-post-comments">
-                {{> postcomment}}
-            </div>
-            {{/if}}
-
-            {{#if comments}}
-            <div class="comment-wrapper">
-            {{#each comments}}
+                {{#if comments}}
+                <div class="comment-wrapper">
+                    {{#each comments}}
                     {{> comment}}
-                {{/each}}
+                    {{/each}}
+                </div>
+                {{/if}}
+
             </div>
+
+            {{/with}}
+            {{else}}
+            Welcome to the FilmFest Planner.
             {{/if}}
-
         </div>
-
-        {{/with}}
-      {{else}}
-        Welcome to the FilmFest Planner.  
-      {{/if}}
-        </div> <!-- End detailsColumn -->
-    </div> <!-- End movie-details-wrapper -->
+        <!-- End detailsColumn -->
+    </div>
+    <!-- End movie-details-wrapper -->
 </template>

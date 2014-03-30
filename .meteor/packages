@@ -4,12 +4,10 @@
 # but you can also edit it by hand.
 
 standard-app-packages
-preserve-inputs
 accounts-password
 accounts-google
 accounts-facebook
 accounts-twitter
-iron-router
 amplify
 scroll-to-fixed
 moment-alternative
@@ -25,3 +23,6 @@ modernizr-meteor
 npm
 accounts-ui-bootstrap-3
 bootstrap-3
+iron-router
+coffeescript
+collection2

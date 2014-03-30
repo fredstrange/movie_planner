@@ -13,7 +13,12 @@ friendsAttendingMovie = function (movie) {
 
 getFriends = function () {
     var friendsArr = [];
-    var friends = Meteor.user().friends;
+    console.log('user: ' + Meteor.user());
+    var friends;
+
+    try{
+        Meteor.user().friends;
+    }catch(e){}
 
 
     if (friends) {

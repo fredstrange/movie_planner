@@ -1,8 +1,7 @@
 Template.header.helpers({
-	numNewMessages: function(){
-		var numMessages = Messages.find({'to.id': Meteor.userId(), hasRead: false}).count();
-		return (numMessages > 0 )? numMessages : "";
-	}
+    active: function(path){
+        return Session.get('currentPath') == path ? 'active' : '';
+    }
 });
 
 Template.header.events({});
