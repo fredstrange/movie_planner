@@ -20,7 +20,7 @@ Router.map(function () {
         path: '/',
         template: 'home',
         onBeforeAction: function () {
-            AmplifiedSession.set('selected', '');
+            //AmplifiedSession.set('selected', '');
         }
 
     });
@@ -57,7 +57,7 @@ Router.map(function () {
         path: '/movies',
         template: 'movies',
         onBeforeAction: function () {
-            AmplifiedSession.set('selected', '');
+            //AmplifiedSession.set('selected', '');
         }
 
     });

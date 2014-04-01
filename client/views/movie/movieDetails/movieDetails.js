@@ -24,7 +24,7 @@ var isClashing = function (that) {
     } else {
         return false;
     }
-}
+};
 
 
 Template.movieDetails.helpers({
@@ -124,50 +124,56 @@ Template.movieDetails.events({
 });
 
 function initAttending() {
-    var movie, myAttendance = "";
 
-    movie = Movies.findOne(AmplifiedSession.get("selected"));
+    Deps.autorun(function() {
+        var movie, myAttendance = "";
 
-    if (movie && movie.attendings) {
-        myAttendance = _.find(movie.attendings, function (a) {
-            return a.user === Meteor.userId();
-        }) || {};
-    }
+        movie = Movies.findOne(AmplifiedSession.get("selected"));
 
-    setAttending(myAttendance.attending);
-
-    $(".movie-details-dropdown .dropdown-menu li a").click(function (e) {
-        var going = $(this).data('select');
-        setAttending(going, true);
-    });
-
-    function setAttending(going, save) {
-        var goingClass, goingText;
-
-        switch (going) {
-            case 'no':
-                goingClass = 'btn-danger';
-                goingText = "Not Going";
-                break;
-            case 'yes':
-                goingClass = 'btn-success';
-                goingText = "I'm Going";
-                break;
-            case 'maybe':
-                goingClass = 'btn-warning';
-                goingText = "Maybe";
-                break;
-            default:
-                goingClass = 'btn-default';
-                goingText = "Undecided";
-                break;
+        if (movie && movie.attendings) {
+            myAttendance = _.find(movie.attendings, function (a) {
+                return a.user === Meteor.userId();
+            }) || {};
         }
-        $(".movie-details-dropdown .btn:first-child").html(goingText + ' <span class="caret"></span>');
-        $(".movie-details-dropdown .btn:first-child").removeClass('btn-danger btn-success btn-warning btn-default');
-        $(".movie-details-dropdown .btn:first-child").addClass(goingClass);
 
-        if (save) Meteor.call("attending", AmplifiedSession.get("selected"), going);
-    }
+        setAttending(myAttendance.attending);
+
+        $(".movie-details-dropdown .dropdown-menu li a").click(function (e) {
+            var going = $(this).data('select');
+            console.log('ping');
+            setAttending(going, true);
+        });
+
+        function setAttending(going, save) {
+            var goingClass, goingText;
+
+            switch (going) {
+                case 'no':
+                    goingClass = 'btn-danger';
+                    goingText = "Not Going";
+                    break;
+                case 'yes':
+                    goingClass = 'btn-success';
+                    goingText = "I'm Going";
+                    break;
+                case 'maybe':
+                    goingClass = 'btn-warning';
+                    goingText = "Maybe";
+                    break;
+                default:
+                    goingClass = 'btn-default';
+                    goingText = "Undecided";
+                    break;
+            }
+
+            $(".movie-details-dropdown .btn:first-child").html(goingText + ' <span class="caret"></span>');
+            $(".movie-details-dropdown .btn:first-child").removeClass('btn-danger btn-success btn-warning btn-default');
+            $(".movie-details-dropdown .btn:first-child").addClass(goingClass);
+
+            console.log($(".movie-details-dropdown .btn:first-child").html());
+            if (save) Meteor.call("attending", AmplifiedSession.get("selected"), going);
+        }
+    });
 }
 
 
