@@ -1,14 +1,15 @@
 <template name="messageList">
 	<div class="page-wrapper scrollable">
-		<h3>Send Message</h3>
 
+        <div id="messageFormWrapper">
+            <h3>Send Message</h3>
+            {{> messageForm}}
+        </div>
+        
         {{#if showMessageForm}}
-            <div id="messageFormWrapper">
-		        {{> messageForm}}
-                <div id="message-form-hide" class="center-block">Hide message form</div>
-            </div>
+        <div id="message-form-hide" class="center-block message-form-trigger">Hide message form</div>
         {{else}}
-            <div id="message-form-show">Show message form </div>
+            <div id="message-form-show" class="center-block message-form-trigger">Show message form </div>
         {{/if}}
 		<h3>My Messages</h3>
 		{{#each messages}}

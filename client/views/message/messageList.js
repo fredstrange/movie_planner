@@ -12,3 +12,19 @@ Template.messageList.events({
         AmplifiedSession.set('showMessageForm', true);
     }
 });
+
+Template.messageList.rendered = function(){
+    initShowToggle();
+};
+
+var initShowToggle = function(){
+    Deps.autorun(function(){
+        var show = AmplifiedSession.equals('showMessageForm', true);
+
+        if(show){
+            $('#messageFormWrapper').show(300);
+        }else{
+            $('#messageFormWrapper').hide(300);
+        }
+    });
+};
