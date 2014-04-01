@@ -1,13 +1,21 @@
 <template name="messageForm">
     <form>
-        <div id="messageForm">
-            <label for="to">To:</label>
-            <input type="text" name="to" id="message-to"/>
-            <label for="subject">Subject:</label>
-            <input type="text" name="subject" id="message-subject"/>
-            <label for="message">Message:</label>
-            <input type="text" name="message" id="message-message"/>
-            <input type="submit" class="btn btn-info" id="message-submit" value="Send" />
+        <div role="form">
+            <div class="form-group">
+                <label for="to">To:</label>
+                <input type="text" name="to" id="message-to" />
+            </div>
+            <div class="form-group">
+                <label for="subject">Subject:</label>
+                <input type="text" name="subject" id="message-subject" class="form-control"/>
+            </div>
+            <div class="form-group">
+                <label for="message">Message:</label>
+                <textarea id="message-message" name="message" rows="4" class="form-control"></textarea>
+            </div>
+            <div>
+                <input type="submit" class="btn btn-info" id="message-submit" value="Send"/>
+            </div>
         </div>
     </form>
 </template>

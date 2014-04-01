@@ -1,4 +1,6 @@
-Template.messageForm.helpers({});
+Template.messageForm.helpers({
+
+});
 
 Template.messageForm.events({
 	'click #message-submit': function(event, tepl){
