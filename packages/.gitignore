@@ -22,3 +22,6 @@ modernizr-meteor
 /underscore-string-latest
 /collection2
 /simple-schema
+/iron-layout
+/iron-core
+/iron-dynamic-template

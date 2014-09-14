@@ -123,7 +123,12 @@ Template.movieDetails.events({
     }
 });
 
-function initAttending() {
+Template.movieDetails.rendered = function () {
+    initAttending();
+    initScrollToTop();
+};
+
+var initAttending = function() {
 
     Deps.autorun(function() {
         var movie, myAttendance = "";
@@ -174,11 +179,13 @@ function initAttending() {
             if (save) Meteor.call("attending", AmplifiedSession.get("selected"), going);
         }
     });
-}
+};
 
-
-Template.movieDetails.rendered = function () {
-    initAttending();
+var initScrollToTop = function(){
+    Deps.autorun(function(){
+        var selected = AmplifiedSession.get('selected');
+        $('#movie-details-column').scrollTop(0);
+    });
 };
 
 
