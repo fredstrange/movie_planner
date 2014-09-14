@@ -41,7 +41,7 @@ var positionSchema = new SimpleSchema([BaseSchema, {
         decimal: true,
         optional: false
     },
-    distance: {
+    distances: {
         type: [distanceSchema],
         optional: true
     }

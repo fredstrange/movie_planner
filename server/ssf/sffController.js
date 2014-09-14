@@ -140,7 +140,8 @@ var parseFilm = function (itemString) {
 var parseVenueList = function (list) {
     var venueList = JSON.parse(list),
         venues = [],
-        positionsArray = [];
+        positionsArray = [],
+        positionIds = [];
 
     _.each(venueList, function (item) {
         var venue = {
@@ -156,14 +157,39 @@ var parseVenueList = function (list) {
         venues.push(venue);
 
         var position = {
-            id: item.venueLat + "-" + item.venueLon,
+            id: item.venueLat + "," + item.venueLon,
             lat: parseFloat(item.venueLat),
             lon: parseFloat(item.venueLon)
         };
-        positionsArray.push(position);
+
+        if(!_.contains(positionIds, position.id) || (position.id != "0,0")){
+            positionIds.push(position.id);
+            positionsArray.push(position);
+        }
 
         upsertObj(venue, Venues);
         upsertObj(position, Positions);
+    });
+
+    calculateDistances(positionsArray);
+};
+
+var calculateDistances = function(positionsArray){
+    DistanceCalculator.calculateDistance(positionsArray, function(calculatedDistanceMap){
+
+        positionsArray.forEach(function(position){
+            var calculatedDistances = calculatedDistanceMap[position.id];
+
+            if(calculatedDistances && Array.isArray(calculatedDistances)){
+                if(!Array.isArray(position.distance)) position.distances = [];
+
+                calculatedDistances.forEach(function(distance){
+                    position.distances.push(distance);
+                });
+            }
+
+            upsertObj(position, Positions);
+        });
     });
 };
 
@@ -186,8 +212,6 @@ var parseSectionList = function (list) {
     console.log(sections.length);
     console.dir(sections[0]);
 };
-
-
 
 
 var listEvents = function () {
@@ -234,7 +258,7 @@ var upsertObj = function(obj, collection){
 
         var changedSet = {};
         Object.keys(obj).forEach(function(key){
-            if(key != "id" || key != "modifiedAt" || key != "createdAt"){
+            if(key != "modifiedAt" || key != "createdAt"){
                 if(obj[key] != tmpObj[key]) {
                     changedSet[key] = obj[key];
                 }
@@ -247,6 +271,12 @@ var upsertObj = function(obj, collection){
         }
     }
 };
+
+
+
+
+
+
 
 SFF.listEvents = listEvents;
 SFF.listFilms = listFilms;
@@ -266,3 +296,5 @@ Meteor.methods({
     listChangedEventsSince: listChangedEventsSince,
     listChangedFilmsSince: listChangedFilmsSince
 });
+
+
