@@ -1,35 +1,17 @@
 DistanceCalculator = {};
 
-var  calculateDistance = function(positionsArray, callback){
+var  calculateDistance = function(origin, destinations, callback){
 
-    var google = Meteor.require('googlemaps'),
-        util = Npm.require('util'),
-
-        calulatedDistanceMap = {},
-        origins = "",
-        currentPosition,
-        currentIndex = 0,
-        i;
-
-    for(i = 0; i < positionsArray.length; i++){
-        if(i > 0) origins += '|';
-        origins += positionsArray[i].lat + ',' +  positionsArray[i].lon;
-    }
-
-    // Start the distance calculation
-    currentPosition = positionsArray[currentIndex];
-    lookUpDistance(currentPosition.lat, currentPosition.lon);
+    var google = Meteor.require('googlemaps'),   //     util = Npm.require('util'),
+        destinationsString = destinations.join('|');
 
 
-    function lookUpDistance(lat, lon){
-        var origin = lat + ',' + lon;
-        console.log("lookUpDistance: ", origin);
-        google.distance(origin, origins, onDistance, false, "walking");
-    }
+    console.log("lookUpDistance: ", origin);
+    google.distance(origin, destinationsString, onDistance, false, "walking");
 
     // On response from Google maps. Parse the data into
     function onDistance(err, data) {
-        var row, element, i, rowPosId;
+        var row, element, i, rowPosId, calculatedDistanceMap = {};
 
         console.log("onDistance");
 
@@ -46,40 +28,25 @@ var  calculateDistance = function(positionsArray, callback){
             row = data.rows[0];
             if(row && row.elements && row.elements.length != 0)
             {
-                var currentPosId = currentPosition.lat +","+ currentPosition.lon;
-
-                calulatedDistanceMap[currentPosId] = {};
-
                 for(i = 0; i < row.elements.length; i++){
 
                     element = row.elements[i];
                     if(element.status == "ZERO_RESULTS") continue;
 
 
-                    rowPosId = positionsArray[i].lat + "," + positionsArray[i].lon ;
-                    calulatedDistanceMap[currentPosId][rowPosId] = {};
-                    calulatedDistanceMap[currentPosId][rowPosId].id = rowPosId;
-                    calulatedDistanceMap[currentPosId][rowPosId].distance = element.distance.value;
-                    calulatedDistanceMap[currentPosId][rowPosId].duration = element.duration.value;
-                    calulatedDistanceMap[currentPosId][rowPosId].lat = positionsArray[i].lat;
-                    calulatedDistanceMap[currentPosId][rowPosId].lon = positionsArray[i].lon;
+                    rowPosId = destinations[i];
+                    calculatedDistanceMap[rowPosId] = {};
+                    calculatedDistanceMap[rowPosId].id = rowPosId;
+                    calculatedDistanceMap[rowPosId].distance = element.distance.value;
+                    calculatedDistanceMap[rowPosId].duration = element.duration.value;
+                    calculatedDistanceMap[rowPosId].lat = destinations[i].split(',')[0];
+                    calculatedDistanceMap[rowPosId].lon = destinations[i].split(',')[1];
                 }
             }
         }
 
-        currentIndex++;
-
-      //  if(currentIndex < 2){
-        if(currentIndex < positionsArray.length){
-            setTimeout(function() {
-                currentPosition = positionsArray[currentIndex];
-                lookUpDistance(currentPosition.lat, currentPosition.lon);
-            }, 5000);
-        }else{
-            console.dir(calulatedDistanceMap);
-            callback(calulatedDistanceMap);
-        }
-
+        console.dir(calculatedDistanceMap);
+        callback(calculatedDistanceMap);
     }
 
 };
@@ -89,6 +56,3 @@ DistanceCalculator.calculateDistance = calculateDistance;
 Meteor.methods({
     calculateDistances: calculateDistance
 });
-
-
-

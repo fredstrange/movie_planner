@@ -173,29 +173,11 @@ var parseVenueList = function (list) {
         upsertObj(position, Positions);
     });
 
-    calculateDistances2(positionsArray);
+    calculateDistances(positionsArray);
 };
+
 
 var calculateDistances = function(positionsArray){
-    DistanceCalculator.calculateDistance(positionsArray, function(calculatedDistanceMap){
-
-        positionsArray.forEach(function(position){
-            var calculatedDistances = calculatedDistanceMap[position.id];
-
-            if(calculatedDistances && !_.isEmpty(calculatedDistances)){
-                if(_.isEmpty(position.distance)) position.distances = [];
-
-                _.each(calculatedDistances, function(distance){
-                    position.distances.push(distance);
-                });
-            }
-            position.modifiedAt = new Date();
-            upsertObj(position, Positions);
-        });
-    });
-};
-
-var calculateDistances2 = function(positionsArray){
 
   //  console.log(positionsArray);
 
@@ -241,7 +223,7 @@ var calculateDistances2 = function(positionsArray){
         console.log(missingIds);
 
 
-        DistanceCalculator2.calculateDistance(existingPosition.id, missingIds, function(calculatedDistances){
+        DistanceCalculator.calculateDistance(existingPosition.id, missingIds, function(calculatedDistances){
 
             if(!_.isEmpty(calculatedDistances)){
 
