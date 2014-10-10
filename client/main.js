@@ -1,6 +1,6 @@
 var log = function(msg){
   console.log(msg);
-}
+};
 
 Meteor.sff = {};
 
@@ -30,7 +30,7 @@ var setOverflowable = function(){
     }else{
       $('html').addClass('overflowable');
     }
-}
+};
 
 
 
@@ -58,7 +58,7 @@ init = function(){
     setOverflowable();
   });
 
-}
+};
 
 
 init();
@@ -88,29 +88,11 @@ Meteor.sff.userService = function(){
   }else{
     return "";
   }
-}
+};
 
 //****************************************
 //******** Account stuff *****************
 //****************************************
-
-
-if (Meteor.isServer) {
-  Meteor.startup(function () {
-    log('bing');
-    Meteor._debug('test');
-
-    if(Movies.find({}).count() === 0){
-
-      log('Movies is empty');
-      var movies = {};
-      movies = JSON.parse(Assets.getText("movies.json"));
-      _.each(movies.initMovies, function(movie){
-        Movies.insert(movie);
-      });
-    }
-  });
-}
 
 
 Handlebars.registerHelper('isTablet', function(asCss) {

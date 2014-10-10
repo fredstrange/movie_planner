@@ -51,7 +51,6 @@ Meteor.methods({
 				};
 				imageURL = Gravatar.urlFromEmail(user.emails[0].address, params);	
 			}
-
 		}
 
 		return imageURL;
