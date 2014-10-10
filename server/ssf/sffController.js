@@ -1,5 +1,7 @@
 SFF = {};
 
+Fiber = Npm.require('fibers');
+
 var config = {
     apiKey: process.env.SSF_API_KEY,
     rootURI: "http://api.stockholmfilmfestival.se/v1/",
@@ -162,7 +164,7 @@ var parseVenueList = function (list) {
             lon: parseFloat(item.venueLon)
         };
 
-        if(!_.contains(positionIds, position.id) || (position.id != "0,0")){
+        if(!_.contains(positionIds, position.id) && (position.id != "0,0")){
             positionIds.push(position.id);
             positionsArray.push(position);
         }
@@ -171,7 +173,7 @@ var parseVenueList = function (list) {
         upsertObj(position, Positions);
     });
 
-    calculateDistances(positionsArray);
+    calculateDistances2(positionsArray);
 };
 
 var calculateDistances = function(positionsArray){
@@ -180,17 +182,86 @@ var calculateDistances = function(positionsArray){
         positionsArray.forEach(function(position){
             var calculatedDistances = calculatedDistanceMap[position.id];
 
-            if(calculatedDistances && Array.isArray(calculatedDistances)){
-                if(!Array.isArray(position.distance)) position.distances = [];
+            if(calculatedDistances && !_.isEmpty(calculatedDistances)){
+                if(_.isEmpty(position.distance)) position.distances = [];
 
-                calculatedDistances.forEach(function(distance){
+                _.each(calculatedDistances, function(distance){
                     position.distances.push(distance);
                 });
             }
-
+            position.modifiedAt = new Date();
             upsertObj(position, Positions);
         });
     });
+};
+
+var calculateDistances2 = function(positionsArray){
+
+  //  console.log(positionsArray);
+
+    var missingIds, positionIds = _.pluck(positionsArray, 'id');
+    var currentIndex = 0;
+
+    function fetchNext(){
+        if(currentIndex < positionsArray.length){
+            fetchDistance(positionsArray[currentIndex]);
+        }
+    }
+
+    function fetchDistance(position){
+
+        console.log('fetchDistance');
+
+        var existingIds, existingPosition = Positions.findOne({id: position.id });
+
+        if(_.isEmpty(existingPosition)){
+            existingPosition = _.clone(position, true);
+            existingPosition.distances = [];
+        }
+
+        if(!_.isEmpty(existingPosition.distances)){
+
+            console.log('existingPosition.distances');
+            console.log(existingPosition.distances);
+
+            existingIds = _.pluck(existingPosition.distances, 'id');
+
+            // If all of the ids in the positionsArray are present in the existing positions array, continue.
+            missingIds = _.filter(positionIds, function(id){ return !_.contains(existingIds, id) });
+            if(missingIds.length == 0){
+                currentIndex++;
+                fetchNext();
+                return
+            }
+
+        }else{
+            missingIds = _.clone(positionIds);
+        }
+
+        console.log(missingIds);
+
+
+        DistanceCalculator2.calculateDistance(existingPosition.id, missingIds, function(calculatedDistances){
+
+            if(!_.isEmpty(calculatedDistances)){
+
+                var distancesAsArray = _.map(calculatedDistances, function(dist){ return (dist)? dist : false});
+                existingPosition.distances = _.union( existingPosition.distances, distancesAsArray)
+
+                _.each(calculatedDistances, function(distance){
+                    existingPosition.distances.push(distance);
+                });
+            }
+            existingPosition.modifiedAt = new Date();
+            upsertObj(existingPosition, Positions);
+        });
+
+        currentIndex++;
+        Meteor.setTimeout(fetchNext, 5000);
+    }
+
+    fetchNext();
+
 };
 
 
@@ -250,26 +321,29 @@ var listChangedFilmsSince = function(since){
 
 var upsertObj = function(obj, collection){
 
-    var tmpObj = collection.findOne({id: obj.id});
-    if(!tmpObj){
-        collection.insert(obj);
-    }else{
-    //    console.dir(tmpObj);
+    Fiber(function(){
+        var tmpObj = collection.findOne({id: obj.id});
+        if(!tmpObj){
+            collection.insert(obj);
+        }else{
+            //    console.dir(tmpObj);
 
-        var changedSet = {};
-        Object.keys(obj).forEach(function(key){
-            if(key != "modifiedAt" || key != "createdAt"){
-                if(obj[key] != tmpObj[key]) {
-                    changedSet[key] = obj[key];
+            var changedSet = {};
+            Object.keys(obj).forEach(function(key){
+                if(key != "modifiedAt" || key != "createdAt"){
+                    if(obj[key] != tmpObj[key]) {
+                        changedSet[key] = obj[key];
+                    }
                 }
-            }
-        });
+            });
 
-        if(changedSet.length > 0){
-            console.log("The object has changed and is being updated: %O", changedSet);
-            collection.update(tmpObj, {$set: changedSet});
+            if(!_.isEmpty(changedSet)){
+                console.log("The object has changed and is being updated: %O", changedSet);
+                collection.update(tmpObj, {$set: changedSet});
+            }
         }
-    }
+    }).run();
+
 };
 
 

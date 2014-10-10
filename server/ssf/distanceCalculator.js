@@ -38,6 +38,7 @@ var  calculateDistance = function(positionsArray, callback){
             return;
         }else if(!_.isEmpty(data.error_message)) {
             console.log("Google maps api failed with status: %s and error: %s", data.status, data.error_message);
+            callback(calulatedDistanceMap);
             return;
         }else{
             console.dir(data);
@@ -68,8 +69,8 @@ var  calculateDistance = function(positionsArray, callback){
 
         currentIndex++;
 
-        if(currentIndex < 2){
-       // if(currentIndex < positionsArray.length){
+      //  if(currentIndex < 2){
+        if(currentIndex < positionsArray.length){
             setTimeout(function() {
                 currentPosition = positionsArray[currentIndex];
                 lookUpDistance(currentPosition.lat, currentPosition.lon);
