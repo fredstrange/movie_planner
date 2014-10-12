@@ -1,6 +1,11 @@
 // Check to see if the movies have been loaded into the database.
 // If not seed the database with movie data.
 
+// Replace underscore with lodash
+_ = lodash;
+
+
+
 var checkAndLoadMovies = function(){
     var movieLength = Movies.find({}).count();
 
@@ -49,6 +54,6 @@ var saveCinemas = function(cinemas){
 
 Meteor.startup(function () {
     console.log('On server startup');
-    checkAndLoadMovies();
-    checkAndLoadCinemas();
+  //  checkAndLoadMovies();
+  //  checkAndLoadCinemas();
 });

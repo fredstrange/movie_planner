@@ -21,9 +21,7 @@ modernizr-meteor
 npm
 #accounts-ui-bootstrap-3
 bootstrap-3
-#iron-router
 coffeescript
-#collection2
 mrt:moment
 mrt:belt-gravatar
 aldeed:collection2

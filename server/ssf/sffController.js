@@ -154,26 +154,137 @@ var parseVenueList = function (list) {
             type_en: item.venueType_en,
             lat: item.venueLat,
             lon: item.venueLon,
+            latlon: item.venueLat + "," + item.venueLon,
             descriptionUrl: item.venueDescURL
         };
         venues.push(venue);
 
         var position = {
-            id: item.venueLat + "," + item.venueLon,
+            id: venue.latlon,
             lat: parseFloat(item.venueLat),
             lon: parseFloat(item.venueLon)
         };
 
+        if(position.id == '0,0') fixVenuePosition(position, venue);
+
         if(!_.contains(positionIds, position.id) && (position.id != "0,0")){
             positionIds.push(position.id);
             positionsArray.push(position);
+
+            upsertObj(position, Positions);
         }
 
         upsertObj(venue, Venues);
-        upsertObj(position, Positions);
+
     });
 
-    calculateDistances(positionsArray);
+  //  calculateDistances(positionsArray);
+};
+
+var fixVenuePosition = function(position, venue){
+    // 62 tekniska museet 59.3325049,18.1189656
+    //30 Dansens hus Latitude : 59.335767 | Longitude : 18.05511
+    //35 Kungträdgården Latitude : 59.331365 | Longitude : 18.072476
+    //60 Cosmonova Latitude : 59.329323 | Longitude : 18.068581
+    //65 Reflexen Latitude : 59.283942 | Longitude : 18.114274
+    //58 Historiska museet Latitude : 59.334679 | Longitude : 18.089932
+    //63 Historiska Museet Latitude : 59.334679 | Longitude : 18.089932
+    //15 Spy bar  Latitude : 59.342075 | Longitude : 18.064819
+    //18 Spy bar Latitude : 59.342075 | Longitude : 18.064819
+    //41 Ropsten Latitude : 59.901952 | Longitude : 18.569807
+    //34 Enskilda galleriet Latitude : 59.335199 | Longitude : 18.034892
+    //16 Nordic Light Biografen Latitude : 59.332593 | Longitude : 18.057065
+    //59 Stockholms stadsmuseum Latitude : 59.319698 | Longitude : 18.070858
+    //64 Stockholms stadsmuseum Latitude : 59.319698 | Longitude : 18.070858
+
+   // var changes, brokenVenues = ['62', '30', '35', '60', '65', '58', '63', '15', '18', '41', '34', '16', '59', '64'];
+
+    var changes = [
+        {
+            id: '62',
+            lat: '59.3325049',
+            lon: '18.1189656'
+        },
+        {
+            id: '30',
+            lat: '59.335767',
+            lon: '18.05511'
+        },
+        {
+            id: '35',
+            lat: '59.331365',
+            lon: '18.072476'
+        },
+        {
+            id: '60',
+            lat: '59.329323',
+            lon: '18.068581'
+        },
+        {
+            id: '65',
+            lat: '59.283942',
+            lon: '18.114274'
+        },
+        {
+            id: '58',
+            lat: '59.334679',
+            lon: '18.089932'
+        },
+        {
+            id: '63',
+            lat: '59.334679',
+            lon: '18.089932'
+        },
+        {
+            id: '15',
+            lat: '59.342075',
+            lon: '18.064819'
+        },
+        {
+            id: '18',
+            lat: '59.342075',
+            lon: '18.064819'
+        },
+        {
+            id: '41',
+            lat: '59.901952',
+            lon: '18.569807'
+        },
+        {
+            id: '34',
+            lat: '59.335199',
+            lon: '18.034892'
+        },
+        {
+            id: '16',
+            lat: '59.332593',
+            lon: '18.057065'
+        },
+        {
+            id: '59',
+            lat: '59.319698',
+            lon: '18.070858'
+        },
+        {
+            id: '64',
+            lat: '59.319698',
+            lon: '18.070858'
+        }
+    ];
+
+    var change = _.find(changes, {id: venue.id});
+
+    if(change){
+        position.lat = change.lat;
+        position.lon = change.lon;
+        position.id = change.lat + ',' + change.lon;
+
+        venue.lat = change.lat;
+        venue.lon = change.lon;
+        venue.latlon = change.lat + ',' + change.lon;
+    }
+
+    return;
 };
 
 
@@ -196,7 +307,7 @@ var calculateDistances = function(positionsArray){
 
         var existingIds, existingPosition = Positions.findOne({id: position.id });
 
-        if(_.isEmpty(existingPosition)){
+        if(!existingPosition){
             existingPosition = _.clone(position, true);
             existingPosition.distances = [];
         }
@@ -204,9 +315,14 @@ var calculateDistances = function(positionsArray){
         if(!_.isEmpty(existingPosition.distances)){
 
             console.log('existingPosition.distances');
-            console.log(existingPosition.distances);
+     //       console.log(existingPosition.distances);
 
-            existingIds = _.pluck(existingPosition.distances, 'id');
+            existingIds = [];
+            _.each(existingPosition.distances, function(distance){
+                if(distance && distance.hasOwnProperty('id')) {
+                    if(!_.contains(existingIds, distance.id)) existingIds.push(distance.id);
+                }
+            });
 
             // If all of the ids in the positionsArray are present in the existing positions array, continue.
             missingIds = _.filter(positionIds, function(id){ return !_.contains(existingIds, id) });
@@ -220,7 +336,7 @@ var calculateDistances = function(positionsArray){
             missingIds = _.clone(positionIds);
         }
 
-        console.log(missingIds);
+    //    console.log(missingIds);
 
 
         DistanceCalculator.calculateDistance(existingPosition.id, missingIds, function(calculatedDistances){
@@ -228,11 +344,8 @@ var calculateDistances = function(positionsArray){
             if(!_.isEmpty(calculatedDistances)){
 
                 var distancesAsArray = _.map(calculatedDistances, function(dist){ return (dist)? dist : false});
-                existingPosition.distances = _.union( existingPosition.distances, distancesAsArray)
+                existingPosition.distances = _.union( existingPosition.distances, distancesAsArray);
 
-                _.each(calculatedDistances, function(distance){
-                    existingPosition.distances.push(distance);
-                });
             }
             existingPosition.modifiedAt = new Date();
             upsertObj(existingPosition, Positions);

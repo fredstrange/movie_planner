@@ -22,11 +22,12 @@ Todo
 * Clean up UI
 * ~~Dedicated "My program" page~~
 * ~~path to movie~~
-* Direct integration with SFF's API
+* ~~Direct integration with SFF's API~~
 * Save schedule as PDF
 * Show movies but day in movie list and schedule.
 * Search field for movies
 * Set the position when navigating back and forth in movie list.
+* Cache the Google maps pages so that my limit does not expire.
 
 Install
 =======

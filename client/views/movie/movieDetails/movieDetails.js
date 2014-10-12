@@ -34,15 +34,14 @@ Template.movieDetails.helpers({
         id = AmplifiedSession.get('selected');
         movie = Movies.findOne({_id: id});
 
-        cinema = (movie) ? Cinemas.findOne({_id: movie.cinema.id}) : void 0;
+        cinema = (movie) ? movie.cinema : void 0;
         return cinema;
     },
 
-    startTime: function (a, b) {
-        var d = new Date(this.time * 1000);
-        var h = (d.getHours() < 10) ? "0" + d.getHours() : d.getHours();
-        var m = (d.getMinutes() < 10) ? "0" + d.getMinutes() : d.getMinutes();
-        return h + ':' + m;
+    startTime: function () {
+     //   console.log(this.timestamp);
+     //   console.log(moment(this.timestamp));
+        return moment(this.timestamp * 1000).format('HH:mm');;
     },
 
     playTime: function (id) {
@@ -69,6 +68,21 @@ Template.movieDetails.helpers({
         if (myAttendance.attending == 'maybe') return 'glyphicon-question-sign';
         if (myAttendance.attending == 'no') return 'glyphicon-remove-sign';
         else return false;
+    },
+
+    name: function(){
+        return this.name_en;
+    },
+
+    description: function(){
+        return this.movie.description_en;
+    },
+
+    duration: function(){
+        return this.movie.length;
+    },
+    type: function(){
+        return this.movie.sectionName;
     }
 });
 
@@ -79,9 +93,9 @@ Template.movieDetailsMap.helpers({
 
         id = AmplifiedSession.get('selected');
         movie = Movies.findOne({_id: id});
-        cinema = (movie) ? Cinemas.findOne({_id: movie.cinema.id}) : void 0;
+        cinema = (movie) ? movie.cinema : void 0;
 
-        return (cinema)? "http://maps.google.com/?ll=" + cinema.coordinates.lat + ',' + cinema.coordinates.lng + '&q=' + cinema.coordinates.lat + ',' + cinema.coordinates.lng : "";
+        return (cinema)? "http://maps.google.com/?ll=" + cinema.lat + ',' + cinema.lon + '&q=' + cinema.lat + ',' + cinema.lon : "";
     }
 });
 
@@ -93,11 +107,11 @@ function renderMap() {
     id = AmplifiedSession.get('selected');
     movie = Movies.findOne({_id: id});
 
-    cinema = (movie) ? Cinemas.findOne({_id: movie.cinema.id}) : void 0;
+    cinema = (movie) ? movie.cinema : void 0;
     if (!canvas || !cinema) return;
 
-    lat = cinema.coordinates.lat;
-    lng = cinema.coordinates.lng;
+    lat = cinema.lat;
+    lng = cinema.lon;
 
     mapOptions = {
         zoom: 12,
@@ -175,7 +189,7 @@ var initAttending = function() {
             $(".movie-details-dropdown .btn:first-child").removeClass('btn-danger btn-success btn-warning btn-default');
             $(".movie-details-dropdown .btn:first-child").addClass(goingClass);
 
-            console.log($(".movie-details-dropdown .btn:first-child").html());
+      //      console.log($(".movie-details-dropdown .btn:first-child").html());
             if (save) Meteor.call("attending", AmplifiedSession.get("selected"), going);
         }
     });
