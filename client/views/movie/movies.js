@@ -24,6 +24,19 @@ Template.movies.helpers({
 		}
 
 		return dates;
+	},
+
+	date: function(){
+		if(!this.festival) return "";
+		return moment(this.festival.start).format('YYYY-MM-DD');
+	},
+
+	next: function(){
+
+	},
+
+	prev: function(){
+
 	}
 });
 

@@ -56,8 +56,10 @@ Router.map(function () {
     this.route('movies', {
         path: '/movies',
         template: 'movies',
+
         onBeforeAction: function () {
             //AmplifiedSession.set('selected', '');
+            this.redirect('/movies/2013-11-06');
         }
 
     });
@@ -65,6 +67,10 @@ Router.map(function () {
     this.route('movies', {
         path: '/movies/:date',
         template: 'movies',
+
+        waitOn: function(){
+            return Meteor.subscribe('festivals');
+        },
         onBeforeAction: function () {
             // AmplifiedSession.set('selected', '');
         },
@@ -74,6 +80,15 @@ Router.map(function () {
                 date: this.params.date,
                 festival: Festivals.findOne()
             };
+        },
+
+        action: function () {
+            // this.ready() is true if all items returned from waitOn are ready
+            if (this.ready())
+                this.render();
+            else
+                console.log('bing');
+                //this.render('Loading');
         }
     });
 
