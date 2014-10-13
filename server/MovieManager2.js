@@ -46,11 +46,12 @@ var syncMovies = function(){
 
     _.each(events, function(event){
         var eventLastChanged = event.hasOwnProperty('modifiedAt')? event.modifiedAt : event.createdAt;
-
+        var isNew = false;
         var movie = Movies.findOne({id: event.id});
 
         if(!movie){
             movie = {};
+            isNew = true;
 
         }else if( eventLastChanged && movie.hasOwnProperty('lastSync') && moment(eventLastChanged).isAfter(movie.lastSync)){
             console.log('continue: ', movie.id);
@@ -63,9 +64,15 @@ var syncMovies = function(){
         movie.cinema = Cinemas.findOne({id: event.venueId})
         movie.lastSync = moment().toJSON();
         movie.startTime = moment(movie.timestamp * 1000).toJSON();
+        movie.date = (event.date) ? event.date : moment(movie.timestamp * 1000).format('YYYY-MM-DD');
         if(movie._id) delete movie._id;
 
-        Movies.update({id: movie.id}, {$set: movie}, {upsert:true});
+        if(isNew){
+            Movies.update({id: movie.id}, movie, {upsert:true});
+        }else{
+
+            Movies.update({id: movie.id}, movie);
+        }
     });
 };
 
@@ -79,7 +86,7 @@ var determineClashingMovies = function(){
 
     movies.forEach(function(movie){
         var movieStartTime = moment(movie.startTime),
-            movieEndTime = movieStartTime.add(movie.movie.length, 'minutes');
+            movieEndTime = moment(movieStartTime).add(movie.movie.length, 'minutes');
 
         clashing[movie._id] = [];
 
@@ -90,20 +97,19 @@ var determineClashingMovies = function(){
 
             // Get time to walk between the cinemas the movies are playing at.
             //cinemaWalkDuration = Cinemas.findOne({_id: movie.cinema.id}).distance[m.cinema.id].duration;
-
-            if(!movie.cinema || !m.cinema || !m.cinema.latlon || !movie.cinema.distance || !movie.cinema.distance[m.cinema.latlon] || !movie.cinema.distance[m.cinema.latlon].duration){
-   //             console.dir(movie);
-   //             console.dir(m);
+            try{
+                cinemaWalkDuration = movie.cinema.distance[m.cinema.latlon].duration;
+            }catch(e){
+                console.log('Failed to extract the walking distance.');
                 return;
             }
-            cinemaWalkDuration = movie.cinema.distance[m.cinema.latlon].duration;
 
             // Start and end time of the movie
             mStartTime = moment(m.startTime);
-            mEndTime = mStartTime.add(m.movie.length, 'minutes');
+            mEndTime = moment(mStartTime).add(m.movie.length, 'minutes');
 
-            startsDuringMovie = (mStartTime.isAfter(movieStartTime) && mStartTime.isBefore(movieEndTime.add(cinemaWalkDuration, 'seconds')));
-            endsDuringMovie = (movieStartTime.isAfter(mStartTime) && movieStartTime.isBefore(mEndTime.add(cinemaWalkDuration, 'seconds')));
+            startsDuringMovie = (mStartTime.unix() >= movieStartTime.unix() && mStartTime.unix() <= moment(movieEndTime).add(cinemaWalkDuration, 'seconds').unix());
+            endsDuringMovie = (movieStartTime.unix() >= mStartTime.unix() && movieStartTime.unix() <= moment(mEndTime).add(cinemaWalkDuration, 'seconds').unix());
 
             if(startsDuringMovie || endsDuringMovie){
                 clashing[movie._id].push(m._id);
@@ -114,6 +120,7 @@ var determineClashingMovies = function(){
 
     console.log('complete');
 };
+
 
 
 

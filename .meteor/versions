@@ -67,6 +67,7 @@ oauth2@1.1.0
 oauth@1.1.0
 observe-sequence@1.0.2
 ordered-dict@1.0.0
+quarterto:hammer@2.0.4
 random@1.0.0
 reactive-dict@1.0.3
 reactive-var@1.0.2
@@ -78,6 +79,7 @@ select2@0.0.0
 service-configuration@1.0.1
 session@1.0.2
 sha@1.0.0
+sidr@0.0.0
 spacebars-compiler@1.0.2
 spacebars@1.0.2
 srp@1.0.0

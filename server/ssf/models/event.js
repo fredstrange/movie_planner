@@ -13,6 +13,10 @@ var eventSchema = new SimpleSchema([BaseSchema, {
       type: Number,
       optional: false
    },
+   date: {
+      type: String,
+      optional: false
+   },
    hasFaceToFace: {
       type: Boolean,
       optional: true

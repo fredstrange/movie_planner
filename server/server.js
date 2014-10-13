@@ -1,6 +1,6 @@
 
 Meteor.publish("movies", function () {
-  return Movies.find({}, {sort: {'time': 1}});
+  return Movies.find({}, {sort: {'timestamp': 1}});
 });
 
 Meteor.publish("comments", function () {
@@ -9,6 +9,10 @@ Meteor.publish("comments", function () {
 
 Meteor.publish("cinemas", function () {
   return Cinemas.find({});
+});
+
+Meteor.publish("festivals", function () {
+  return Festivals.find({id:'25'});
 });
 
 Meteor.publish("userData", function () {

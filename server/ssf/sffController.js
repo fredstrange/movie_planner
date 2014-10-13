@@ -37,6 +37,9 @@ var ssfApiRequest = function (type, id, callback) {
     else if (type == "venues") {
         url += "venues/list";
     }
+    else if (type == "festivals") {
+        url += "festivals/list";
+    }
 
     url += "/format/json/API-Key/" + config.apiKey;
 
@@ -69,6 +72,7 @@ var parseEventList = function (list) {
             name_sv: item.eventName_sv,
             name_en: item.eventName_en,
             timestamp: item.eventTimestamp,
+            date: item.eventDate,
             ticketStatus: item.eventTicketStatus,
             modifiedTimestamp: item.eventModifiedTimestamp,
             filmId: item.filmId,
@@ -379,6 +383,24 @@ var parseSectionList = function (list) {
     console.dir(sections[0]);
 };
 
+var parseFestivals = function(list){
+    var festivalList = JSON.parse(list);
+    var festivals = [];
+
+    _.each(festivalList, function (item) {
+        var festival = {
+            id: item.festivalId,
+            name: item.festivalName,
+            start: moment(parseInt(item.festivalBegin) * 1000).toJSON(),
+            end: moment(parseInt(item.festivalEnd) * 1000).toJSON(),
+            isCurrent: item.festivalIsCurrent
+        };
+        festivals.push(festival);
+        upsertObj(festival, Festivals);
+    });
+
+};
+
 
 var listEvents = function () {
     console.log("listEvents");
@@ -399,6 +421,10 @@ var listVenues = function () {
 
 var listSections = function () {
     ssfApiRequest('sectionByfestival', null, parseSectionList);
+};
+
+var listFestivals = function () {
+    ssfApiRequest('festivals', null, parseFestivals);
 };
 
 var listChangedEventsSince = function(since){
@@ -462,6 +488,7 @@ Meteor.methods({
     listFilms: listFilms,
     listVenues: listVenues,
     listSections: listSections,
+    listFestivals: listFestivals,
     listChangedEventsSince: listChangedEventsSince,
     listChangedFilmsSince: listChangedFilmsSince
 });

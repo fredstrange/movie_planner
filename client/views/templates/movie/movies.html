@@ -1,17 +1,21 @@
 <template name="movies">
-    <div id="pageWrapper" class="row movielist-wrapper max-height no-overflow"> 
+    <div id="pageWrapper" class="row movielist-wrapper max-height no-overflow">
     	{{#if isCompressed}}
 
     		{{#if isMovie}}
     			{{> movieDetails}}
     		{{else}}
-    			{{> movieList}}
+                {{debug}}
+    			{{> movieList this}}
     		{{/if}}
     	{{else}}
+            <a id="simple-menu" href="#sidr">Toggle menu</a>
+
+               {{> datesMenu dates}}
 
             <div class=" max-height">
                  <div id="listColumn" class="col-md-6 col-sm-6 col-xs-6 scrollable">
-                    {{> movieList}}
+                    {{> movieList this}}
                 </div>
                 <div id="movie-details-column" class="col-md-6 col-sm-6 col-xs-6 scrollable">
                     {{> movieDetails}}

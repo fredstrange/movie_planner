@@ -4,11 +4,15 @@ var log = function(msg){
 
 Meteor.sff = {};
 
+Festivals = new Meteor.Collection("festivals");
+
 Meteor.subscribe("movies");
 Meteor.subscribe("comments");
 Meteor.subscribe("cinemas");
 Meteor.subscribe("userData");
 Meteor.subscribe("messages");
+Meteor.subscribe("festivals");
+
 
 
 AmplifiedSession = _.extend({}, Session, {

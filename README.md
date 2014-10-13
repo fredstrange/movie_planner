@@ -16,6 +16,7 @@ Todo
 * Profile page
  * ~~Fix the native user account~~
  * Profile picture - Needs to update link url
+ * General Cleanup
 * Dedicated mobile and tablet ui
 * Flagging comments
 * Admin page
@@ -24,10 +25,20 @@ Todo
 * ~~path to movie~~
 * ~~Direct integration with SFF's API~~
 * Save schedule as PDF
-* Show movies but day in movie list and schedule.
+* Show movies by day in movie list and schedule.
+ * ~~Add side menu to movie pane~
+ * Add side menu to schedule pane
+ * Button on the center of the left side to toggle side menu
+ * Swipe events for opening and closing menu.
+ * Update router to default to today's movies or the first day of the festival.
 * Search field for movies
 * Set the position when navigating back and forth in movie list.
 * Cache the Google maps pages so that my limit does not expire.
+* Fix Schedule rendering
+* List to other viewings of the Movie
+* Deployment configuration
+* Start page
+
 
 Install
 =======

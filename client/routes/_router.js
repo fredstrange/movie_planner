@@ -63,12 +63,45 @@ Router.map(function () {
     });
 
     this.route('movies', {
+        path: '/movies/:date',
+        template: 'movies',
+        onBeforeAction: function () {
+            // AmplifiedSession.set('selected', '');
+        },
+        data: function(){
+            return {
+                movies: Movies.find({date: this.params.date}, {sort: {'timestamp': 1}}),
+                date: this.params.date,
+                festival: Festivals.findOne()
+            };
+        }
+    });
+
+    this.route('movies', {
+        path: '/movies/:date/:_id',
+        template: 'movies',
+        onBeforeAction: function () {
+             AmplifiedSession.set('selected', this.params._id);
+        },
+        data: function(){
+            return {
+                movies: Movies.find({date: this.params.date}, {sort: {'timestamp': 1}}),
+                date: this.params.date,
+                selected: this.params._id/*,
+                festival: Festivals.findOne()*/
+            };
+        }
+    });
+
+    this.route('movies', {
         path: '/movies/:_id',
         template: 'movies',
         onBeforeAction: function () {
             AmplifiedSession.set('selected', this.params._id);
         }
     });
+
+
 
 });
 

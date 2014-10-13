@@ -1,3 +1,9 @@
 Template.movieList.movies = function () {
-  return Movies.find({});
+    return this.movies;
 };
+
+
+
+Template.movieList.rendered = function(){
+    console.log(this);
+}

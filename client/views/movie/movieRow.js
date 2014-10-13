@@ -37,11 +37,8 @@ Template.movieRow.helpers({
         return Comments.find({movieid: this._id}).count();
     },
 
-    startTime: function (a, b) {
-        var d = new Date(this.time * 1000);
-        var h = (d.getHours() < 10) ? "0" + d.getHours() : d.getHours();
-        var m = (d.getMinutes() < 10) ? "0" + d.getMinutes() : d.getMinutes();
-        return h + ':' + m;
+    startTime: function () {
+        return moment(this.timestamp * 1000).format('HH:mm');
     },
 
     goingRowColor: function () {
@@ -72,6 +69,12 @@ Template.movieRow.helpers({
         if (myAttendance.attending == 'maybe') return 'glyphicon-question-sign';
         if (myAttendance.attending == 'no') return 'glyphicon-remove-sign';
         else return false;
+    },
+    name: function(){
+        return this.name_en;
+    },
+    type: function(){
+        return this.movie.sectionName;
     }
 });
 

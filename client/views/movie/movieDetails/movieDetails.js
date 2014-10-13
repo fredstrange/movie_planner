@@ -41,7 +41,7 @@ Template.movieDetails.helpers({
     startTime: function () {
      //   console.log(this.timestamp);
      //   console.log(moment(this.timestamp));
-        return moment(this.timestamp * 1000).format('HH:mm');;
+        return moment(this.timestamp * 1000).format('MM-DD HH:mm');;
     },
 
     playTime: function (id) {
