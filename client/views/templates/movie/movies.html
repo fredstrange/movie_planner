@@ -15,7 +15,21 @@
             <div class=" max-height">
 
                 <div id="listColumn" class="col-md-6 col-sm-6 col-xs-6 scrollable">
-                    <div class="dateHandle"><a id="simple-menu" href="#sidr">{{date}}</a></div>
+
+                    <div class="dateHandle">
+                        <div class="prevDate text-left col-md-4">
+                            {{#if prev}}
+                                <a href="/movies/{{prev}}"><i class="fa fa-angle-double-left"></i>{{prev}}</a>
+                            {{/if}}
+                        </div>
+                        <div class="text-center col-md-4"><a id="simple-menu" href="#sidr">{{date}}</a></div>
+                        <div class="nextDate text-right col-md-4">
+                            {{#if next}}
+                                <a href="/movies/{{next}}">{{next}}<i class="fa fa-angle-double-right"></i></a>
+                            {{/if}}
+                        </div>
+                    </div>
+
 
                     {{> movieList this}}
                 </div>
@@ -25,5 +39,6 @@
             </div>
 	        
     	{{/if}}
+        <div class="menuTrigger"><i class="fa fa-align-justify"></i></div>
     </div>
 </template>

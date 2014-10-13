@@ -27,8 +27,8 @@ mrt:belt-gravatar
 aldeed:collection2
 ian:accounts-ui-bootstrap-3
 vjau:xml2js
-iron:router
 stevezhu:lodash
 sidr
 quarterto:hammer
+iron:router@1.0.0-pre4
 

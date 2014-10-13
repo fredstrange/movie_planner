@@ -18,38 +18,55 @@ Template.movies.helpers({
 		for(var i=0; i<diff; i++){
 			dates.push({
 				date: time.format('YYYY-MM-DD'),
-				dateText: time.format('MMM D')
+				dateText: time.format('MMM D'),
+				timestamp: time.valueOf()
 			});
+
 			time.add(1, 'days');
+
 		}
+		console.log(dates);
+
+		AmplifiedSession.set('maxDate', lodash.max(dates, 'timestamp').timestamp);
+		AmplifiedSession.set('minDate', lodash.min(dates, 'timestamp').timestamp);
 
 		return dates;
 	},
 
+
 	date: function(){
-		if(!this.festival) return "";
-		return moment(this.festival.start).format('YYYY-MM-DD');
+		return  moment(AmplifiedSession.get('selectedDate')).format('MMM D');
 	},
 
 	next: function(){
+		var max = moment(AmplifiedSession.get('maxDate'));
+		var date = moment(AmplifiedSession.get('selectedDate'));
 
+		if(date.isBefore(max)){
+			return date.add(1, 'days').format('MMM D');
+		}
 	},
 
 	prev: function(){
+		var min = moment(AmplifiedSession.get('minDate'));
+		var date = moment(AmplifiedSession.get('selectedDate'));
 
+		if(date.isAfter(min)){
+			return date.subtract(1, 'days').format('MMM D');
+		}
 	}
 });
 
 Template.movies.rendered = function(){
 	//console.log(this);
-	$('#simple-menu').sidr({
+	$('#simple-menu, .menuTrigger').sidr({
 		name: 'sidr'
 	});
-/*	var mc = new Hammer.Manager(document.body, {
-		recognizers: [
-			[Hammer.Swipe,{ direction: Hammer.DIRECTION_HORIZONTAL }],
-			]
-	});*/
+
+	this.datesArr = [];
+
+
+
 
 
 
