@@ -25,7 +25,7 @@ Template.movies.helpers({
 			time.add(1, 'days');
 
 		}
-		console.log(dates);
+	//	console.log(dates);
 
 		AmplifiedSession.set('maxDate', lodash.max(dates, 'timestamp').timestamp);
 		AmplifiedSession.set('minDate', lodash.min(dates, 'timestamp').timestamp);
@@ -43,7 +43,11 @@ Template.movies.helpers({
 		var date = moment(AmplifiedSession.get('selectedDate'));
 
 		if(date.isBefore(max)){
-			return date.add(1, 'days').format('MMM D');
+			date =  date.add(1, 'days');
+			return {
+				label: date.format('MMM D'),
+				date: date.format('YYYY-MM-DD')
+			}
 		}
 	},
 
@@ -52,7 +56,11 @@ Template.movies.helpers({
 		var date = moment(AmplifiedSession.get('selectedDate'));
 
 		if(date.isAfter(min)){
-			return date.subtract(1, 'days').format('MMM D');
+			date =  date.subtract(1, 'days');
+			return {
+				label: date.format('MMM D'),
+				date: date.format('YYYY-MM-DD')
+			}
 		}
 	}
 });

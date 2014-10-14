@@ -19,13 +19,13 @@
                     <div class="dateHandle">
                         <div class="prevDate text-left col-md-4">
                             {{#if prev}}
-                                <a href="/movies/{{prev}}"><i class="fa fa-angle-double-left"></i>{{prev}}</a>
+                                <a href="/movies/{{prev.date}}"><i class="fa fa-angle-double-left"></i>{{prev.label}}</a>
                             {{/if}}
                         </div>
                         <div class="text-center col-md-4"><a id="simple-menu" href="#sidr">{{date}}</a></div>
                         <div class="nextDate text-right col-md-4">
                             {{#if next}}
-                                <a href="/movies/{{next}}">{{next}}<i class="fa fa-angle-double-right"></i></a>
+                                <a href="/movies/{{next.date}}">{{next.label}}<i class="fa fa-angle-double-right"></i></a>
                             {{/if}}
                         </div>
                     </div>

@@ -8,7 +8,7 @@ Router.configure({
     loadingTemplate: 'loading',
 
     onBeforeAction: function(){
-        Session.set('currentPath', curPath());
+        Session.set('currentPath', this.location.path);
         this.render('header', {to: 'header'});
         this.render('footer', {to: 'footer'});
         this.next();
@@ -61,7 +61,7 @@ Router.route('/schedule/:_id', {
 });
 
 Router.route('/movies', function(){
-    this.redirect('/movies/2013-11-06')
+    this.redirect('/movies/2014-11-05')
 });
 
 Router.route('/movies/:date', {
@@ -86,6 +86,7 @@ Router.route('/movies/:date', {
 
 Router.route('/movies/:date/:id', {
     onBeforeAction: function () {
+
         AmplifiedSession.set('selectedDate', this.params.date);
         AmplifiedSession.set('selected', this.params._id);
         this.next();

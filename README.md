@@ -28,16 +28,18 @@ Todo
 * Show movies by day in movie list and schedule.
  * ~~Add side menu to movie pane~
  * Add side menu to schedule pane
- * Button on the center of the left side to toggle side menu
+ * ~Button on the center of the left side to toggle side menu~
  * Swipe events for opening and closing menu.
- * Update router to default to today's movies or the first day of the festival.
+ * ~Update router to default to today's movies or the first day of the festival.~
 * Search field for movies
 * Set the position when navigating back and forth in movie list.
 * Cache the Google maps pages so that my limit does not expire.
 * Fix Schedule rendering
-* List to other viewings of the Movie
+* ~~List to other viewings of the Movie~
 * Deployment configuration
 * Start page
+* Mark active page
+* navigate back in history
 
 
 Install

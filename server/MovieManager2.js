@@ -58,10 +58,13 @@ var syncMovies = function(){
             return; // The movie is up to date, do nothing.
         }
 
+        var film = Films.findOne({id:event.filmId});
+        if(!film) return;
+
         movie = _.assign(event, movie);
 
         movie.movie = Films.findOne({id:event.filmId});
-        movie.cinema = Cinemas.findOne({id: event.venueId})
+        movie.cinema = Cinemas.findOne({id: event.venueId});
         movie.lastSync = moment().toJSON();
         movie.startTime = moment(movie.timestamp * 1000).toJSON();
         movie.date = (event.date) ? event.date : moment(movie.timestamp * 1000).format('YYYY-MM-DD');
@@ -86,7 +89,14 @@ var determineClashingMovies = function(){
 
     movies.forEach(function(movie){
         var movieStartTime = moment(movie.startTime),
+            movieEndTime;
+
+        try{
             movieEndTime = moment(movieStartTime).add(movie.movie.length, 'minutes');
+        }catch (e){
+            console.log('DetermineClashingMovies: the movie is null');
+            return;
+        }
 
         clashing[movie._id] = [];
 
@@ -100,7 +110,9 @@ var determineClashingMovies = function(){
             try{
                 cinemaWalkDuration = movie.cinema.distance[m.cinema.latlon].duration;
             }catch(e){
-                console.log('Failed to extract the walking distance.');
+                console.log('Failed to extract the walking distance, defaulting to 0');
+                //console.log(m);
+              //  console.log(m);
                 return;
             }
 

@@ -5,7 +5,7 @@ Fiber = Npm.require('fibers');
 var config = {
     apiKey: process.env.SSF_API_KEY,
     rootURI: "http://api.stockholmfilmfestival.se/v1/",
-    festivalId: "25"
+    festivalId: "26"
 };
 
 
@@ -61,11 +61,11 @@ var ssfApiRequest = function (type, id, callback) {
 };
 
 var parseEventList = function (list) {
-    var filmList = JSON.parse(list);
+    var eventList = JSON.parse(list);
     var events = [];
     var films = [];
 
-    _.each(filmList, function (item) {
+    _.each(eventList, function (item) {
         var event = {
             id: item.eventId,
             number: item.eventNumber,

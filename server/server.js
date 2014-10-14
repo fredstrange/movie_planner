@@ -12,7 +12,7 @@ Meteor.publish("cinemas", function () {
 });
 
 Meteor.publish("festivals", function () {
-  return Festivals.find({id:'25'});
+  return Festivals.find({id:'26'});
 });
 
 Meteor.publish("userData", function () {
