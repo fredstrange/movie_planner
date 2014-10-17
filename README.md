@@ -40,6 +40,10 @@ Todo
 * Start page
 * Mark active page
 * navigate back in history
+* add the day menus in the compressed view.
+* fix the side menu in the compressed view.
+* browser-policy package
+*  add andruschka:scroll-to-fixed?
 
 
 Install

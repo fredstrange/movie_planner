@@ -9,20 +9,10 @@ accounts-google
 accounts-facebook
 accounts-twitter
 amplify
-scroll-to-fixed
 less
-font-awesome
 email
-select2
 jquery-mobile-custom
-categorizr
-#bootstrap-3-custom
-modernizr-meteor
-npm
-#accounts-ui-bootstrap-3
-bootstrap-3
 coffeescript
-mrt:moment
 mrt:belt-gravatar
 aldeed:collection2
 ian:accounts-ui-bootstrap-3
@@ -31,4 +21,9 @@ stevezhu:lodash
 sidr
 quarterto:hammer
 iron:router@1.0.0-pre4
+natestrauser:select2
+natestrauser:font-awesome
+jeeeyul:moment-with-langs
+mizzao:bootstrap-3
+obvio171:disqus
 

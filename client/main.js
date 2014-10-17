@@ -3,6 +3,8 @@ var log = function(msg){
 };
 
 Meteor.sff = {};
+//if(Meteor.settings === void 0) Meteor.settings = {"public" : { "disqus": { "shortname": "filmfestplanner" } } };
+
 
 Festivals = new Meteor.Collection("festivals");
 
@@ -55,7 +57,7 @@ init = function(){
 
   $( window ).resize(function() {
 
-    var compressed = (categorizr.isMobile || categorizr.isTablet || Session.equals('orientation', 'portrait') || ($(window).width() <= 720));
+    var compressed = (Session.equals('orientation', 'portrait') || ($(window).width() <= 720));
     Session.set('isCompressed', compressed);
     Session.set('width', $(window).width());
 
@@ -98,28 +100,34 @@ Meteor.sff.userService = function(){
 //******** Account stuff *****************
 //****************************************
 
+/*
 
 Handlebars.registerHelper('isTablet', function(asCss) {
     if (asCss) return (categorizr.isTablet) ? 'isTablet' : '';
     else return categorizr.isTablet;
 });
+*/
 
 Handlebars.registerHelper('isLandscape', function(asCss) {
     if (asCss) return (Session.equals('orientation', 'landscape')) ? 'isLandscape' : 'isPortrait';
     else return Session.equals('orientation', 'landscape');
 });
+/*
 
 Handlebars.registerHelper('isTabletLandscape', function() {
     return categorizr.isTablet && Session.equals('orientation', 'landscape');
 });
+*/
+/*
 
 Handlebars.registerHelper('isMobile', function(asCss) {
     if (asCss) return (categorizr.isMobile) ? 'isMobile' : '';
     else return categorizr.isMobile;
 });
+*/
 
 Meteor.sff.isCompressed = function(){
-  return (categorizr.isMobile || categorizr.isTablet || Session.equals('orientation', 'portrait') || ($(window).width() <= 720));
+  return ( Session.equals('orientation', 'portrait') || ($(window).width() <= 720));
 }
 
 Handlebars.registerHelper('isCompressed', function() {

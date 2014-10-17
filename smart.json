@@ -1,9 +1,0 @@
-{
-  "packages": {
-    "font-awesome": {},
-    "select2": {},
-    "modernizr-meteor": {},
-    "npm": {},
-    "bootstrap-3": {}
-  }
-}

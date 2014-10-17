@@ -132,7 +132,8 @@ function renderMap() {
 
 Template.movieDetails.events({
     'click .movie-back-btn': function (event, tmpl) {
-        history.pushState({}, "Movie Page", '/movies');
+        var date = (AmplifiedSession.get('selectedDate'))? '/' + AmplifiedSession.get('selectedDate') : '';
+        history.pushState({}, "Movie Page", '/movies' + date);
         AmplifiedSession.set('selected', '');
     }
 });

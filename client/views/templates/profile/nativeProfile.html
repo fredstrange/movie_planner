@@ -1,15 +1,14 @@
 <template name="nativeProfile">
     <div>
-        <label>Username</label>
-        <input type="input" id="username" value="{{profile.name}}">
+        <label for="username">Username</label>
+        <input name="username" type="input" id="username" value="{{profile.name}}">
     </div>
     <div>
-        <label>Email</label>
-
-        <input type="input" id="email" value=""> <!-- TODO: Add the email back in. -->
+        <label for="email" >Email</label>
+        <input name="email" type="input" id="email" value=""> <!-- TODO: Add the email back in. -->
     </div>
     <div>
-        <input type="button" value="Save" class="saveProfileBtn">
+        <button type="button" value="Save" class="saveProfileBtn">Save</button>
     </div>
 
 </template>

@@ -1,70 +1,81 @@
 <template name="profile">
     <div id="profile-wrapper" class="scrollable">
-      {{#if _id}} <!-- checks to see if this is an external profile. -->
-        <div id="username">{{profile.name}}</div>
-        <img src="{{userImage _id}}">
-        <div>
+        {{#if _id}} <!-- checks to see if this is an external profile. -->
+            <div id="username">{{profile.name}}</div>
+            <img src="{{userImage _id}}">
+
+            <div>
           <span>
             <a href="/schedule/{{_id}}"><i class="fa fa-list-ul"> Schedule</i></a>
           </span>
-        </div>
-      {{else}} <!-- If not, check for current user -->
-        {{#if currentUser}}
-        {{#with currentUser}}
-
-          {{#if isNative}}
-            {{> nativeProfile}}
-          {{else}}
-
-            <div id="username">{{profile.name}}</div>
-
-           {{#if isTwitter}}
-            {{> twitterProfile}}
-           {{/if}}
-
-           {{#if isFacebook}}
-            {{> fbProfile}}
-           {{/if}}
-
-           {{#if isGoogle}}
-            {{> gplusProfile}}
-           {{/if}}
-
-          {{/if}} <!-- End isNative if -->
-            <img src="{{userImage}}">
+            </div>
+        {{else}} <!-- If not, check for current user -->
 
 
-          <div>
-            <h2>My Friends</h2>
-          </div>
-          <div class="friendsInvite">
-            <p>Send a friend invite</p>
-            <input id="inviteEmail" type="email" placeholder="you friends email" value="">
-            <input id="inviteMessage" type="text" placeholder="Write a message">
-            <button id="inviteSubmit" class="btn btn-info">Send Request</button>
-          </div>
+            {{#if currentUser}}
+                {{#with currentUser}}
 
-          {{#if isFacebook}}
-            {{> fbInvite}}
-           {{/if}}
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+
+                            {{#if isNative}}
+                                {{> nativeProfile}}
+                            {{else}}
+
+                                <div id="username">{{profile.name}}</div>
+
+                                {{#if isTwitter}}
+                                    {{> twitterProfile}}
+                                {{/if}}
+
+                                {{#if isFacebook}}
+                                    {{> fbProfile}}
+                                {{/if}}
+
+                                {{#if isGoogle}}
+                                    {{> gplusProfile}}
+                                {{/if}}
+
+                            {{/if}} <!-- End isNative if -->
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            <img src="{{userImage}}">
+                        </div>
 
 
-          {{#each myFriends}}
-            <div>
-              <span>{{displayName}}: </span>
+                    </div>
+
+                    <div>
+                        <h2>My Friends</h2>
+                    </div>
+                    <div class="friendsInvite">
+                        <p>Send a friend invite</p>
+                        <input id="inviteEmail" type="email" placeholder="you friends email" value="">
+                        <input id="inviteMessage" type="text" placeholder="Write a message">
+                        <button id="inviteSubmit" class="btn btn-info">Send Request</button>
+                    </div>
+
+                    {{#if isFacebook}}
+                        {{> fbInvite}}
+                    {{/if}}
+
+
+                    {{#each myFriends}}
+                        <div>
+                            <span>{{displayName}}: </span>
               <span>
                 <a href="/profile/{{_id}}"> <i class="fa fa-user"> Profile</i></a>
               </span>
               <span>
-                <a href="/schedule/{{_id}}">  <i class="fa fa-list-ul"> Schedule</i></a>
+                <a href="/schedule/{{_id}}"> <i class="fa fa-list-ul"> Schedule</i></a>
               </span>
-            </div>
-          {{/each}}
-        {{/with}}  <!-- End with Current User -->
+                        </div>
+                    {{/each}}
+                {{/with}}  <!-- End with Current User -->
 
-      {{else}} <!-- If not current user -->
-        You have to log in to edit your profile. 
-      {{/if}} <!-- End if current user.  -->
-      {{/if}} <!-- End is external profile. -->
+            {{else}} <!-- If not current user -->
+                You have to log in to edit your profile.
+            {{/if}} <!-- End if current user.  -->
+        {{/if}} <!-- End is external profile. -->
     </div>
 </template>

@@ -7,6 +7,7 @@ Meteor.publish("messages", function () {
 
 Meteor.methods({
     createMessage: function (message, callback) {
+        console.log('createMessage ss');
         var error = [];
         if(_.isEmpty(message.to.id)) error.push({type: 'validationError', message: 'The to id is not set'});
         if(_.isEmpty(message.to.name)) error.push({type: 'validationError', message: 'The to name is not set'});

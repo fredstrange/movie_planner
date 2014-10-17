@@ -1,8 +1,0 @@
-{
-    "name": "hammerjs",
-    "description": "A javascript library for multi-touch gestures",
-    "homepage": "http://eightmedia.github.io/hammer.js/",
-    "author": "Nathan Strauser",
-    "version": "1.0.6dev",
-    "git": "https://github.com/EightMedia/hammer.js.git"
-}

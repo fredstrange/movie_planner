@@ -3,12 +3,13 @@ Template.messageForm.helpers({
 });
 
 Template.messageForm.events({
-	'click #message-submit': function(event, tepl){
+	'click #message-submit': function(event){
         event.preventDefault();
 
         var message = messageObjFromForm($('#messageForm'));
 
         Meteor.call('createMessage', message, function(error, res){
+            console.log('createMessage');
             if(error) console.log(error);
         });
 

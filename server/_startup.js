@@ -5,6 +5,9 @@
 _ = lodash;
 
 
+//BrowserPolicy.content.allowOriginForAll('*.bootstrapcdn.com');
+
+
 
 var checkAndLoadMovies = function(){
     var movieLength = Movies.find({}).count();
