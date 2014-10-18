@@ -1,27 +1,40 @@
 Template.schedule.helpers({
 	myMovies: function(){
-		var i, startCinema, endCinema, movies, userId, movies;
-		
-			userId = (this && this.id)? this.id : Meteor.userId();
-			movies = Movies.find({'attendings.user': userId, 'attendings.attending': 'yes' }).fetch();
+		var i, startCinema, endCinema, movies, movies, duration, bufferStartTime, bufferEndTime, hours, minutes, buffer;
+
+			movies = this.movies;
 
 		for(i = 0; i < movies.length-1; i++){
-			startCinema = Cinemas.findOne({_id: movies[i].cinema.id});
-			endCinema = Cinemas.findOne({_id: movies[i+1].cinema.id}); 
+
+			// Map details
+			startCinema = movies[i].cinema;
+			endCinema =  movies[i+1].cinema;
+
+			duration = Math.floor( startCinema.distance[endCinema.latlon].duration / 60 );
+			bufferStartTime = moment(movies[i].startTime).add(movies[i].movie.length, 'minutes').add(duration, 'minutes');
+			bufferEndTime = moment(movies[i+1].startTime);
+
+			hours = bufferEndTime.diff(bufferStartTime, 'hours');
+			minutes = bufferEndTime.diff(bufferStartTime, 'minutes') % 60;
+
+			buffer = ((hours)? hours + ' hour' + ((hours != 1)? 's': '') + ' and ': '') + minutes + ' minute' + ((minutes != 1)? 's': '');
 
             try{
                 movies[i].map = {
                     origin: startCinema,
                     destination: endCinema,
-                    distance: startCinema.distance[endCinema._id].distance,
-                    duration: Math.floor( startCinema.distance[endCinema._id].duration / 60 )
+                    distance: startCinema.distance[endCinema.latlon].distance,
+                    duration: duration,
+					buffer: buffer
                 }
             }catch(e){
                 console.log("No map for movie" + i);
             }
 		}
 		return movies;
-	}
+	},
+
+	model: {model: 'schedule'}
 });
 
 Template.scheduleRow.helpers({});

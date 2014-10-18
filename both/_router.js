@@ -16,6 +16,13 @@ Router.configure({
     waitOn: function() { return Meteor.subscribe('users')}
 });
 
+var getDate = function(params){
+    var date = (params && params.date)? params.date : (AmplifiedSession.get('selectedDate'))? AmplifiedSession.get('selectedDate') : '2014-11-05';
+    AmplifiedSession.set('selectedDate', date);
+
+    return date;
+};
+
 
 Router.route('/', function () {
     this.render('home');
@@ -48,32 +55,55 @@ Router.route('/adminView', function(){
 
 
 Router.route('/schedule', function(){
-    this.render('schedule');
+    this.redirect('/schedule/' + getDate());
 });
 
-Router.route('/schedule/:_id', {
+Router.route('/schedule/:date', {
+    onBeforeAction: function(){
+        this.next();
+    },
+
+    data: function(){
+        var date = getDate(this.params);
+        var userId = (_.isEmpty(this.params.query.id))? Meteor.userId() : this.params.query.id;
+        var movies = Movies.find({date: date, 'attendings.user': userId, 'attendings.attending': 'yes'}, {sort: {'timestamp': 1}}).fetch();
+
+        return {
+            movies: movies,
+            date: date,
+            id: userId
+        };
+    },
+
+    action: function(){
+        this.render('schedule');
+    }
+});
+
+/*Router.route('/schedule/:_id', {
     data: function () {
         return {id: this.params._id};
     },
     action: function(){
         this.render('schedule');
     }
-});
+});*/
 
 Router.route('/movies', function(){
-    this.redirect('/movies/2014-11-05')
+    this.redirect('/movies/' + getDate());
 });
 
 Router.route('/movies/:date', {
     onBeforeAction: function(){
-        AmplifiedSession.set('selectedDate', this.params.date);
         this.next();
     },
 
     data: function(){
+        var date = getDate(this.params);
+
         return {
-            movies: Movies.find({date: this.params.date}, {sort: {'timestamp': 1}}),
-            date: this.params.date,
+            movies: Movies.find({date: date}, {sort: {'timestamp': 1}}),
+            date: date,
             festival: Festivals.findOne()
         };
     },
@@ -122,104 +152,7 @@ Router.route('/invite/:_id', {
 
 
 Router.map(function () {
-  /*  this.route('home', {
-        path: '/',
-        template: 'home',
-        onBeforeAction: function () {
-            //AmplifiedSession.set('selected', '');
-            this.next();
-        },
-        action: function(){
-            this.render();
-        }
 
-    });
-
-    this.route('profile');
-    this.route('profile_id', {
-        path: '/profile/:_id',
-        data: function () {
-            return Meteor.users.findOne({_id: this.params._id});
-        },
-        onBeforeAction: function () {
-            Session.set('profileId', this.params._id);
-        }
-    });
-
-
-    this.route('adminView');
-
-    this.route('schedule');
-    this.route('schedule_id', {
-        path: '/schedule/:_id',
-        data: function () {
-            return {id: this.params._id};
-        }
-    });
-
-    this.route('invite', {
-        path: '/invite/:_id',
-        template: 'invite',
-        onBeforeAction: function () {
-            Session.set('inviteId', this.params._id);
-        }
-    });
-    */
-   /* this.route('movies', {
-        path: '/movies',
-        template: 'movies',
-
-        onBeforeAction: function () {
-            //AmplifiedSession.set('selected', '');
-            this.redirect('/movies/2013-11-06');
-        }
-
-    });
-
-    this.route('movies_date', {
-        path: '/movies/:date',
-        template: 'movies',
-
-        waitOn: function(){
-            return Meteor.subscribe('festivals');
-        },
-        onBeforeAction: function () {
-            // AmplifiedSession.set('selected', '');
-        },
-        data: function(){
-            return {
-                movies: Movies.find({date: this.params.date}, {sort: {'timestamp': 1}}),
-                date: this.params.date,
-                festival: Festivals.findOne()
-            };
-        },
-
-        action: function () {
-            // this.ready() is true if all items returned from waitOn are ready
-            if (this.ready())
-                this.render();
-            else
-                console.log('bing');
-                //this.render('Loading');
-        }
-    });
-
-    this.route('movies_date_id', {
-        path: '/movies/:date/:_id',
-        template: 'movies',
-        onBeforeAction: function () {
-             AmplifiedSession.set('selected', this.params._id);
-        },
-        data: function(){
-            return {
-                movies: Movies.find({date: this.params.date}, {sort: {'timestamp': 1}}),
-                date: this.params.date,
-                selected: this.params._id,
-                festival: Festivals.findOne()
-            };
-        }
-    });
-    */
     this.route('movies_id', {
         path: '/movies/:_id',
         template: 'movies',

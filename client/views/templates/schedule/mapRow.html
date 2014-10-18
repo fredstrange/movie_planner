@@ -1,9 +1,24 @@
 <template name="mapRow">
-	<div class="">
-		<div class="">You have to walk from {{origin.name}} (A) to {{destination.name}} (B)</div>
-		<div class="distance">It is {{distance}}m and will take {{duration}} minutes at normal walking speed.</div>
+	<div class="mapRow row">
+        <div class=" col-md-8 col-sm-6 col-xs-12">
+			<div class="mapDirections">
+				<h4>Directions</h4>
+                <div class="">You have to get from the venue {{origin.name}} (A) to {{destination.name}} (B), check the map for details.</div>
+
+				<h4>Distance</h4>
+                <div class="distance">The walking distance is {{distance}} meters and should take about {{duration}} minutes at normal walking speed.</div>
+
+				<h4>Time to spare</h4>
+                <div>You will have {{buffer}} to spare if you walk between the movie venues. Alternative modes of transportation could be faster.</div>
+			</div>
+
+        </div>
+		<div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="map text-center">
+                <img src="//maps.googleapis.com/maps/api/staticmap?markers=color:blue%7Clabel:A%7C{{origin.lat}},{{origin.lon}}&amp;markers=color:red%7Clabel:B%7C{{destination.lat}},{{destination.lon}}&amp;size=256x256&amp;sensor=false" alt="">
+            </div>
+		</div>
+        
 	</div>
-	<div class="map">
-		<img src="//maps.googleapis.com/maps/api/staticmap?markers=color:blue%7Clabel:A%7C{{origin.coordinates.lat}},{{origin.coordinates.lng}}&amp;markers=color:red%7Clabel:B%7C{{destination.coordinates.lat}},{{destination.coordinates.lng}}&amp;size=256x256&amp;sensor=false" alt="">
-	</div>
+	
 </template>

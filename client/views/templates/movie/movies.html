@@ -3,10 +3,9 @@
     	{{#if isCompressed}}
 
     		{{#if isMovie}}
-                <div class="dateHandle"><a id="simple-menu" href="#sidr">{{date}}</a></div>
     			{{> movieDetails}}
     		{{else}}
-                {{debug}}
+                {{> dateHandle model}}
     			{{> movieList this}}
     		{{/if}}
     	{{else}}
@@ -15,21 +14,7 @@
             <div class=" max-height">
 
                 <div id="listColumn" class="col-md-6 col-sm-6 col-xs-6 scrollable">
-
-                    <div class="dateHandle">
-                        <div class="prevDate text-left col-md-4  col-sm-4 col-xm-4">
-                            {{#if prev}}
-                                <a href="/movies/{{prev.date}}"><i class="fa fa-angle-double-left"></i>{{prev.label}}</a>
-                            {{/if}}
-                        </div>
-                        <div class="text-center col-md-4 col-sm-4 col-xm-4"><a id="simple-menu" href="#sidr">{{date}}</a></div>
-                        <div class="nextDate text-right col-md-4  col-sm-4 col-xm-4">
-                            {{#if next}}
-                                <a href="/movies/{{next.date}}">{{next.label}}<i class="fa fa-angle-double-right"></i></a>
-                            {{/if}}
-                        </div>
-                    </div>
-
+                    {{> dateHandle model}}
 
                     {{> movieList this}}
                 </div>
@@ -37,8 +22,8 @@
                     {{> movieDetails}}
                 </div>   
             </div>
-	        
-    	{{/if}}
-        <div class="menuTrigger"><i class="fa fa-align-justify"></i></div>
+
+            <div class="menuTrigger"><i class="fa fa-align-justify"></i></div>
+        {{/if}}
     </div>
 </template>

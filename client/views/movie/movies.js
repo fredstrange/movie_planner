@@ -33,36 +33,7 @@ Template.movies.helpers({
 		return dates;
 	},
 
-
-	date: function(){
-		return  moment(AmplifiedSession.get('selectedDate')).format('MMM D');
-	},
-
-	next: function(){
-		var max = moment(AmplifiedSession.get('maxDate'));
-		var date = moment(AmplifiedSession.get('selectedDate'));
-
-		if(date.isBefore(max)){
-			date =  date.add(1, 'days');
-			return {
-				label: date.format('MMM D'),
-				date: date.format('YYYY-MM-DD')
-			}
-		}
-	},
-
-	prev: function(){
-		var min = moment(AmplifiedSession.get('minDate'));
-		var date = moment(AmplifiedSession.get('selectedDate'));
-
-		if(date.isAfter(min)){
-			date =  date.subtract(1, 'days');
-			return {
-				label: date.format('MMM D'),
-				date: date.format('YYYY-MM-DD')
-			}
-		}
-	}
+	model: {model:'movies'}
 });
 
 Template.movies.rendered = function(){
@@ -70,13 +41,5 @@ Template.movies.rendered = function(){
 	$('#simple-menu, .menuTrigger').sidr({
 		name: 'sidr'
 	});
-
-	this.datesArr = [];
-
-
-
-
-
-
 
 };

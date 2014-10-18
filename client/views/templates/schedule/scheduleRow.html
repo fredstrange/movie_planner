@@ -1,17 +1,12 @@
 <template name="scheduleRow">
     <div class="row movieRow {{goingRowColor}} {{isClashing}} {{isSelected}}" id="{{_id}}">
-        <div class="movieTime col-md-1">{{startTime}}</div>
-        <div class="movieTitle col-md-6">{{name}}</div>
-        <div class="movieCinema col-md-3 text-right"><span class="">{{cinema.name}}</span></div>
-
-		<div class="clearfix"></div>
-			
-        <div class="extra-movie-row-details">
-	        <div class="movieType col-md-6">Categories: {{type}}</div>
-	        <div class="attending">Total going: {{attending}}</div>
-	        <div class="attending">Friends going: {{friendsAttending}}</div>
-	        <div class="numComments">Comments: {{numComments}}</div>
-        </div>
+        <div class="movieTime col-lg-1 col-md-1 col-sm-1 col-xs-2">{{time}}</div>
+        <div class="movieTitle col-lg-6 col-md-8 col-sm-7 col-xs-10">{{name_en}}</div>
+        <div class="movieCinema col-lg-2 col-md-3 col-sm-4 col-xs-12">Venue: {{cinema.name}}</div>
+        <div class="movieType col-lg-3 col-md-6 col-sm-6 col-xs-12">Categories: {{movie.sectionName}}</div>
+        <div class="attending col-lg-4 col-md-6 col-sm-6 col-xs-12">Total going: {{attending}}</div>
+        <div class="attending  col-lg-4 col-md-6 col-sm-6 col-xs-12 ">Friends going: {{friendsAttending}}</div>
+        <div class="numComments col-lg-4 col-md-6 col-sm-6 col-xs-12 ">Comments: {{numComments}}</div>
     </div>
     {{#if this.map}}
         {{> mapRow this.map}}

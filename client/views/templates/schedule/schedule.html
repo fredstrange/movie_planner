@@ -1,8 +1,10 @@
 <template name="schedule">
-	<div id="schedule-wrapper" class="scrollable"> 
-		<div class="movie-list">
-			{{#each myMovies}}
-				{{> scheduleRow}}
+	{{> dateHandle model}}
+    <div id="schedule-wrapper" class="scrollable">
+        <div class="movie-list">
+
+			{{#each myMovies }}
+				{{> scheduleRow }}
 			{{/each}}
 		</div>
 	</div>
