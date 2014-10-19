@@ -23,6 +23,13 @@ var getDate = function(params){
     return date;
 };
 
+var getMovie = function(params){
+    var movie = (params && params.query && params.query.movie)? params.query.movie : AmplifiedSession.get('selected');
+    AmplifiedSession.set('selected', movie);
+
+    return movie;
+};
+
 var renderQueryParams = function(params){
 
     if(!params) return '';
@@ -39,8 +46,11 @@ var renderQueryParams = function(params){
 
 
 Router.route('/', function () {
-    this.render('home');
-});
+        this.render('home');
+    },
+    {
+        name: 'home'
+    });
 
 Router.route('profile', function () {
     this.render('profile');
@@ -105,11 +115,13 @@ Router.route('/movies/:date', {
 
     data: function(){
         var date = getDate(this.params);
+        var selected = getMovie(this.params);
 
         return {
             movies: Movies.find({date: date}, {sort: {'timestamp': 1}}),
             date: date,
-            festival: Festivals.findOne()
+            festival: Festivals.findOne(),
+            selected: Movies.findOne({_id: selected})
         };
     },
 

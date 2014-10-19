@@ -1,6 +1,6 @@
 Template.movies.helpers({
 	'isMovie': function(){
-		return (AmplifiedSession.get('selected'));
+		return AmplifiedSession.get('selected');
 	},
 
 	movies: function(){

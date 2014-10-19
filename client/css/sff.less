@@ -68,10 +68,11 @@ background: -o-linear-gradient(top,  @start-rgba 1%,@end-rgba 100%); /* Opera 11
 background: -ms-linear-gradient(top,  @start-rgba 1%,@end-rgba 100%); /* IE10+ */
 background: linear-gradient(to bottom,  @start-rgba 1%,@end-rgba 100%); /* W3C */
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='@start-color', endColorstr='@end-color',GradientType=0 ); /* IE6-9 */
-
-
 }
 
+.bold{
+  font-weight: bold;
+}
 
 
 body{
@@ -353,6 +354,72 @@ body{
 	margin-bottom: auto;
   }
 }
+
+
+/******************************
+******* Profile CSS *******
+*******************************/
+
+#profile-wrapper{
+  .profileBlock{
+	margin:20px;
+  }
+
+  .image{
+	margin: 20px 20px 20px 15px;
+  }
+
+  .scheduleRow{
+	margin:20px 0;
+  }
+
+
+  .formLabel{
+	width:110px;
+	color:black;
+	display:block;
+	float:left;
+	font-size: 1em;
+	font-weight: bold;
+  }
+
+  .formRow{
+
+  }
+
+  .formRow, .inviteFormRow{
+	margin-top: 10px;
+	margin-bottom: 10px;
+
+	input, textarea{
+	  width:300px;
+	}
+
+
+
+	.submitBtn{
+	  width:410px;
+	  display:block;
+
+	  button{
+		float:right;
+	  }
+	}
+  }
+
+  .friendList{
+	margin-top:10px;
+	margin-bottom: 30px;
+  }
+
+  .facebookInvite{
+	margin-top: 20px;
+	margin-bottom: 20px;
+  }
+
+}
+
+
 
 
 

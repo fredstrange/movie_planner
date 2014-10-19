@@ -3,6 +3,8 @@ Template.dateHandle.helpers({
     dates: function(){
         var festival = Festivals.findOne();
 
+        if(!festival) return;
+
         var dates = [],
             time = moment(festival.start),
             end = moment(festival.end),
@@ -18,7 +20,6 @@ Template.dateHandle.helpers({
             time.add(1, 'days');
 
         }
-        //	console.log(dates);
 
         AmplifiedSession.set('maxDate', lodash.max(dates, 'timestamp').timestamp);
         AmplifiedSession.set('minDate', lodash.min(dates, 'timestamp').timestamp);
@@ -61,4 +62,8 @@ Template.dateHandle.helpers({
         return '?user=' + this.userId;
     }
 });
+
+
+Template.dateHandle.rendered = function(){
+};
 

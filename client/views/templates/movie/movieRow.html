@@ -1,7 +1,7 @@
 <template name="movieRow">
     <div class="row movieRow {{goingRowColor}} {{isClashing}} {{isSelected}}" id="{{_id}}">
-        <div class="movieTime col-md-1 col-sm-1 col-xs-1">{{startTime}}</div>
-        <div class="movieTitle col-md-5 col-xs-6">{{name}}</div>
+        <div class="movieTime col-md-1 col-sm-2 col-xs-2">{{startTime}}</div>
+        <div class="movieTitle col-md-5 col-sm-5 col-xs-6">{{name}}</div>
         <div class="movieCinema col-md-4 col-sm-3 col-xs-3 text-right"><span class="">{{cinema.name}}</span></div>
         <div class="col-md-2 col-sm-2 col-xs-2 text-right">
 			{{#if isGoingIcon}}

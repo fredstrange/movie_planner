@@ -2,7 +2,9 @@
 	{{> dateHandle model}}
     <div id="schedule-wrapper" class="scrollable">
         <div class="movie-list">
-
+			{{#if isEmpty}}
+				<p>There are no movies scheduled for this day.</p>
+			{{/if}}
 			{{#each myMovies }}
 				{{> scheduleRow }}
 			{{/each}}

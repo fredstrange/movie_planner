@@ -10,9 +10,43 @@ var sendInvitation = function (email, message) {
     });
 };
 
+Template.profile.helpers({
+    userImage: function () {
+        return Session.get('userImage');
+    },
 
-Template.profile.userImage = function () {
-    return Session.get('userImage');
+    displayName: function () {
+        var user = Meteor.users.findOne({_id: this._id});
+        return displayName(user);
+    },
+
+    myFriends: function () {
+        var friends = getFriends();
+        return friends;
+    },
+
+    isTwitter: function () {
+        return Meteor.sff.userService() == 'twitter';
+    },
+
+    isFacebook: function () {
+        return Meteor.sff.userService() == 'facebook';
+    },
+
+    isGoogle: function () {
+        return Meteor.sff.userService() == 'google';
+    },
+
+    isNative: function () {
+        return Meteor.sff.userService() == 'native';
+    }
+
+
+});
+
+
+Template.profile.rendered = function () {
+    $(window).scrollTop(0);
 };
 
 
@@ -30,42 +64,14 @@ Template.profile.created = function () {
     });
 
 
-}
-
-Template.profile.displayName = function () {
-    var user = Meteor.users.findOne({_id: this._id});
-    return displayName(user);
 };
 
-Template.profile.myFriends = function () {
-    var friends = getFriends();
-    return friends;
-};
-
-Template.profile.isTwitter = function () {
-    return Meteor.sff.userService() == 'twitter';
-};
-
-Template.profile.isFacebook = function () {
-    return Meteor.sff.userService() == 'facebook';
-};
-
-Template.profile.isGoogle = function () {
-    return Meteor.sff.userService() == 'google';
-};
-
-Template.profile.isNative = function () {
-    return Meteor.sff.userService() == 'native';
-};
-
-
-Template.profile.helpers({});
 
 
 Template.profile.events({
     'click .saveProfileBtn': function () {
         var username = $('#username').val();
-        var email = $('#email').val();
+     //   var email = $('#email').val();
 
         Meteor.users.update(this._id, {$set: {'profile.name': username}});
     },
@@ -86,8 +92,5 @@ Template.profile.events({
     }
 });
 
-Template.profile.rendered = function () {
-    $(window).scrollTop(0);
-}
 
 

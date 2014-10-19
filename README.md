@@ -25,25 +25,30 @@ Todo
 * ~~path to movie~~
 * ~~Direct integration with SFF's API~~
 * Save schedule as PDF
-* Show movies by day in movie list and schedule.
+* Show movies by day in movie list and schedule.~
  * ~~Add side menu to movie pane~
  * Add side menu to schedule pane
  * ~Button on the center of the left side to toggle side menu~
  * Swipe events for opening and closing menu.
  * ~Update router to default to today's movies or the first day of the festival.~
 * Search field for movies
-* Set the position when navigating back and forth in movie list.
+* Set the positio~n when navigating back and forth in movie list.
 * Cache the Google maps pages so that my limit does not expire.
-* Fix Schedule rendering
+* ~Fix Schedule rendering~
 * ~~List to other viewings of the Movie~
-* Deployment configuration
+* ~Deployment configuration~
 * Start page
-* Mark active page
+* ~Mark active page~
 * navigate back in history
 * add the day menus in the compressed view.
 * fix the side menu in the compressed view.
 * browser-policy package
-*  add andruschka:scroll-to-fixed?
+* add andruschka:scroll-to-fixed?
+* Refactor messages.
+ * Message counter broken?~
+ * Date since broken? 
+* There seems to be a delay in the "selected" object sometimes
+ * this seems to be cause by the delay of the rendered sub object and the data. Fix this by breaking the dropdown into its own partial with its own rendered function.
 
 
 Install

@@ -34,6 +34,10 @@ Template.schedule.helpers({
 		return movies;
 	},
 
+	isEmpty: function(){
+		return _.isEmpty(this.movies);
+	},
+
 	model: function(){
 		return {
 			model: 'schedule',

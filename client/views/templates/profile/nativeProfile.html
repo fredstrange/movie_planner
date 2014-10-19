@@ -1,14 +1,23 @@
 <template name="nativeProfile">
-    <div>
-        <label for="username">Username</label>
-        <input name="username" type="input" id="username" value="{{profile.name}}">
+
+    <div class="row formRow">
+        <div class="col-lg-2 col-md-3 col-sm-4 col-xs-4 formLabel" >Username</div>
+        <input class="col-lg-6 col-md-6 col-sm-6 col-xs-6" name="username" type="input" id="username" value="{{profile.name}}">
     </div>
-    <div>
-        <label for="email" >Email</label>
-        <input name="email" type="input" id="email" value=""> <!-- TODO: Add the email back in. -->
+    <div class="row formRow">
+        <div class="col-lg-2 col-md-3 col-sm-4 col-xs-4 formLabel" >Email</div>
+        <input class="col-lg-6 col-md-6 col-sm-6 col-xs-6" name="email" type="input" id="email" disabled="disabled" value="{{email}}"> <!-- TODO: Add the email back in. -->
     </div>
-    <div>
-        <button type="button" value="Save" class="saveProfileBtn">Save</button>
+
+    <div class="row formRow">
+        <div class="col-lg-2 col-md-3 col-sm-4 col-xs-4 formLabel" >Profile Image</div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" >To add a profile image, create a <a href="https://en.gravatar.com/">Gravatar</a> account with the same email that you used to register your FilmFestPlanner account. </div>
+    </div>
+
+    <div class="row formRow">
+        <div class="submitBtn">
+            <button id="inviteSubmit" class="saveProfileBtn btn btn-info">Save</button>
+        </div>
     </div>
 
 </template>

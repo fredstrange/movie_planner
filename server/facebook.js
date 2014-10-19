@@ -1,5 +1,5 @@
 function Facebook(accessToken) {
-    this.fb = Meteor.require('fbgraph');
+    this.fb = FBGraph;
     this.accessToken = accessToken;
     this.fb.setAccessToken(this.accessToken);
     this.options = {

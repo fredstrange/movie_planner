@@ -1,76 +1,125 @@
 <template name="profile">
     <div id="profile-wrapper" class="scrollable">
         {{#if _id}} <!-- checks to see if this is an external profile. -->
-            <div id="username">{{profile.name}}</div>
-            <img src="{{userImage _id}}">
+            <div class="profileBlock">
+                <div class="row user">
+                    <div class="col-md-6"><span class="bold">Username: </span>{{profile.name}}</div>
+                </div>
+                <div class="row">
+                    <div class="image">
+                        <img src="{{userImage _id}}">
+                    </div>
+                </div>
 
-            <div>
-          <span>
-            <a href="/schedule/{{_id}}"><i class="fa fa-list-ul"> Schedule</i></a>
-          </span>
+                <div class="row scheduleRow">
+                    <a href="/schedule?user={{_id}}"><i class="fa fa-list-ul"> Schedule</i></a>
+                </div>
             </div>
+
         {{else}} <!-- If not, check for current user -->
 
 
             {{#if currentUser}}
                 {{#with currentUser}}
 
+                <div class="profileBlock">
                     <div class="row">
-                        <div class="col-md-6 col-sm-6 col-xs-6">
 
                             {{#if isNative}}
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                 {{> nativeProfile}}
+                            </div>
                             {{else}}
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
-                                <div id="username">{{profile.name}}</div>
+                                <div class="row user">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><span class="bold">Username: </span>{{profile.name}}</div>
 
-                                {{#if isTwitter}}
-                                    {{> twitterProfile}}
-                                {{/if}}
+                                    {{#if isTwitter}}
+                                        {{> twitterProfile}}
+                                    {{/if}}
 
-                                {{#if isFacebook}}
-                                    {{> fbProfile}}
-                                {{/if}}
+                                    {{#if isFacebook}}
+                                        <div class="col-md-12">
+                                            {{> fbProfile}}
+                                        </div>
+                                    {{/if}}
 
-                                {{#if isGoogle}}
-                                    {{> gplusProfile}}
-                                {{/if}}
+                                    {{#if isGoogle}}
+                                        {{> gplusProfile}}
+                                    {{/if}}
 
+                                </div>
+                                </div>
                             {{/if}} <!-- End isNative if -->
-                        </div>
-                        <div class="col-md-6 col-sm-6 col-xs-6">
-                            <img src="{{userImage}}">
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <div class="image">
+                                <img src="{{userImage}}">
+                            </div>
                         </div>
 
 
                     </div>
+                </div>
+
 
                     <div>
                         <h2>My Friends</h2>
-                    </div>
-                    <div class="friendsInvite">
-                        <p>Send a friend invite</p>
-                        <input id="inviteEmail" type="email" placeholder="you friends email" value="">
-                        <input id="inviteMessage" type="text" placeholder="Write a message">
-                        <button id="inviteSubmit" class="btn btn-info">Send Request</button>
+
+                        <p>You can visit your friends profiles and view their schedule. </p>
                     </div>
 
-                    {{#if isFacebook}}
-                        {{> fbInvite}}
-                    {{/if}}
+                    <div class="friendList">
+                        {{#each myFriends}}
+                            <div class="row">
+                                <div class="col-md-2 col-sm-3 col-xs-6">
+                                    <a href="/profile/{{_id}}"><i class="fa fa-user"> {{displayName}}</i></a>
+                                </div>
+                                <div class="col-md-4 col-sm-4 col-xs-6">
+                                    <a href="/schedule?user={{_id}}"> <i class="fa fa-list-ul"> Schedule</i></a>
+                                </div>
+
+                            </div>
+                        {{/each}}<!-- End Friend list -->
+                    </div>
 
 
-                    {{#each myFriends}}
-                        <div>
-                            <span>{{displayName}}: </span>
-              <span>
-                <a href="/profile/{{_id}}"> <i class="fa fa-user"> Profile</i></a>
-              </span>
-              <span>
-                <a href="/schedule?user={{_id}}"> <i class="fa fa-list-ul"> Schedule</i></a>
-              </span>
+                    <div class="friendsInvite row">
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <h4>Invite a friend!</h4>
+
+                            <p>
+                                Invite a friend to share in your festival experience. Friends can view each others
+                                schedules and send direct messages.
+                            </p>
+
+                            {{#if isFacebook}}
+                                {{> fbInvite}}
+                            {{/if}}
                         </div>
-                    {{/each}}
+
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <div class="col-md-12 inviteFormRow">
+                                <div class="formLabel text-left">Email</div>
+                                <input name="email" class="" id="inviteEmail" type="email" placeholder="Your friends email"
+                                       value="">
+                            </div>
+                            <div class="col-md-12 inviteFormRow">
+                                <div class="formLabel text-left">Message</div>
+                                <textarea name="message" class="" id="inviteMessage" rows="5"
+                                          placeholder="Write a message"></textarea>
+                            </div>
+                            <div class="col-md-12 inviteFormRow">
+                                <div class="submitBtn">
+                                    <button id="inviteSubmit" class="btn btn-info">Send Request</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
                 {{/with}}  <!-- End with Current User -->
 
             {{else}} <!-- If not current user -->

@@ -131,21 +131,30 @@ function renderMap() {
 
 
 Template.movieDetails.events({
-    'click .movie-back-btn': function (event, tmpl) {
+    'click .movie-back-btn': function (event) {
         var date = (AmplifiedSession.get('selectedDate'))? '/' + AmplifiedSession.get('selectedDate') : '';
         history.pushState({}, "Movie Page", '/movies' + date);
         AmplifiedSession.set('selected', '');
+    },
+
+    'click .movie-details-dropdown .dropdown-menu li a': function(event){
+        var going = $(event.currentTarget).data('select');
+        setAttending(going, true);
     }
 });
 
 Template.movieDetails.rendered = function () {
+
+    console.log('details rendered');
+
     initAttending();
     initScrollToTop();
 };
 
 var initAttending = function() {
 
-    Deps.autorun(function() {
+    Tracker.autorun(function() {
+
         var movie, myAttendance = "";
 
         movie = Movies.findOne(AmplifiedSession.get("selected"));
@@ -157,43 +166,38 @@ var initAttending = function() {
         }
 
         setAttending(myAttendance.attending);
-
-        $(".movie-details-dropdown .dropdown-menu li a").click(function (e) {
-            var going = $(this).data('select');
-            console.log('ping');
-            setAttending(going, true);
-        });
-
-        function setAttending(going, save) {
-            var goingClass, goingText;
-
-            switch (going) {
-                case 'no':
-                    goingClass = 'btn-danger';
-                    goingText = "Not Going";
-                    break;
-                case 'yes':
-                    goingClass = 'btn-success';
-                    goingText = "I'm Going";
-                    break;
-                case 'maybe':
-                    goingClass = 'btn-warning';
-                    goingText = "Maybe";
-                    break;
-                default:
-                    goingClass = 'btn-default';
-                    goingText = "Undecided";
-                    break;
-            }
-
-            $(".movie-details-dropdown .btn:first-child").html(goingText + ' <span class="caret"></span>');
-            $(".movie-details-dropdown .btn:first-child").removeClass('btn-danger btn-success btn-warning btn-default');
-            $(".movie-details-dropdown .btn:first-child").addClass(goingClass);
-
-      //      console.log($(".movie-details-dropdown .btn:first-child").html());
-            if (save) Meteor.call("attending", AmplifiedSession.get("selected"), going);
-        }
     });
+
+
+};
+
+var setAttending = function (going, save) {
+    var goingClass, goingText;
+
+    switch (going) {
+        case 'no':
+            goingClass = 'btn-danger';
+            goingText = "Not Going";
+            break;
+        case 'yes':
+            goingClass = 'btn-success';
+            goingText = "I'm Going";
+            break;
+        case 'maybe':
+            goingClass = 'btn-warning';
+            goingText = "Maybe";
+            break;
+        default:
+            goingClass = 'btn-default';
+            goingText = "Undecided";
+            break;
+    }
+
+    $(".movie-details-dropdown .btn:first-child").html(goingText + ' <span class="caret"></span>');
+    $(".movie-details-dropdown .btn:first-child").removeClass('btn-danger btn-success btn-warning btn-default');
+    $(".movie-details-dropdown .btn:first-child").addClass(goingClass);
+
+    if (save) Meteor.call("attending", AmplifiedSession.get("selected"), going);
 };
 
 var initScrollToTop = function(){
