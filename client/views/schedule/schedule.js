@@ -34,11 +34,14 @@ Template.schedule.helpers({
 		return movies;
 	},
 
-	model: {model: 'schedule'}
+	model: function(){
+		return {
+			model: 'schedule',
+			userId: this.userId
+		}
+	}
 });
-
-Template.scheduleRow.helpers({});
 
 Template.scheduleRow.created = function(){
 	$(window).scrollTop(0);
-}
+};

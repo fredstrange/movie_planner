@@ -23,6 +23,20 @@ var getDate = function(params){
     return date;
 };
 
+var renderQueryParams = function(params){
+
+    if(!params) return '';
+
+    return _.reduce(params.query, function(result, value, key){
+        if(_.isEmpty(result)) result = '?';
+        else result += '&';
+
+        result += key + '=' + value;
+        return result;
+    }, '');
+
+};
+
 
 Router.route('/', function () {
     this.render('home');
@@ -55,7 +69,7 @@ Router.route('/adminView', function(){
 
 
 Router.route('/schedule', function(){
-    this.redirect('/schedule/' + getDate());
+    this.redirect('/schedule/' + getDate() + renderQueryParams(this.params));
 });
 
 Router.route('/schedule/:date', {
@@ -65,13 +79,13 @@ Router.route('/schedule/:date', {
 
     data: function(){
         var date = getDate(this.params);
-        var userId = (_.isEmpty(this.params.query.id))? Meteor.userId() : this.params.query.id;
+        var userId = (_.isEmpty(this.params.query.user))? Meteor.userId() : this.params.query.user;
         var movies = Movies.find({date: date, 'attendings.user': userId, 'attendings.attending': 'yes'}, {sort: {'timestamp': 1}}).fetch();
 
         return {
             movies: movies,
             date: date,
-            id: userId
+            userId: userId
         };
     },
 
@@ -80,17 +94,8 @@ Router.route('/schedule/:date', {
     }
 });
 
-/*Router.route('/schedule/:_id', {
-    data: function () {
-        return {id: this.params._id};
-    },
-    action: function(){
-        this.render('schedule');
-    }
-});*/
-
 Router.route('/movies', function(){
-    this.redirect('/movies/' + getDate());
+    this.redirect('/movies/' + getDate() + renderQueryParams(this.params));
 });
 
 Router.route('/movies/:date', {

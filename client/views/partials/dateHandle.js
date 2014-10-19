@@ -54,6 +54,11 @@ Template.dateHandle.helpers({
                 date: date.format('YYYY-MM-DD')
             }
         }
+    },
+
+    query: function(){
+        if(!this.userId || this.userId == Meteor.userId()) return '';
+        return '?user=' + this.userId;
     }
 });
 

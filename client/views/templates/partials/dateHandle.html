@@ -2,13 +2,13 @@
     <div class="dateHandle">
         <div class="prevDate text-left col-md-4  col-sm-4 col-xs-4">
             {{#if prev}}
-                <a href="/{{model}}/{{prev.date}}"><i class="fa fa-angle-double-left"></i>{{prev.label}}</a>
+                <a href="/{{model}}/{{prev.date}}{{query}}"><i class="fa fa-angle-double-left"></i>{{prev.label}}</a>
             {{/if}}
         </div>
         <div class="text-center col-md-4 col-sm-4 col-xs-4"><a id="simple-menu" href="#">{{date}}</a></div>
         <div class="nextDate text-right col-md-4  col-sm-4 col-xs-4">
             {{#if next}}
-                <a href="/{{model}}/{{next.date}}">{{next.label}}<i class="fa fa-angle-double-right"></i></a>
+                <a href="/{{model}}/{{next.date}}{{query}}">{{next.label}}<i class="fa fa-angle-double-right"></i></a>
             {{/if}}
         </div>
     </div>
