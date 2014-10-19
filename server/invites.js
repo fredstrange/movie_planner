@@ -71,8 +71,8 @@ var sendMessage = function (fromId, toEmail, msg, inviteId) {
         from: fromEmail,
         to: toEmail,
         replyTo: fromEmail || undefined,
-        subject: "MoviePlanner: " + from.profile.name + " wants to be your friend",
-        text: msg + ' \nGo here to accept the friend request: ' + inviteUrl() + 'invite/' + inviteId
+        subject: "Filmfestplanner.com: " + from.profile.name + " wants to be your friend",
+        text: msg + ' \nFollow the link to accept the friend request: ' + inviteUrl() + 'invite/' + inviteId
     });
 };
 
