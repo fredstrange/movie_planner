@@ -1,8 +1,15 @@
 Meteor.publish("messages", function () {
-    return Messages.find({$or: [
-        {'to.id': this.userId},
-        {'from.id': this.userId}
-    ]});
+    return Messages.find(
+        {
+            $and:[
+                {$or: [
+                    {'to.id': this.userId},
+                    {'from.id': this.userId}
+                ]},
+                {isDeleted: {$ne: true}}
+            ]
+        }
+    );
 });
 
 Meteor.methods({
@@ -20,6 +27,9 @@ Meteor.methods({
             callback(error);
             return;
         }
+
+        message.hasRead = false;
+        message.createdAt = new Date();
 
         Messages.insert(message, function(err){
             if(err) {

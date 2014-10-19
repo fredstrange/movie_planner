@@ -7,6 +7,7 @@ Meteor.sff = {};
 
 
 Festivals = new Meteor.Collection("festivals");
+Messages = new Meteor.Collection('messages');
 
 Meteor.subscribe("movies");
 Meteor.subscribe("comments");
