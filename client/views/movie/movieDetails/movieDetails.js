@@ -83,6 +83,12 @@ Template.movieDetails.helpers({
     },
     type: function(){
         return this.movie.sectionName;
+    },
+
+    trailerUrl: function(){
+        if(this.movie.youtubeId){
+            return "http://www.youtube.com/watch?v=" + this.movie.youtubeId;
+        }
     }
 });
 

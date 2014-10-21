@@ -1,0 +1,15 @@
+<template name="dateDropdown">
+
+    <div class="">
+        <div class="dropdown text-center col-md-4 col-sm-4 col-xs-4">
+            <a href="#"  class="dropdown-toggle"  data-toggle="dropdown">{{date}}<span class="caret"></span></a>
+        </div>
+        <ul class="dropdown-menu" >
+            <li><a href="#">Action</a></li>
+            {{#each dates}}
+                <li ><a class="" href="/{{../model}}/{{date}}">{{dateText}}</a></li>
+            {{/each}}
+        </ul>
+    </div>
+
+</template>
