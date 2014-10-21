@@ -31,7 +31,9 @@
                         </div>
                         {{/if}}
 
+
                     </div>
+
 
                     <div class="col-md-6 col-sm-6">
                         <div class="movieType md-text-right">Total going: {{attending}}</div>
@@ -55,6 +57,14 @@
                             </div>
                         </div>
                         {{/if}}
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                        <div class="otherMovieTimes">
+                            Other screenings:
+                            {{#each otherViewings}}
+                                <a href="/movies?movie={{id}}">{{time}}</a>
+                            {{/each}}
+                        </div>
                     </div>
 
 

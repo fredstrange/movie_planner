@@ -41,7 +41,7 @@ Template.movieDetails.helpers({
     startTime: function () {
      //   console.log(this.timestamp);
      //   console.log(moment(this.timestamp));
-        return moment(this.timestamp * 1000).format('MM-DD HH:mm');;
+        return moment(this.timestamp * 1000).format('MMM D HH:mm');;
     },
 
     playTime: function (id) {
@@ -89,6 +89,22 @@ Template.movieDetails.helpers({
         if(this.movie.youtubeId){
             return "http://www.youtube.com/watch?v=" + this.movie.youtubeId;
         }
+    },
+
+    otherViewings: function(){
+        var self = this;
+        var movies = [];
+        var moviesCursor =  Movies.find({'movie.id': this.movie.id});
+        moviesCursor.forEach(function (movie) {
+            var m = {
+                time: moment(movie.startTime).format('MMM D HH:mm'),
+                id: movie._id
+            };
+            if(m.id != self._id) movies.push(m);
+
+        });
+
+        return movies;
     }
 });
 
