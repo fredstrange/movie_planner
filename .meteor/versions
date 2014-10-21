@@ -27,6 +27,8 @@ email@1.0.4
 facebook@1.1.1
 fastclick@1.0.1
 follower-livedata@1.0.2
+fredstrange:sidr@1.2.1
+fredstrange:strip@1.2.3
 geojson-utils@1.0.1
 google@1.1.1
 handlebars@1.0.1
@@ -44,7 +46,6 @@ iron:middleware-stack@1.0.0-pre4
 iron:router@1.0.0-pre4
 iron:url@1.0.0-pre4
 jeeeyul:moment-with-langs@2.8.2
-jquery-mobile-custom@0.0.0
 jquery@1.0.1
 json@1.0.1
 less@1.0.10
@@ -83,14 +84,12 @@ routepolicy@1.0.2
 service-configuration@1.0.2
 session@1.0.3
 sha@1.0.1
-sidr@0.0.0
 spacebars-compiler@1.0.3
 spacebars@1.0.3
 srp@1.0.1
 standard-app-packages@1.0.3
 stevezhu:fbgraph@1.1.0
 stevezhu:lodash@1.0.2
-strip@0.0.0
 stylus@1.0.5
 templating@1.0.8
 tracker@1.0.3

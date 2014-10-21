@@ -11,14 +11,12 @@ accounts-twitter
 amplify
 less
 email
-jquery-mobile-custom
 coffeescript
 mrt:belt-gravatar
 aldeed:collection2
 ian:accounts-ui-bootstrap-3
 vjau:xml2js
 stevezhu:lodash
-sidr
 quarterto:hammer
 iron:router@1.0.0-pre4
 natestrauser:select2
@@ -28,5 +26,10 @@ mizzao:bootstrap-3
 obvio171:disqus
 stevezhu:fbgraph
 mizzao:bootboxjs
-strip
+fredstrange:strip
+fredstrange:sidr
 
+#wizonesolutions:underscore-string
+#ficshelf:media-query
+
+#jquery-mobile-custom
