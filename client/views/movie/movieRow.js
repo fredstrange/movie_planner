@@ -83,9 +83,9 @@ Template.movieRow.events({
     'click  .movieRow, tap .movieRow': function (event) {
 
         var id = event.currentTarget.id;
-        var date = (AmplifiedSession.get('selectedDate'))? AmplifiedSession.get('selectedDate') : '2014-11-05';
+       // var date = (AmplifiedSession.get('selectedDate'))? AmplifiedSession.get('selectedDate') : '2014-11-05';
 
-        history.pushState({}, "Movie Page", '/movies/' + date + '?movie=' + id);
+        history.pushState({}, "Movie Page", '/movies?movie=' + id);
         AmplifiedSession.set("selected", id);
 
         if (Session.equals('isCompressed', true)) {

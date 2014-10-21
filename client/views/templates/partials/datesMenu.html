@@ -1,12 +1,14 @@
 <template name="datesMenu">
     <div id="sidr">
         <ul>
-            {{#each this}}
+            {{#each dates}}
                 <li>
-                    <a class="sideLink" href="/movies/{{date}}">{{dateText}}</a>
+                    <a class="sideLink" href="/{{model}}?date={{date}}">{{dateText}}</a>
                 </li>
             {{/each}}
         </ul>
     </div>
+
+    <div class="menuTrigger"><i class="fa fa-align-justify"></i></div>
     <!--/.slideout-menu-->
 </template>

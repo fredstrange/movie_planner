@@ -48,4 +48,5 @@ Template.schedule.helpers({
 
 Template.scheduleRow.created = function(){
 	$(window).scrollTop(0);
+
 };

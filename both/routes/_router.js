@@ -3,6 +3,9 @@
 //****************************
 
 
+
+var defaultDate = '2014-11-05'
+
 Router.configure({
     layoutTemplate: 'layout',
     loadingTemplate: 'loading',
@@ -17,7 +20,7 @@ Router.configure({
 });
 
 var getDate = function(params){
-    var date = (params && params.date)? params.date : (AmplifiedSession.get('selectedDate'))? AmplifiedSession.get('selectedDate') : '2014-11-05';
+    var date = (params && params.query && params.query.date)? params.query.date : (AmplifiedSession.get('selectedDate'))? AmplifiedSession.get('selectedDate') : defaultDate;
     AmplifiedSession.set('selectedDate', date);
 
     return date;
@@ -78,11 +81,11 @@ Router.route('/adminView', function(){
 });
 
 
-Router.route('/schedule', function(){
+/*Router.route('/schedule', function(){
     this.redirect('/schedule/' + getDate() + renderQueryParams(this.params));
-});
+});*/
 
-Router.route('/schedule/:date', {
+Router.route('/schedule', {
     onBeforeAction: function(){
         this.next();
     },
@@ -95,6 +98,7 @@ Router.route('/schedule/:date', {
         return {
             movies: movies,
             date: date,
+            festival: Festivals.findOne(),
             userId: userId
         };
     },
@@ -104,11 +108,11 @@ Router.route('/schedule/:date', {
     }
 });
 
-Router.route('/movies', function(){
+/*Router.route('/movies', function(){
     this.redirect('/movies/' + getDate() + renderQueryParams(this.params));
-});
+});*/
 
-Router.route('/movies/:date', {
+Router.route('/movies/', {
     onBeforeAction: function(){
         this.next();
     },
@@ -130,6 +134,7 @@ Router.route('/movies/:date', {
     }
 });
 
+/*
 
 Router.route('/movies/:date/:id', {
     onBeforeAction: function () {
@@ -152,6 +157,7 @@ Router.route('/movies/:date/:id', {
         this.render('movies');
     }
 });
+*/
 
 Router.route('/invite/:_id', {
     onBeforeAction: function () {

@@ -59,7 +59,7 @@ Template.dateHandle.helpers({
 
     query: function(){
         if(!this.userId || this.userId == Meteor.userId()) return '';
-        return '?user=' + this.userId;
+        return '&user=' + this.userId;
     }
 });
 
