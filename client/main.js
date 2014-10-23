@@ -67,10 +67,28 @@ init = function(){
 
 };
 
+var trackSelectedChange = function(){
+    Tracker.autorun(function() {
+        var selected = AmplifiedSession.get('selected');
+
+        var movie, myAttendance = "";
+
+        movie = Movies.findOne(AmplifiedSession.get("selected"));
+
+        if (movie && movie.attendings) {
+            myAttendance = _.find(movie.attendings, function (a) {
+                return a.user === Meteor.userId();
+            }) || {};
+        }
+
+        AmplifiedSession.set('attendingSelected', myAttendance.attending);
+    });
+};
+
 
 init();
 setOverflowable();
-
+trackSelectedChange();
 
 
 //****************************************

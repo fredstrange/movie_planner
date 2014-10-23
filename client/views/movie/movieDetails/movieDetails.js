@@ -105,7 +105,40 @@ Template.movieDetails.helpers({
         });
 
         return movies;
+    },
+
+    goingText: function(){
+        var attending = AmplifiedSession.get('attendingSelected');
+
+        switch (attending) {
+            case 'no':
+                return "Not Going";
+            case 'yes':
+                return "I'm Going";
+            case 'maybe':
+                goingText = "Maybe";
+            default:
+                return "Undecided";
+        }
+    },
+
+    goingBtnClass: function(){
+
+        var attending = AmplifiedSession.get('attendingSelected');
+
+        switch (attending) {
+            case 'no':
+                return 'btn-danger';
+            case 'yes':
+                return 'btn-success';
+            case 'maybe':
+                return 'btn-warning';
+            default:
+                return 'btn-default';
+        }
     }
+
+
 });
 
 
@@ -161,65 +194,15 @@ Template.movieDetails.events({
 
     'click .movie-details-dropdown .dropdown-menu li a': function(event){
         var going = $(event.currentTarget).data('select');
-        setAttending(going, true);
+        AmplifiedSession.set('attendingSelected', going);
+        Meteor.call("attending", AmplifiedSession.get("selected"), going);
     }
 });
 
 Template.movieDetails.rendered = function () {
 
     console.log('details rendered');
-
-    initAttending();
     initScrollToTop();
-};
-
-var initAttending = function() {
-
-    Tracker.autorun(function() {
-
-        var movie, myAttendance = "";
-
-        movie = Movies.findOne(AmplifiedSession.get("selected"));
-
-        if (movie && movie.attendings) {
-            myAttendance = _.find(movie.attendings, function (a) {
-                return a.user === Meteor.userId();
-            }) || {};
-        }
-
-        setAttending(myAttendance.attending);
-    });
-
-
-};
-
-var setAttending = function (going, save) {
-    var goingClass, goingText;
-
-    switch (going) {
-        case 'no':
-            goingClass = 'btn-danger';
-            goingText = "Not Going";
-            break;
-        case 'yes':
-            goingClass = 'btn-success';
-            goingText = "I'm Going";
-            break;
-        case 'maybe':
-            goingClass = 'btn-warning';
-            goingText = "Maybe";
-            break;
-        default:
-            goingClass = 'btn-default';
-            goingText = "Undecided";
-            break;
-    }
-
-    $(".movie-details-dropdown .btn:first-child").html(goingText + ' <span class="caret"></span>');
-    $(".movie-details-dropdown .btn:first-child").removeClass('btn-danger btn-success btn-warning btn-default');
-    $(".movie-details-dropdown .btn:first-child").addClass(goingClass);
-
-    if (save) Meteor.call("attending", AmplifiedSession.get("selected"), going);
 };
 
 var initScrollToTop = function(){
