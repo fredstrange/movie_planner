@@ -17,7 +17,7 @@ Todo
  * Swipe events for opening and closing menu.
 * Search field for movies
 * Set the position when navigating back and forth in movie list.
-* Cache the Google maps pages so that my limit does not expire.
+* ~~Cache the Google maps pages so that my limit does not expire.~~
 * Start page
 * navigate back in history
 * add the day menus in the compressed view.
