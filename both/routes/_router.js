@@ -6,18 +6,7 @@
 
 var defaultDate = '2014-11-05'
 
-Router.configure({
-    layoutTemplate: 'layout',
-    loadingTemplate: 'loading',
 
-    onBeforeAction: function(){
-        Session.set('currentPath', this.location.path);
-        this.render('header', {to: 'header'});
-      //  this.render('footer', {to: 'footer'});
-        this.next();
-    },
-    waitOn: function() { return Meteor.subscribe('users')}
-});
 
 var getDate = function(params){
     var date = (params && params.query && params.query.date)? params.query.date : (AmplifiedSession.get('selectedDate'))? AmplifiedSession.get('selectedDate') : defaultDate;
