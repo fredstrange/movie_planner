@@ -6,9 +6,15 @@
             {{/if}}
         </div>
 
-        <div class="text-center col-md-4 col-sm-4 col-xs-4">
-            <a id="simple-menu" href="#">{{date}}</a>
-        </div>
+        {{#if isCompressed}}
+            <div class="text-center col-md-4 col-sm-4 col-xs-4">
+                <a id="" href="#">{{date}}</a>
+            </div>
+        {{else}}
+            <div class="text-center col-md-4 col-sm-4 col-xs-4">
+                <a id="simple-menu" href="#">{{date}}</a>
+            </div>
+        {{/if}}
 
         <div class="nextDate text-right col-md-4  col-sm-4 col-xs-4">
             {{#if next}}

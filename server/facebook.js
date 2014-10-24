@@ -6,7 +6,7 @@ function Facebook(accessToken) {
         timeout: 3000,
         pool: {maxSockets: Infinity},
         headers: {connection: "keep-alive"}
-    }
+    };
     this.fb.setOptions(this.options);
 };
 

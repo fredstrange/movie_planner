@@ -83,6 +83,10 @@ body{
 
 }
 
+img{
+  max-width:100%;
+}
+
 
 .glyphicon{
 	&.glyphicon-ban-circle{color:@clashing}
@@ -492,6 +496,46 @@ html.overflowable {
 		display: none;
 	}
 
+  textarea{
+	width:100%;
+  }
+}
+
+@media (max-width: @small-min){
+
+
+  .navbar-title{
+	  display: none;
+  }
+
+  textarea{
+	width:100%;
+  }
+
+
+
+  #profile-wrapper{
+	.inviteFormRow, .formRow {
+	  textarea, input{
+		width:100%;
+	  }
+
+	  .submitBtn button{
+		float:none;
+	  }
+	}
+
+  }
+}
+
+@media (max-width: @mid-min){
+  body{
+	padding-bottom:20px;
+  }
+
+  #footer{
+	display:none;
+  }
 }
 
 @media (min-width: @mid-min){
@@ -506,6 +550,7 @@ html.overflowable {
 	.md-text-right{
 		text-align: right;
 	}
+
 
 }
 
