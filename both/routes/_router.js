@@ -4,7 +4,7 @@
 
 
 
-var defaultDate = '2014-11-05'
+var defaultDate = '2014-11-05';
 
 
 
@@ -70,14 +70,11 @@ Router.route('/adminView', function(){
 });
 
 
-/*Router.route('/schedule', function(){
-    this.redirect('/schedule/' + getDate() + renderQueryParams(this.params));
-});*/
-
 Router.route('/schedule', {
     onBeforeAction: function(){
         this.next();
     },
+
 
     data: function(){
         var date = getDate(this.params);
@@ -92,14 +89,11 @@ Router.route('/schedule', {
         };
     },
 
-    action: function(){
+    action: function() {
         this.render('schedule');
     }
 });
 
-/*Router.route('/movies', function(){
-    this.redirect('/movies/' + getDate() + renderQueryParams(this.params));
-});*/
 
 Router.route('/movies/', {
     onBeforeAction: function(){
