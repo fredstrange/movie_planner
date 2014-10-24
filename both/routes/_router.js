@@ -123,30 +123,6 @@ Router.route('/movies/', {
     }
 });
 
-/*
-
-Router.route('/movies/:date/:id', {
-    onBeforeAction: function () {
-
-        AmplifiedSession.set('selectedDate', this.params.date);
-        AmplifiedSession.set('selected', this.params._id);
-        this.next();
-    },
-
-    data: function(){
-        return {
-            movies: Movies.find({date: this.params.date}, {sort: {'timestamp': 1}}),
-            date: this.params.date,
-            selected: this.params._id,
-            festival: Festivals.findOne()
-        };
-    },
-
-    action: function () {
-        this.render('movies');
-    }
-});
-*/
 
 Router.route('/invite/:_id', {
     onBeforeAction: function () {
@@ -160,7 +136,9 @@ Router.route('/invite/:_id', {
 
 });
 
-
+Router.route('about', function(){
+    this.render('about');
+});
 
 
 Router.map(function () {

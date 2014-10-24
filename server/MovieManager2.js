@@ -136,9 +136,10 @@ var determineClashingMovies = function(){
 
 
 
+/*
 
 Meteor.methods({
     syncCinemas: syncCinemas,
     syncMovies: syncMovies,
     determineClashingMovies:determineClashingMovies
-});
+});*/

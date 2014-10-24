@@ -152,9 +152,10 @@ var fixCinemaIds = function(){
         }
     });
 };
+/*
 
 Meteor.methods({
     fixCinemaIds: fixCinemaIds,
     recalibrateMovies: recalibrateMovies,
     configureCinemaDistances: configureCinemaDistances
-});
+});*/

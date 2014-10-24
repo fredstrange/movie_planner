@@ -17,6 +17,7 @@ blaze@2.0.2
 boilerplate-generator@1.0.1
 callback-hook@1.0.1
 check@1.0.2
+chrismbeckett:fontawesome4@4.2.1
 coffeescript@1.0.4
 ctl-helper@1.0.4
 ctl@1.0.2
@@ -27,6 +28,7 @@ email@1.0.4
 facebook@1.1.1
 fastclick@1.0.1
 follower-livedata@1.0.2
+fredstrange:contactform@0.0.5_1
 fredstrange:sidr@1.2.1
 fredstrange:strip@1.2.3
 geojson-utils@1.0.1
@@ -81,6 +83,7 @@ reactive-dict@1.0.4
 reactive-var@1.0.3
 reload@1.1.1
 retry@1.0.1
+rgoomar:bootstrap-validator@0.5.2
 routepolicy@1.0.2
 service-configuration@1.0.2
 session@1.0.3

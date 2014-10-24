@@ -53,6 +53,7 @@ var  calculateDistance = function(origin, destinations, callback){
 
 DistanceCalculator.calculateDistance = calculateDistance;
 
+/*
 Meteor.methods({
     calculateDistances: calculateDistance
-});
+});*/
