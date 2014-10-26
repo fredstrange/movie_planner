@@ -17,12 +17,9 @@ Meteor.startup(function () {
 
 
 Router.route('/files/maps/:path', function () {
-    var self = this;
     var response = this.response;
     var path = this.params.path;
     var completePath = folderPath + path;
-
- //   console.log('will serve static content @ '+ path);
 
 
     try{
