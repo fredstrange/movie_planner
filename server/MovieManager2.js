@@ -175,6 +175,7 @@ var updateEvents = function(){
 
 
 
+/*
 
 Meteor.methods({
     syncCinemas: syncCinemas,
@@ -184,6 +185,7 @@ Meteor.methods({
     updateEvents: updateEvents
 });
 
+*/
 
 
 

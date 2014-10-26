@@ -564,6 +564,7 @@ SFF.listChangedFilmsSince = listChangedFilmsSince;
 
 
 
+/*
 
 Meteor.methods({
     listEvents: listEvents,
@@ -574,6 +575,7 @@ Meteor.methods({
     listChangedEventsSince: listChangedEventsSince,
     listChangedFilmsSince: listChangedFilmsSince
 });
+*/
 
 
 
