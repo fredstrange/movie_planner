@@ -98,7 +98,8 @@ Template.movieDetails.helpers({
         moviesCursor.forEach(function (movie) {
             var m = {
                 time: moment(movie.startTime).format('MMM D HH:mm'),
-                id: movie._id
+                id: movie._id,
+                ticketStatus: movie.ticketStatus
             };
             if(m.id != self._id) movies.push(m);
 

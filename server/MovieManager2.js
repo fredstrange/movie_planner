@@ -1,4 +1,7 @@
 
+
+
+
 var syncCinemas = function(){
     // Fetch the list of venues from SSF
     var venues = Venues.find().fetch();
@@ -134,12 +137,78 @@ var determineClashingMovies = function(){
 };
 
 
+var updateFilms = function(){
+
+    var changedFilms = SFF.ChangeEntry.find({consumed: false, model: 'films' }).fetch();
+
+    _.each(changedFilms, function(film){
+        var movies = Movies.find({'movie.id': film.id});
+
+        movies.forEach( function(movie){
+            //var newFilm = Film.findOne(film.id);
+
+            var prefixedChanges = {}
+            Object.keys(film.changes).forEach(function(key){
+                var prefixedKey = 'movie.' + key;
+                prefixedChanges[prefixedKey] = film.changes[key];
+            });
+
+            Movies.update({_id: movie._id}, {$set: prefixedChanges});
+        });
+
+        SFF.ChangeEntry.update({_id:film._id}, {$set: {consumed:true}});
+    });
+
+};
 
 
-/*
+var updateEvents = function(){
+
+    var changedEvents = SFF.ChangeEntry.find({consumed: false, model: 'events' }).fetch();
+
+    _.each(changedEvents, function(event){
+        Movies.update({id: event.id}, {$set: event.changes});
+        SFF.ChangeEntry.update({_id:event._id}, {$set: {consumed:true}});
+    });
+};
+
+
+
+
 
 Meteor.methods({
     syncCinemas: syncCinemas,
     syncMovies: syncMovies,
-    determineClashingMovies:determineClashingMovies
-});*/
+    determineClashingMovies:determineClashingMovies,
+    updateFilms: updateFilms,
+    updateEvents: updateEvents
+});
+
+
+
+
+
+var filmSchedule = later.parse.recur().every(30).minute();
+var eventSchedule = later.parse.recur().every(2).minute();
+
+var movieEventSchedule = later.parse.recur().every(1).minute();
+var movieFilmSchedule = later.parse.recur().every(15).minute();
+
+
+var filmUpdates = new ScheduledTask(filmSchedule, SFF.listChangedFilmsSince);
+var eventUpdates = new ScheduledTask(eventSchedule, SFF.listChangedEventsSince);
+var movieEventUpdates = new ScheduledTask(movieEventSchedule, updateEvents);
+var movieFilmUpdates = new ScheduledTask(movieFilmSchedule, SFF.updateFilms);
+
+var schedules = [
+    filmUpdates,
+    eventUpdates,
+    movieEventUpdates,
+    movieFilmUpdates
+];
+
+Meteor.startup(function () {
+    _.each(schedules, function(schedule){
+       schedule.start();
+    });
+});

@@ -1,5 +1,8 @@
 SFF = {};
 
+SFF.ChangeEntry = new Meteor.Collection('sffchangeentry');
+SFF.ChangeLog = new Meteor.Collection('sffchangelog');
+
 Fiber = Npm.require('fibers');
 
 var config = {
@@ -49,6 +52,13 @@ var ssfApiRequest = function (type, id, callback) {
     (function(type){
         Meteor.http.get(url, function (error, result) {
             if (error) {
+                try{
+                    var isNoEvents = JSON.parse(error.response.content).error == "No events could be found";
+                    var isNoFilms = JSON.parse(error.response.content).error == "No films could be found";
+
+                    if(isNoEvents || isNoFilms) return;
+                }catch(e){}
+
                 console.log("An Error occurred when trying to fetch data with %s: %O", type, error);
             } else {
                 console.log("Completed Fetching %s", type);
@@ -60,7 +70,7 @@ var ssfApiRequest = function (type, id, callback) {
 
 };
 
-var parseEventList = function (list) {
+var parseEventList = function (list, update) {
     var eventList = JSON.parse(list);
     var events = [];
     var films = [];
@@ -82,7 +92,7 @@ var parseEventList = function (list) {
         events.push(event);
         upsertObj(event, Events);
 
-        if(!_.contains(films, event.filmId)){
+        if(!update && !_.contains(films, event.filmId)){
             films.push(event.filmId);
             fetchFilmById(event.filmId);
         }
@@ -135,9 +145,13 @@ var parseFilm = function (itemString) {
         sectionName: item.sectionName
     };
 
-    item.events.forEach(function(event){
-        film.events.push(event.eventId);
-    });
+    if(!_.isEmpty(item.events)){
+        item.events.forEach(function(event){
+            film.events.push(event.eventId);
+        });
+    }
+
+
 
 
     upsertObj(film, Films);
@@ -294,8 +308,6 @@ var fixVenuePosition = function(position, venue){
 
 var calculateDistances = function(positionsArray){
 
-  //  console.log(positionsArray);
-
     var missingIds, positionIds = _.pluck(positionsArray, 'id');
     var currentIndex = 0;
 
@@ -428,15 +440,65 @@ var listFestivals = function () {
 };
 
 var listChangedEventsSince = function(since){
-    ssfApiRequest('eventsSince', since, function(changeSet){
-        console.dir(changeSet);
-    });
+    if(!since){
+        var lastChange = SFF.ChangeLog.findOne({model:'events'}, {$sort: {timestamp: -1}});
+        since = (lastChange)? lastChange.timestamp : 1413316695;
+    }
+    ssfApiRequest('eventsSince', since, updateEvents);
 };
 
 var listChangedFilmsSince = function(since){
-    ssfApiRequest('filmsSince', since, function(changeSet){
-        console.dir(changeSet);
-    });
+    if(!since){
+        var lastChange = SFF.ChangeLog.findOne({model:'films'}, {$sort: {timestamp: -1}});
+        since = lastChange.timestamp;
+        since = (lastChange)? lastChange.timestamp : 1413316695;
+    }
+    ssfApiRequest('filmsSince', since, updateFilms);
+};
+
+var updateFilms = function(changeSet){
+    //console.dir(changeSet);
+
+    try{
+        var updatedFilms = JSON.parse(changeSet);
+        var filmIds = [];
+        _.each(updatedFilms, function(item){
+            if(item && item.filmId) {
+                filmIds.push(item.filmId);
+            }
+        });
+
+        console.log(filmIds);
+
+        _.each(filmIds, function(id){
+            fetchFilmById(id);
+        });
+
+        SFF.ChangeLog.insert({model: 'films', timestamp: moment().unix()})
+
+    }catch(e){
+        console.log("listChangedFilmsSince failed");
+        console.log(e);
+    }
+};
+
+var updateEvents = function(changeSet){
+  //  console.dir(changeSet);
+
+    try{
+        var updatedEvents = JSON.parse(changeSet);
+        var eventIds = _.map(updatedEvents, function(item){return item.eventId});
+
+        console.log(eventIds);
+
+        parseEventList(changeSet, true);
+
+        SFF.ChangeLog.insert({model: 'events', timestamp: moment().unix()})
+
+    }catch(e){
+        console.log("listChangedEventsSince failed");
+        console.log(e);
+    }
 };
 
 
@@ -445,14 +507,23 @@ var upsertObj = function(obj, collection){
     Fiber(function(){
         var tmpObj = collection.findOne({id: obj.id});
         if(!tmpObj){
-            collection.insert(obj);
+            console.log("InsertNew");
+       //     collection.insert(obj);
         }else{
             //    console.dir(tmpObj);
 
             var changedSet = {};
             Object.keys(obj).forEach(function(key){
                 if(key != "modifiedAt" || key != "createdAt"){
-                    if(obj[key] != tmpObj[key]) {
+                    var hasChanged = false;
+
+                    if(_.isArray(obj[key])){
+                        if(_.difference(obj[key], tmpObj[key]).length != 0) hasChanged = true;
+                    }else{
+                        hasChanged = obj[key] != tmpObj[key];
+                    }
+
+                    if(hasChanged) {
                         changedSet[key] = obj[key];
                     }
                 }
@@ -460,7 +531,17 @@ var upsertObj = function(obj, collection){
 
             if(!_.isEmpty(changedSet)){
                 console.log("The object has changed and is being updated: %O", changedSet);
-                collection.update(tmpObj, {$set: changedSet});
+           //     collection.update(tmpObj, {$set: changedSet});
+
+                var changeEntry = {
+                    id: obj.id,
+                    createdAt: new Date(),
+                    model: collection._name,
+                    consumed: false,
+                    changes: changedSet
+                };
+
+                SFF.ChangeEntry.insert(changeEntry);
             }
         }
     }).run();
@@ -482,7 +563,7 @@ SFF.listChangedEventsSince = listChangedEventsSince;
 SFF.listChangedFilmsSince = listChangedFilmsSince;
 
 
-/*
+
 
 Meteor.methods({
     listEvents: listEvents,
@@ -494,5 +575,5 @@ Meteor.methods({
     listChangedFilmsSince: listChangedFilmsSince
 });
 
-*/
+
 

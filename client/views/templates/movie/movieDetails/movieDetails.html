@@ -19,6 +19,7 @@
                                         {{#if isClashingIcon}}
                                             <span class="glyphicon {{isClashingIcon}}"></span>
                                         {{/if}}
+                                        <span class="status-{{ticketStatus}}"><i class="fa fa-ticket"></i></span>
                                     </div>
                                     <div class="col-md-6 col-sm-6">
                                         <div class="movieType">Categories: {{type}}</div>
@@ -63,7 +64,7 @@
                                         <div class="otherMovieTimes">
                                             Other screenings:
                                             {{#each otherViewings}}
-                                                <a href="/movies?movie={{id}}">{{time}}</a>
+                                                <a class="status-{{ticketStatus}}" href="/movies?movie={{id}}">{{time}}</a>
                                             {{/each}}
                                         </div>
                                     </div>
