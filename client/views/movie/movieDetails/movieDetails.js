@@ -91,6 +91,14 @@ Template.movieDetails.helpers({
         }
     },
 
+    infoURL: function(){
+        return this.movie.infoURL;
+    },
+
+    previewImage: function(){
+        return this.movie.previewImage;
+    },
+
     otherViewings: function(){
         var self = this;
         var movies = [];
