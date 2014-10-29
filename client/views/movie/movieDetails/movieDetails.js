@@ -96,7 +96,7 @@ Template.movieDetails.helpers({
     },
 
     previewImage: function(){
-        return this.movie.previewImage;
+        return this.movie.previewImage.replace("[IMAGESIZE]", "100x143");
     },
 
     otherViewings: function(){

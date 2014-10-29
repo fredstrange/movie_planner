@@ -441,7 +441,7 @@ var listFestivals = function () {
 
 var listChangedEventsSince = function(since){
     if(!since){
-        var lastChange = SFF.ChangeLog.findOne({model:'events'}, {$sort: {timestamp: -1}});
+        var lastChange = SFF.ChangeLog.findOne({ $query: {model:'events'}, $orderby: {timestamp: -1}});
         since = (lastChange)? lastChange.timestamp : 1413316695;
     }
     ssfApiRequest('eventsSince', since, updateEvents);
@@ -449,8 +449,8 @@ var listChangedEventsSince = function(since){
 
 var listChangedFilmsSince = function(since){
     if(!since){
-        var lastChange = SFF.ChangeLog.findOne({model:'films'}, {$sort: {timestamp: -1}});
-        since = lastChange.timestamp;
+        var lastChange = SFF.ChangeLog.findOne({ $query: {model:'films'}, $orderby: {timestamp: -1}});
+       // since = lastChange.timestamp;
         since = (lastChange)? lastChange.timestamp : 1413316695;
     }
     ssfApiRequest('filmsSince', since, updateFilms);
