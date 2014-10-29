@@ -145,6 +145,10 @@ Template.movieDetails.helpers({
             default:
                 return 'btn-default';
         }
+    },
+
+    fbShareMessage: function(){
+        return 'I am going to see ' + this.movie.name_en + '! #FilmFestPlanner';
     }
 
 

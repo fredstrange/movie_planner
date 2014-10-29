@@ -11,7 +11,7 @@ Template.share.events({
   'click .twitterShare': function () {
 
     window.open(
-      'https://twitter.com/intent/tweet?text=' + encodeURIComponent('I am going to see ' + this.name_en + '! #FilmFestPlanner') + '&url='+encodeURIComponent(location.href),
+      'https://twitter.com/intent/tweet?text=' + encodeURIComponent(this) + '&url='+encodeURIComponent(location.href),
       'Tweet-dialog', 
       'width=626,height=450'); 
     return false;
@@ -26,3 +26,4 @@ Template.share.events({
     return false;
   }
 });
+

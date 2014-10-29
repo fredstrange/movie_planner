@@ -38,7 +38,7 @@
 
 
                                     <div class="col-md-6 col-sm-6">
-                                        <div class="movieType md-text-right">Total going: {{attending}}</div>
+                                        <!--<div class="movieType md-text-right">Total going: {{!attending}}</div>-->
 
                                         {{#if currentUser}}
                                             <div class="movieType md-text-right">Friends going: {{friendsAttending}}</div>
@@ -81,9 +81,8 @@
                                         <img class="floatImage" src="{{previewImage}}" alt="film poster"/>
                                         <p>{{description}}</p>
                                     </div>
-
                                     <div class="share-buttons col-md-12 col-sm-12 text-center">
-                                        {{> share}}
+                                        {{> share fbShareMessage}}
                                     </div>
 
 
