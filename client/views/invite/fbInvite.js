@@ -4,31 +4,25 @@ Template.fbInvite.rendered = function () {
         window.close();
     }
 
-    Meteor.call('getFriendsData', function (err, res) {
-        if (err) {
-            console.log('err');
-            console.log(err);
-        }
-        if (res) {
-            //    	Session.set('facebookFriends', data.data);
-            var optionData = _.map(res.data, function (item) {
-                item.text = item.name;
-                return item;
-            });
-            $("#fb-friends").select2({
-                placeholder: "Select a friend to invite",
-                allowClear: true,
-                width: 200,
-                data: { results: res.data, text: 'name' }
-            });
-        }
+    Tracker.autorun(function(){
+
+        var data =  AmplifiedSession.get('facebookFriends');
+
+        var optionData = _.map(data, function (item) {
+            item.text = item.name;
+            return item;
+        });
+
+        $("#fb-friends").select2({
+            placeholder: "Select a friend to invite",
+            allowClear: true,
+            width: 200,
+            data: { results: optionData, text: 'name' }
+        });
     });
 };
 
 Template.fbInvite.helpers({
-    facebookFriends: function () {
-        //	return Session.get('facebookFriends');
-    }
 });
 
 Template.fbInvite.events({
@@ -56,5 +50,6 @@ Template.fbInvite.events({
             window.open(url, 'facebook-invite-dialog', 'width=800,height=500');
         });
 
+        Flash.success('Your invite has been sent!')
     }
 });

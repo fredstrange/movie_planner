@@ -43,7 +43,7 @@ Meteor.methods({
 			}else if(user.services.facebook){
 				imageURL = 	"http://graph.facebook.com/" + user.services.facebook.id + "/picture/?type=large";
 			}else if (user.services.google){
-				imageURL = "https://plus.google.com/s2/photos/profile/" + user.services.google.id + "?sz=200";
+				imageURL =  user.services.google.picture + "?sz=200";
 			}else{
 				var defaultHost = (host == 'localhost:3000')? 'filmfestplanner.com' : host;
 

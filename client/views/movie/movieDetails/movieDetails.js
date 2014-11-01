@@ -1,19 +1,3 @@
-Template.movieDetails.movie = function () {
-    return Movies.findOne(AmplifiedSession.get("selected"));
-};
-
-Template.movieDetails.comments = function () {
-    return Comments.find({movieid: AmplifiedSession.get("selected")});
-};
-
-Template.movieDetails.maybeChosen = function (what) {
-    var myAttendance = _.find(this.attendings, function (a) {
-        return a.user === Meteor.userId();
-    }) || {};
-
-    return what == myAttendance.attending ? "chosen btn-inverse" : "";
-};
-
 var isClashing = function (that) {
     if (that.clashing) {
         return (Movies.find({
@@ -149,8 +133,20 @@ Template.movieDetails.helpers({
 
     fbShareMessage: function(){
         return 'I am going to see ' + this.movie.name_en + '! #FilmFestPlanner';
-    }
+    },
+    movie: function () {
+        return Movies.findOne(AmplifiedSession.get("selected"));
+    },
+    comments: function () {
+        return Comments.find({movieid: AmplifiedSession.get("selected")});
+    },
+    maybeChosen: function (what) {
+        var myAttendance = _.find(this.attendings, function (a) {
+                return a.user === Meteor.userId();
+            }) || {};
 
+        return what == myAttendance.attending ? "chosen btn-inverse" : "";
+    }
 
 });
 
@@ -214,7 +210,7 @@ Template.movieDetails.events({
 
 Template.movieDetails.rendered = function () {
 
-    console.log('details rendered');
+ //   console.log('details rendered');
     initScrollToTop();
 };
 

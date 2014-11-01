@@ -3,12 +3,12 @@ Router.configure({
     loadingTemplate: 'loading',
 
     onBeforeAction: function(){
-        Session.set('currentPath', this.location.path);
+        Session.set('currentPath', curPath(this.url));
         this.render('header', {to: 'header'});
         this.render('footer', {to: 'footer'});
         this.next();
-    },
-    waitOn: function() { return Meteor.subscribe('users')}
+    }//,
+    //waitOn: function() { return Meteor.subscribe('users')}
 });
 
 var defaultDate = '2014-11-05';
@@ -43,8 +43,7 @@ Router.utils = {
  }, '');
 
  };
-
- // Get the current path for URL
- var curPath = function(){var c=window.location.pathname;var b=c.slice(0,-1);var a=c.slice(-1);if(b==""){return"/"}else{if(a=="/"){return b}else{return c}}};
-
  */
+ // Get the current path for URL
+ var curPath = function(url){var c=url;var b=c.slice(0,-1);var a=c.slice(-1);if(b==""){return"/"}else{if(a=="/"){return b}else{return c}}};
+

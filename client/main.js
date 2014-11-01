@@ -17,6 +17,7 @@ Meteor.subscribe("messages");
 Meteor.subscribe("festivals");
 
 
+Flash.config.timeout = 5000;
 
 AmplifiedSession = _.extend({}, Session, {
   keys: _.object(_.map(amplify.store(), function (value, key) {

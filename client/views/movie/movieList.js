@@ -1,9 +1,9 @@
-Template.movieList.movies = function () {
-    return this.movies;
-};
-
-
+Template.movieList.helpers({
+    movies: function () {
+        return this.movies;
+    }
+});
 
 Template.movieList.rendered = function(){
-    console.log(this);
+   // console.log(this);
 }

@@ -74,15 +74,24 @@ Template.profile.events({
      //   var email = $('#email').val();
 
         Meteor.users.update(this._id, {$set: {'profile.name': username}});
+
+        Flash.success('Your profile has been updated.');
+
     },
     'click #inviteSubmit': function () {
         var email = $('#inviteEmail').val(),
-            message = $('#inviteMessage').val()
+            message = $('#inviteMessage').val();
 
         if (email) {
             if (Meteor.utils.validateEmail(email)) {
                 console.log(email);
                 sendInvitation(email, message);
+
+                $('#inviteEmail').val("");
+                $('#inviteMessage').val("");
+
+                Flash.success('Your invite has been sent!');
+
             } else {
                 console.log("invalid email");
             }
