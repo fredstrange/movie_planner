@@ -147,7 +147,7 @@ var updateFilms = function(){
         movies.forEach( function(movie){
             //var newFilm = Film.findOne(film.id);
 
-            var prefixedChanges = {}
+            var prefixedChanges = {};
             Object.keys(film.changes).forEach(function(key){
                 var prefixedKey = 'movie.' + key;
                 prefixedChanges[prefixedKey] = film.changes[key];
@@ -200,7 +200,7 @@ var movieFilmSchedule = later.parse.recur().every(15).minute();
 var filmUpdates = new ScheduledTask(filmSchedule, SFF.listChangedFilmsSince);
 var eventUpdates = new ScheduledTask(eventSchedule, SFF.listChangedEventsSince);
 var movieEventUpdates = new ScheduledTask(movieEventSchedule, updateEvents);
-var movieFilmUpdates = new ScheduledTask(movieFilmSchedule, SFF.updateFilms);
+var movieFilmUpdates = new ScheduledTask(movieFilmSchedule, updateFilms);
 
 var schedules = [
     filmUpdates,

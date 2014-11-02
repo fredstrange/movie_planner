@@ -116,8 +116,7 @@ Meteor.methods({
     },
 
     registerExternalInvite: function (from, to) {
-        registerInvite(from, to);
-        return true;
+        return registerInvite(from, to);
     },
 
     acceptInvite: function (inviteId, friendId) {

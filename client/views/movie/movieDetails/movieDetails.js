@@ -59,7 +59,7 @@ Template.movieDetails.helpers({
     },
 
     description: function(){
-        return this.movie.description_en;
+        return (this.movie.description_en)? this.movie.description_en : this.movie.description_sv;
     },
 
     duration: function(){
