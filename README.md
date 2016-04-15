@@ -1,3 +1,5 @@
+[![bitHound Overall Score](https://www.bithound.io/github/fredstrange/movie_planner/badges/score.svg)](https://www.bithound.io/github/fredstrange/movie_planner)
+
 Film Festival Planner
 =====================
 
